@@ -34,6 +34,7 @@ public class Client  {
                 
                 System.out.println(line);
             }
+            System.out.println("note for register use register/username/password/firstname/lastname/email/dob/photoPath");
 
            //prompting the user for a response
             System.out.println("_".repeat(50));
