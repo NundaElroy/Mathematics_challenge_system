@@ -105,8 +105,8 @@
                                 </div>
                                 <p class="description text-center">
                                 {{ __(' "Lamborghini Mercy') }}
-                                    <br> {{ __('Your chick she so thirsty') }}
-                                    <br> {{ __('I am in that two seat Lambo') }}
+                                    <br> {{ __('We wish to make lovers of mathematics') }}
+                                    <br> {{ __('Maths is a very vital subject with skills relevant in all emloyment fields') }}
                                 </p>
                             </div>
                             <hr>
