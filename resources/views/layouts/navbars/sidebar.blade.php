@@ -1,13 +1,14 @@
-<div class="sidebar" data-image="{{ asset('light-bootstrap/img/sidebar-5.jpg') }}">
+<div class="sidebar" data-color="orange" data-image="{{ asset('light-bootstrap/img/Side2.jpg') }}">
     <!--
 Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
 
 Tip 2: you can also add an image using data-image tag
 -->
     <div class="sidebar-wrapper">
-        <div class="logo">
-            <a href="http://www.creative-tim.com" class="simple-text">
-                {{ __("MATHEMATICS COMPETITION") }}
+        <div class="logo" style="display:flex; align-items:center;">
+        <img src="{{asset('light-bootstrap/img/logo1.png')}}" alt="logo" alt="Logo" style="height: 80px; width:80px;">
+        <a href="http://www.creative-tim.com" class="simple-text">
+               <span style="margin-left: 10px; font-size:20px;"> {{ __("MATHEMATICS COMPETITION") }}</span>
             </a>
         </div>
         <ul class="nav">

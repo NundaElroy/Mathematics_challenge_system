@@ -1644,8 +1644,7 @@ fieldset[disabled] .btn-neutral.active {
     border-color: #9A9A9A;
 }
 
-.input-group .
-trol:first-child,
+.input-group .trol:first-child,
 .input-group-addon:first-child,
 .input-group-btn:first-child>.dropdown-toggle,
 .input-group-btn:last-child>.btn:not(:last-child):not(.dropdown-toggle) {
@@ -2129,7 +2128,7 @@ fieldset[disabled] .form-control {
 }
 
 .navbar.fixed {
-    width: calc(100% - $sidebar-width);
+    width: calc(100% - sidebar-width);
     right: 0;
     left: auto;
     border-radius: 0;
