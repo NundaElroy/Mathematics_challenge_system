@@ -1,0 +1,49 @@
+{
+  "name": "ahmeti/php-laravel-excel",
+  "description": "Supercharged Excel exports in Laravel",
+  "license": "MIT",
+  "keywords": [
+    "laravel",
+    "phpexcel",
+    "excel",
+    "csv",
+    "export",
+    "import",
+    "batch"
+  ],
+  "authors": [
+    {
+      "name": "Maatwebsite.nl",
+      "email": "patrick@maatwebsite.nl"
+    }
+  ],
+  "require": {
+    "php": ">=7.0",
+    "ahmeti/php-excel": "^1.8.6",
+    "jeremeamia/superclosure": "^2.3",
+    "tijsverkoyen/css-to-inline-styles": "~2.0"
+  },
+  "autoload": {
+    "classmap": [
+      "src/Maatwebsite/Excel"
+    ],
+    "psr-0": {
+      "Maatwebsite\\Excel\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "classmap": [
+      "tests/TestCase.php"
+    ]
+  },
+  "extra": {
+        "laravel": {
+            "providers": [
+                "Maatwebsite\\Excel\\ExcelServiceProvider"
+            ],
+            "aliases": {
+                "Excel": "Maatwebsite\\Excel\\Facades\\Excel"
+            }
+        }
+    }
+}
