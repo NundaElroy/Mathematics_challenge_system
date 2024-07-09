@@ -22,9 +22,9 @@
                         <span class="badge filter badge-black" data-color="black"></span>
                         <span class="badge filter badge-azure" data-color="azure"></span>
                         <span class="badge filter badge-green" data-color="green"></span>
-                        <span class="badge filter badge-orange" data-color="orange"></span>
+                        <span class="badge filter badge-orange active" data-color="orange"></span>
                         <span class="badge filter badge-red" data-color="red"></span>
-                        <span class="badge filter badge-purple active" data-color="purple"></span>
+                        <span class="badge filter badge-purple" data-color="purple"></span>
                     </div>
                     <div class="clearfix"></div>
                 </a>
@@ -32,24 +32,25 @@
             <li class="header-title">{{ __('Sidebar Images') }}</li>
             <li class="active">
                 <a class="img-holder switch-trigger" href="javascript:void(0)">
-                    <img src="{{ asset('/light-bootstrap/img/sidebar-1.jpg') }}" alt="" />
+                    <img src="{{ asset('/light-bootstrap/img/Side5.jpg') }}" alt="" />
                 </a>
             </li>
             <li>
                 <a class="img-holder switch-trigger" href="javascript:void(0)">
-                    <img src="{{ asset('light-bootstrap/img/sidebar-3.jpg') }}" alt="" />
+                    <img src="{{ asset('light-bootstrap/img/Side1-edit.png') }}" alt="" />
                 </a>
             </li>
             <li>
                 <a class="img-holder switch-trigger" href="javascript:void(0)">
-                    <img src="{{ asset('light-bootstrap/img/sidebar-4.jpg') }}" alt="" />
+                    <img src="{{ asset('light-bootstrap/img/Side2.jpg') }}" alt="" />
                 </a>
             </li>
             <li>
-                <a class="img-holder switch-trigger" href="javascript:void(0)">
-                    <img src="{{ asset('light-bootstrap/img/sidebar-5.jpg') }}" alt="" />
-                </a>
-            </li>
+            <a class="img-holder switch-trigger" href="javascript:void(0)">
+                <img src="{{ asset('/light-bootstrap/img/bg-image.jpg') }}" alt="" />
+            </a>
+        </li>
+
             <li class="button-container">
                 <div class="">
                     <a href="https://www.creative-tim.com/product/light-bootstrap-dashboard-laravel" target="_blank" class="btn btn-info btn-block btn-fill">{{ __("Download, it's free!") }}</a>

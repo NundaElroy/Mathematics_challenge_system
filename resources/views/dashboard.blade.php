@@ -6,74 +6,47 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="card ">
-                        <div class="card-header ">
-                            <h4 class="card-title">{{ __('Email Statistics') }}</h4>
-                            <p class="card-category">{{ __('Last Campaign Performance') }}</p>
-                        </div>
-                        <div class="card-body ">
-                            <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
-                            <div class="legend">
-                                <i class="fa fa-circle text-info"></i> {{ __('Open') }}
-                                <i class="fa fa-circle text-danger"></i> {{ __('Bounce') }}
-                                <i class="fa fa-circle text-warning"></i> {{ __('Unsubscribe') }}
-                            </div>
-                            <hr>
-                            <div class="stats">
-                                <i class="fa fa-clock-o"></i> {{ __('Campaign sent 2 days ago') }}
-                            </div>
+                       
+                       
+                        
+                            
+                            <div class="full-page section-image" data-color="red" data-image="{{asset('C:\code\sebabe\public\light-bootstrap\img\Screenshot (14).png')}}">
+                            
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8">
-                    <div class="card ">
-                        <div class="card-header ">
-                            <h4 class="card-title">{{ __('Users Behavior') }}</h4>
-                            <p class="card-category">{{ __('24 Hours performance') }}</p>
-                        </div>
-                        <div class="card-body ">
-                            <div id="chartHours" class="ct-chart"></div>
-                        </div>
-                        <div class="card-footer ">
-                            <div class="legend">
-                                <i class="fa fa-circle text-info"></i> {{ __('Open') }}
-                                <i class="fa fa-circle text-danger"></i> {{ __('Click') }}
-                                <i class="fa fa-circle text-warning"></i> {{ __('Click Second Time') }}
-                            </div>
-                            <hr>
-                            <div class="stats">
-                                <i class="fa fa-history"></i> {{ __('Updated 3 minutes ago') }}
-                            </div>
-                        </div>
-                    </div>
+               
+                        
+                
                 </div>
-            </div>
+          
+          </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="card ">
                         <div class="card-header ">
-                            <h4 class="card-title">{{ __('2017 Sales') }}</h4>
-                            <p class="card-category">{{ __('All products including Taxes') }}</p>
+                            <h4 class="card-title">{{ __('2024 mathematics competition') }}</h4>
+                            <p class="card-category">{{ __('school rankings') }}</p>
                         </div>
                         <div class="card-body ">
                             <div id="chartActivity" class="ct-chart"></div>
                         </div>
                         <div class="card-footer ">
                             <div class="legend">
-                                <i class="fa fa-circle text-info"></i> {{ __('Tesla Model S') }}
-                                <i class="fa fa-circle text-danger"></i> {{ __('BMW 5 Series') }}
+                                <i class="fa fa-circle text-info"></i> {{ __('kibuli') }}
+                                <i class="fa fa-circle text-danger"></i> {{ __('moroto') }}
+
                             </div>
                             <hr>
-                            <div class="stats">
-                                <i class="fa fa-check"></i> {{ __('Data information certified') }}
-                            </div>
+
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="card  card-tasks">
                         <div class="card-header ">
-                            <h4 class="card-title">{{ __('Tasks') }}</h4>
-                            <p class="card-category">{{ __('Backend development') }}</p>
+                            <h4 class="card-title">{{ __('Protocols') }}</h4>
+                            <p class="card-category">{{ __('as guides to the examination') }}</p>
                         </div>
                         <div class="card-body ">
                             <div class="table-full-width">
@@ -88,7 +61,7 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td>{{ __('Sign contract for "What are conference organizers afraid of?"') }}</td>
+                                            <td>{{ __('all students are expected to register?"') }}</td>
                                             <td class="td-actions text-right">
                                                 <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
                                                     <i class="fa fa-edit"></i>
@@ -107,7 +80,7 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td>{{ __('Lines From Great Russian Literature? Or E-mails From My Boss?') }}</td>
+                                            <td>{{ __('schools shall provide three representatives?') }}</td>
                                             <td class="td-actions text-right">
                                                 <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
                                                     <i class="fa fa-edit"></i>
@@ -126,7 +99,7 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td>{{ __('Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit') }}
+                                            <td>{{ __('marks shall be awarded accordingly') }}
                                             </td>
                                             <td class="td-actions text-right">
                                                 <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
@@ -146,7 +119,7 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td>{{ __('Create 4 Invisible User Experiences you Never Knew About') }}</td>
+                                            <td>{{ __('examination materials are free of use') }}</td>
                                             <td class="td-actions text-right">
                                                 <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
                                                     <i class="fa fa-edit"></i>
@@ -165,7 +138,7 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td>{{ __('Read "Following makes Medium better"') }}</td>
+                                            <td>{{ __('awards ') }}</td>
                                             <td class="td-actions text-right">
                                                 <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
                                                     <i class="fa fa-edit"></i>
@@ -184,7 +157,7 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td>{{ __('Unfollow 5 enemies from twitter') }}</td>
+                                            <td>{{ __('all questions are standard') }}</td>
                                             <td class="td-actions text-right">
                                                 <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
                                                     <i class="fa fa-edit"></i>
@@ -201,7 +174,7 @@
                         <div class="card-footer ">
                             <hr>
                             <div class="stats">
-                                <i class="now-ui-icons loader_refresh spin"></i> {{ __('Updated 3 minutes ago') }}
+                                <i class="now-ui-icons loader_refresh spin"></i> {{ __('Updated by group i 3 minutes ago') }}
                             </div>
                         </div>
                     </div>

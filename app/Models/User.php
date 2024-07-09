@@ -32,6 +32,14 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+    
+    public function isAdmin()
+{
+    return $this->is_admin;
+    $user = App\Models\User::find(1);
+$user->is_admin = true;
+$user->save();
+}
 
     /**
      * The attributes that should be cast.

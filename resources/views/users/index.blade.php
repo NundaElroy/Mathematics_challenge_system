@@ -109,18 +109,19 @@
 
     <div class="wrapper ">
 
-        <div class="sidebar" data-image="{{ asset('light-bootstrap/img/sidebar-5.jpg') }}">
+        <div class="sidebar" data-color="orange" data-image="{{ asset('light-bootstrap/img/bg-image.jpg') }}">
             <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
         
         Tip 2: you can also add an image using data-image tag
         -->
             <div class="sidebar-wrapper">
-                <div class="logo">
+            
+                 <div class="logo">
                     <a href="http://www.creative-tim.com" class="simple-text">
                         {{ __("MATHEMATICS COMPETITION") }}
                     </a>
-                </div>
+                    </div>
                 <ul class="nav">
                     <li class="nav-item ">
                         <a class="nav-link" href="{{route('dashboard')}}">
@@ -138,13 +139,18 @@
                     </li>
         
                     <li class="nav-item ">
-                        <a class="nav-link" href="{{route('page.index', 'table')}}">
+                        <a class="nav-link" href="{{route('page.index', 'school')}}">
                             <i class="nc-icon nc-notes"></i>
-                            <p>{{ __("Table List") }}</p>
+                            <p>{{ __("schools") }}</p>
                         </a>
                     </li>
                    
-                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('page.index', 'question')}}">
+                            <i class="nc-icon nc-bell-55"></i>
+                            <p>{{ __("Qustions") }}</p>
+                        </a>
+                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('page.index', 'notifications')}}">
@@ -179,34 +185,36 @@
                     <span class="badge filter badge-black" data-color="black"></span>
                     <span class="badge filter badge-azure" data-color="azure"></span>
                     <span class="badge filter badge-green" data-color="green"></span>
-                    <span class="badge filter badge-orange" data-color="orange"></span>
+                    <span class="badge filter badge-orange active" data-color="orange"></span>
                     <span class="badge filter badge-red" data-color="red"></span>
-                    <span class="badge filter badge-purple active" data-color="purple"></span>
+                    <span class="badge filter badge-purple " data-color="purple"></span>
                 </div>
                 <div class="clearfix"></div>
             </a>
         </li>
         <li class="header-title">Sidebar Images</li>
         <li class="active">
+                <a class="img-holder switch-trigger" href="javascript:void(0)">
+                    <img src="{{ asset('/light-bootstrap/img/Side5.jpg') }}" alt="" />
+                </a>
+            </li>
+            <li>
+                <a class="img-holder switch-trigger" href="javascript:void(0)">
+                    <img src="{{ asset('light-bootstrap/img/Side1-edit.png') }}" alt="" />
+                </a>
+            </li>
+            <li>
+                <a class="img-holder switch-trigger" href="javascript:void(0)">
+                    <img src="{{ asset('light-bootstrap/img/Side2.jpg') }}" alt="" />
+                </a>
+            </li>
+            <li>
             <a class="img-holder switch-trigger" href="javascript:void(0)">
-                <img src="{{ asset('/light-bootstrap/img/sidebar-1.jpg') }}" alt="" />
+                <img src="{{ asset('/light-bootstrap/img/bg-image.jpg') }}" alt="" />
             </a>
         </li>
-        <li>
-            <a class="img-holder switch-trigger" href="javascript:void(0)">
-                <img src="{{ asset('/light-bootstrap/img/sidebar-3.jpg') }}" alt="" />
-            </a>
-        </li>
-        <li>
-            <a class="img-holder switch-trigger" href="javascript:void(0)">
-                <img src="{{ asset('/light-bootstrap/img/sidebar-4.jpg') }}" alt="" />
-            </a>
-        </li>
-        <li>
-            <a class="img-holder switch-trigger" href="javascript:void(0)">
-                <img src="{{ asset('/light-bootstrap/img/sidebar-5.jpg') }}" alt="" />
-            </a>
-        </li>
+
+
         <li class="button-container">
             <div class="">
                 <a href="https://www.creative-tim.com/product/light-bootstrap-dashboard-laravel" target="_blank" class="btn btn-info btn-block btn-fill">Download, it's free!</a>
