@@ -35,3 +35,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
 });
 
+
+
+/*use app\Http\Controllers\ChallengeController;
+Route::resource('challenges', ChallengeController::class);*/
+
+
