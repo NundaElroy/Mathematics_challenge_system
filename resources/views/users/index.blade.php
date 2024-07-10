@@ -139,13 +139,18 @@
                     </li>
         
                     <li class="nav-item ">
-                        <a class="nav-link" href="{{route('page.index', 'table')}}">
+                        <a class="nav-link" href="{{route('page.index', 'school')}}">
                             <i class="nc-icon nc-notes"></i>
-                            <p>{{ __("Table List") }}</p>
+                            <p>{{ __("schools") }}</p>
                         </a>
                     </li>
                    
-                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('page.index', 'question')}}">
+                            <i class="nc-icon nc-bell-55"></i>
+                            <p>{{ __("Qustions") }}</p>
+                        </a>
+                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('page.index', 'notifications')}}">

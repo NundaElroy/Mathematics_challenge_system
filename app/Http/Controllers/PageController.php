@@ -14,8 +14,17 @@ class PageController extends Controller
     public function index($page)
     {
         if (view()->exists("pages.{$page}")) {
+          
+                switch ($page) {
+                    
+                    case 'questAnswer':
+                        $data['title'] = 'Your Quest Answer Page Title';
+                        return view("pages.{$page}", $data);
+    
             return view("pages.{$page}");
         }
         return abort(404);
     }
+    
+}
 }

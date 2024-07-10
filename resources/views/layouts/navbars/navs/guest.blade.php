@@ -14,7 +14,8 @@
         </div>
         <div class="collapse navbar-collapse justify-content-end" id="navbar">
             <ul class="navbar-nav">
-            <li class="nav-item @if($activePage == 'register') active @endif">
+               
+                <li class="nav-item @if($activePage == 'register') active @endif">
                     <a href="{{ route('register') }}" class="nav-link">
                         <i class="nc-icon nc-badge"></i> {{ __('Register') }}
                     </a>
@@ -25,8 +26,9 @@
                     </a>
                 </li>
             </ul>
+        </div>
 
-        
+       
     </div>
     </div>
     </body>

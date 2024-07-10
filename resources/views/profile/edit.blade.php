@@ -91,36 +91,26 @@
                     <div class="col-md-4">
                         <div class="card card-user">
                             <div class="card-image">
-                                <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="...">
+                                
                             </div>
                             <div class="card-body">
                                 <div class="author">
                                     <a href="#">
                                         <img class="avatar border-gray" src="{{ asset('light-bootstrap/img/faces/face-3.jpg') }}" alt="...">
-                                        <h5 class="title">{{ __('Mike Andrew') }}</h5>
+                                        <h5 class="title">{{ __('SEBABE@619') }}</h5>
                                     </a>
                                     <p class="description">
-                                        {{ __('michael24') }}
+                                        {{ __('SWALE SEBABE') }}
                                     </p>
                                 </div>
                                 <p class="description text-center">
-                                {{ __(' "Lamborghini Mercy') }}
-                                    <br> {{ __('We wish to make lovers of mathematics') }}
-                                    <br> {{ __('Maths is a very vital subject with skills relevant in all emloyment fields') }}
+                                {{ __(' "SEBABE ABDU') }}
+                                    <br> {{ __('Developing talents') }}
+                                    <br> {{ __('for primary pupils') }}
                                 </p>
                             </div>
                             <hr>
-                            <div class="button-container mr-auto ml-auto">
-                                <button href="#" class="btn btn-simple btn-link btn-icon">
-                                    <i class="fa fa-facebook-square"></i>
-                                </button>
-                                <button href="#" class="btn btn-simple btn-link btn-icon">
-                                    <i class="fa fa-twitter"></i>
-                                </button>
-                                <button href="#" class="btn btn-simple btn-link btn-icon">
-                                    <i class="fa fa-google-plus-square"></i>
-                                </button>
-                            </div>
+
                         </div>
                     </div>
                 </div>

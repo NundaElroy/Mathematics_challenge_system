@@ -20,15 +20,7 @@ Tip 2: you can also add an image using data-image tag
             </li>
            
             <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#laravelExamples" @if($activeButton =='laravel') aria-expanded="true" @endif>
-                    <i>
-                        <img src="{{ asset('light-bootstrap/img/laravel.svg') }}" style="width:25px">
-                    </i>
-                    <p>
-                        {{ __('User info') }}
-                        <b class="caret"></b>
-                    </p>
-                </a>
+
                 <div class="collapse @if($activeButton =='laravel') show @endif" id="laravelExamples">
                     <ul class="nav">
                         <li class="nav-item @if($activePage == 'user') active @endif">
@@ -37,20 +29,21 @@ Tip 2: you can also add an image using data-image tag
                                 <p>{{ __("User Profile") }}</p>
                             </a>
                         </li>
-                        <li class="nav-item @if($activePage == 'user-management') active @endif">
-                            <a class="nav-link" href="{{route('user.index')}}">
-                                <i class="nc-icon nc-circle-09"></i>
-                                <p>{{ __("User Management") }}</p>
-                            </a>
-                        </li>
+                       
                     </ul>
                 </div>
             </li>
 
-            <li class="nav-item @if($activePage == 'table') active @endif">
-                <a class="nav-link" href="{{route('page.index', 'table')}}">
+            <li class="nav-item @if($activePage == 'school') active @endif">
+                <a class="nav-link" href="{{route('page.index', 'school')}}">
                     <i class="nc-icon nc-notes"></i>
-                    <p>{{ __("Table List") }}</p>
+                    <p>{{ __("Schools") }}</p>
+                </a>
+            </li>
+            <li class="nav-item @if($activePage == 'questAnswer') active @endif">
+                <a class="nav-link" href="{{route('page.index', 'questAnswer')}}">
+                    <i class="nc-icon nc-atom"></i>
+                    <p>{{ __("question & Answer") }}</p>
                 </a>
             </li>
            
