@@ -34,16 +34,16 @@ public class Pupil  {
 
    //registers the accepted pupils on the database  and rejected pupils into the database  
    public  void registerPupil() {
-    String databaseURL = "jdbc:mysql://localhost:3306/dummy_database";
+    String databaseURL = "jdbc:mysql://localhost:3306/mathematics_challenge";
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
     try {
         connection = DriverManager.getConnection(databaseURL, "root", "");
         //checks whether the status is true to participant or false sent to rejected
-        String tableName = Status ? "participant" : "rejected";
+        String tableName = Status ? "participants" : "rejected";
         //sql statement for insertion 
-        String sql = "INSERT INTO " + tableName + " (registration_no, username, firstname, lastname, email, DOB, image) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO " + tableName + " (school_registration_no, username, firstname, lastname, email, DOB, image) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, RegistrationNumber);
@@ -84,7 +84,7 @@ public class Pupil  {
 
 //login credentials for a pupil 
 public static  boolean login(String username, String email) {
-    String databaseURL = "jdbc:mysql://localhost:3306/dummy_database";
+    String databaseURL = "jdbc:mysql://localhost:3306/mathematics_challenge";
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
@@ -92,7 +92,7 @@ public static  boolean login(String username, String email) {
 
     try {
         connection = DriverManager.getConnection(databaseURL, "root", "");
-        String sql = "SELECT * FROM participant WHERE username = ? AND email = ?";
+        String sql = "SELECT * FROM participants WHERE username = ? AND email = ?";
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, username);
         preparedStatement.setString(2, email);
@@ -121,7 +121,7 @@ public void setStatus(boolean status){
 }
 
 private static String manageFilePath(String jpeg){
-    return "C:\\Users\\elvoy\\OneDrive\\Desktop\\photos\\" + jpeg;
+    return "C:\\Users\\Alvin\\OneDrive\\Desktop\\photos\\" + jpeg;
 }
 
 
