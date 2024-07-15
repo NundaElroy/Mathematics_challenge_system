@@ -1,27 +1,66 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Imports\SchoolsImport;
 use Illuminate\Http\Request;
-
+use App\Models\School;
 
 class SchoolController extends Controller
 {
-    public function showUploadForm()
+    //dispaly a list of schools
+    public function index()
     {
-        return view('admin.upload-schools');
+        $title = 'Schools';
+        $activePage = 'schools';
+        $schools = School::all();
+        return view('pages.schools', compact('title', 'schools', 'activePage'));
     }
 
-    public function upload(Request $request)
+    //show the form for creating a new school
+    public function create()
     {
-        $request->validate([
-            'schools_file' => 'required|file|mimes:xlsx',
-        ]);
+         $activePage = 'create';
+        return view('schools.create' ,  ['title' => 'Add School'], compact('activePage'));
+    }
 
-        Excel::import(new SchoolsImport, $request->file('schools_file'));
+    //store newlyy created school in the database
+    public function store(Request $request)
+    {
+        $school = new School($request->all());
+        $school->save();
+        return redirect()->route('schools.index');
+    }
 
-        return redirect()->back()->with('success', 'Schools uploaded successfully.');
+//display a specific school
+    public function show($id)
+    {
+        $activePage = 'schools';
+        $school = School::findOrFail($id);
+        return view('schools.show',['title' => 'View School'], compact('school', 'activePage'));
+    }
+
+//show form for editing a specific school.
+    public function edit($id)
+    {
+        $activePage = 'schools';
+        $title = 'Edit school';
+        $school = School::find($id);
+        return view('schools.edit', compact('title','school', 'activePage'));
+    }
+
+//update specified school in the database
+    public function update(Request $request, $id)
+    {
+        $school = school::findOrFail($id);
+        $school->update($request->all());
+        return redirect()->route('schools.index')-> with ('success','School updated successfully.');
+    }
+
+//Remove a specific school from the storage
+    public function destroy($id)
+    {
+        $school = School::find($id);
+        $school->delete();
+        return redirect()->route('schools.index')-> with ('success', 'school delleted succefully.');
     }
 }

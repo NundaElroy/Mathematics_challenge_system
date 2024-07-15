@@ -1,42 +1,36 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PageController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
+// Home route
 Route::get('/', function () {
     return view('welcome');
 });
 
+// Authentication routes
 Auth::routes();
-Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('dashboard');
 
-Auth::routes();
-
-Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('dashboard');
-
+// Authenticated user routes
 Route::group(['middleware' => 'auth'], function () {
-	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
-	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
-	Route::patch('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
-	Route::patch('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
+    Route::resource('user', UserController::class, ['except' => ['show']]);
+    Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('profile/password', [ProfileController::class, 'password'])->name('profile.password');
+    Route::get('{page}', [PageController::class, 'index'])->name('page.index');
 });
 
-Route::group(['middleware' => 'auth'], function () {
-	Route::get('{page}', ['as' => 'page.index', 'uses' => 'App\Http\Controllers\PageController@index']);
-});
-
-
-
+// Admin routes
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/upload-schools', [AdminController::class, 'showUploadSchoolsForm'])->name('admin.upload.schools');
@@ -47,47 +41,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/set-competition', [AdminController::class, 'setCompetition']);
 });
 
-use App\Http\Controllers\QuestionController;
-use App\Http\Controllers\AnswerController;
-
-Route::resource('questions', QuestionController::class);
+// Question and Answer routes
+Route::resource('questions', QuestionController::class)->except(['show']);
 Route::post('questions/{question}/answers', [AnswerController::class, 'store'])->name('answers.store');
 
-
-Route::resource('questions', QuestionController::class)->except(['show']);
-Route::get('/questAnswer', [PageController::class, 'index'])->name('questAnswer');
-Route::get('/questions/index', [QuestionController::class, 'index'])->name('questions.index');
-
-use App\Http\Controllers\ExcelController;
-
+// Excel upload routes
 Route::get('/upload', function () {
     return view('upload');
 })->name('upload.form');
-
 Route::post('/upload', [ExcelController::class, 'uploadExcel'])->name('upload.excel');
 
-
-use App\Http\Controllers\SchoolController;
-
+// School routes
 Route::resource('schools', SchoolController::class);
-
-
-Route::prefix('admin')->middleware('auth', 'admin')->group(function () {
-    Route::get('/upload-schools', [SchoolController::class, 'showUploadForm'])->name('admin.upload.schools');
-    Route::post('/upload-schools', [SchoolController::class, 'upload'])->name('admin.upload.schools');
-});
-
-use App\Http\Controllers\Admin\AdminController;
-
-Route::prefix('admin')->middleware('auth', 'admin')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-});
-
-
-
-
-
-/*use app\Http\Controllers\ChallengeController;
-Route::resource('challenges', ChallengeController::class);*/
-
-

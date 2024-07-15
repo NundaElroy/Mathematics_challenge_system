@@ -18,10 +18,10 @@ Tip 2: you can also add an image using data-image tag
                     <p>{{ __("Dashboard") }}</p>
                 </a>
             </li>
-           
+
             <li class="nav-item">
 
-                <div class="collapse @if($activeButton =='laravel') show @endif" id="laravelExamples">
+                <div class="collapse @if($activePage =='laravel') show @endif" id="laravelExamples">
                     <ul class="nav">
                         <li class="nav-item @if($activePage == 'user') active @endif">
                             <a class="nav-link" href="{{route('profile.edit')}}">
@@ -29,13 +29,13 @@ Tip 2: you can also add an image using data-image tag
                                 <p>{{ __("User Profile") }}</p>
                             </a>
                         </li>
-                       
+
                     </ul>
                 </div>
             </li>
 
-            <li class="nav-item @if($activePage == 'school') active @endif">
-                <a class="nav-link" href="{{route('page.index', 'school')}}">
+            <li class="nav-item @if($activePage == 'schools') active @endif">
+                <a class="nav-link" href="{{route('schools.index', 'schools')}}">
                     <i class="nc-icon nc-notes"></i>
                     <p>{{ __("Schools") }}</p>
                 </a>
@@ -46,16 +46,16 @@ Tip 2: you can also add an image using data-image tag
                     <p>{{ __("question & Answer") }}</p>
                 </a>
             </li>
-           
-           
-           
+
+
+
             <li class="nav-item @if($activePage == 'notifications') active @endif">
                 <a class="nav-link" href="{{route('page.index', 'notifications')}}">
                     <i class="nc-icon nc-bell-55"></i>
                     <p>{{ __("Notifications") }}</p>
                 </a>
             </li>
-           
+
         </ul>
     </div>
 </div>

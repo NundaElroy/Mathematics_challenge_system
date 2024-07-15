@@ -60,8 +60,6 @@ class ExcelController extends Controller
                 'answer_text' => $row[1],
                 'marks' => $row[2],
             ]);
-
-         }
-
+        }
 }
 }
