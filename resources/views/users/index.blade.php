@@ -395,7 +395,7 @@
             <script>
                 document.write(new Date().getFullYear())
             </script>2020
-            <a href="http://www.creative-tim.com">Creative Tim</a> &amp; <a href="https://www.updivision.com">Updivision</a> , made with love for a better web
+            <a href="http://www.creative-tim.com">Mathematics National Challenge Platform</a> &amp; <a href="https://www.updivision.com">Updivision</a> , made with love for a better web
         </p>
     </nav>
 </div>

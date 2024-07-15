@@ -47,12 +47,12 @@ public class Challenge implements Serializable {
      // Static method to display all valid available challenges
      public static List<Challenge> displayAvailableChallenges() {
         List<Challenge> availableChallenges = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dummy_database", "root", "");
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mathematics_challenge", "root", "");
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery("SELECT * FROM challenge WHERE CURDATE() BETWEEN opening_date AND closing_date")) {
              System.out.println("Executing query...");
             while (rs.next()) {
-                int id = rs.getInt("challengeid");
+                int id = rs.getInt("id");
                 Date openDate = rs.getDate("opening_date");
                 Date closeDate = rs.getDate("closing_date");
                 int duration = rs.getInt("duration");

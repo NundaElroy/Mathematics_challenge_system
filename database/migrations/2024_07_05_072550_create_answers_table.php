@@ -16,9 +16,14 @@ return new class extends Migration
         // database/migrations/xxxx_xx_xx_create_answers_table.php
     Schema::create('answers', function (Blueprint $table) {
     $table->id();
-    $table->foreignId('question_id')->constrained()->onDelete('cascade');
-    $table->string('content');
-    $table->integer('marks');
+    $table->string('option1');
+    $table->string('option2');
+    $table->string('option3');
+    $table->string('option4');
+    $table->string('correct_answer');
+    $table->foreignId('questionid')->constrained('questions')->onDelete('cascade');
+    
+    
     $table->timestamps();
 });
 
