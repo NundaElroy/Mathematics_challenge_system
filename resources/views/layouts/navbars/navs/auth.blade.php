@@ -36,30 +36,26 @@
                 </li> -->
             </ul>
             <ul class="navbar-nav   d-flex align-items-center">
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href=" {{route('profile.edit') }} ">
                         <span class="no-icon">{{ __('Account') }}</span>
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="no-icon">{{ __('Dropdown') }}</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">{{ __('Action') }}</a>
-                        <a class="dropdown-item" href="#">{{ __('Another action') }}</a>
-                        <a class="dropdown-item" href="#">{{ __('Something') }}</a>
-                        <a class="dropdown-item" href="#">{{ __('Something else here') }}</a>
+                        <a class="dropdown-item" href="{{route('profile.edit') }}">{{ __('Profile') }}</a>
+    
                         <div class="divider"></div>
-                        <a class="dropdown-item" href="#">{{ __('Separated link') }}</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <a class="dropdown-item text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> {{ __('Log out') }} </a>
+                    </form>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <a class="text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> {{ __('Log out') }} </a>
-                    </form>
-                </li>
+                
             </ul>
         </div>
     </div>
