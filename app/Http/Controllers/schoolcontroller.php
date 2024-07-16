@@ -7,7 +7,7 @@ use App\Models\School;
 
 class SchoolController extends Controller
 {
-    //dispaly a list of schools
+    // Display a list of schools
     public function index()
     {
         $title = 'Schools';
@@ -16,51 +16,78 @@ class SchoolController extends Controller
         return view('pages.schools', compact('title', 'schools', 'activePage'));
     }
 
-    //show the form for creating a new school
+    // Show the form for creating a new school
     public function create()
     {
-         $activePage = 'create';
-        return view('schools.create' ,  ['title' => 'Add School'], compact('activePage'));
+        $title = 'Add School';
+        $activePage = 'create';
+        return view('schools.create', compact('title', 'activePage'));
     }
 
-    //store newlyy created school in the database
+    // Store a newly created school in the database
     public function store(Request $request)
     {
-        $school = new School($request->all());
-        $school->save();
-        return redirect()->route('schools.index');
+        // Validate the request data
+        $request->validate([
+            'registration_no' => 'required|string|unique:schools,registration_no',
+            'name' => 'required|string|max:255',
+            'district' => 'required|string|max:255',
+            'representative_name' => 'required|string|max:255',
+            'representative_email' => 'required|email|max:255',
+        ]);
+
+        // Create and save the new school record
+        School::create($request->all());
+
+        // Redirect to the index page with a success message
+        return redirect()->route('schools.index')->with('success', 'School added successfully.');
     }
 
-//display a specific school
-    public function show($id)
+    // Display a specific school
+    public function show($registration_no)
     {
+        $title = 'View School';
         $activePage = 'schools';
-        $school = School::findOrFail($id);
-        return view('schools.show',['title' => 'View School'], compact('school', 'activePage'));
+        $school = School::findOrFail($registration_no);
+        return view('schools.show', compact('title', 'school', 'activePage'));
     }
 
-//show form for editing a specific school.
-    public function edit($id)
+    // Show the form for editing a specific school
+    public function edit($registration_no)
     {
+        $title = 'Edit School';
         $activePage = 'schools';
-        $title = 'Edit school';
-        $school = School::find($id);
-        return view('schools.edit', compact('title','school', 'activePage'));
+        $school = School::findOrFail($registration_no);
+        return view('schools.edit', compact('title', 'school', 'activePage'));
     }
 
-//update specified school in the database
-    public function update(Request $request, $id)
+    // Update the specified school in the database
+    public function update(Request $request, $registration_no)
     {
-        $school = school::findOrFail($id);
+        // Validate the request data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'district' => 'required|string|max:255',
+            'representative_name' => 'required|string|max:255',
+            'representative_email' => 'required|email|max:255',
+        ]);
+
+        // Find the school by registration_no and update it
+        $school = School::findOrFail($registration_no);
         $school->update($request->all());
-        return redirect()->route('schools.index')-> with ('success','School updated successfully.');
+
+        // Redirect to the index page with a success message
+        return redirect()->route('schools.index')->with('success', 'School updated successfully.');
     }
 
-//Remove a specific school from the storage
-    public function destroy($id)
+    // Remove a specific school from the storage
+    public function destroy($registration_no)
     {
-        $school = School::find($id);
+        // Find the school by registration_no and delete it
+        $school = School::findOrFail($registration_no);
         $school->delete();
-        return redirect()->route('schools.index')-> with ('success', 'school delleted succefully.');
+
+        // Redirect to the index page with a success message
+        return redirect()->route('schools.index')->with('success', 'School deleted successfully.');
     }
 }

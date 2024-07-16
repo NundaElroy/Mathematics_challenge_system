@@ -14,9 +14,11 @@ class CreateSchoolsTable extends Migration
     public function up()
     {
         Schema::create('schools', function (Blueprint $table) {
-            $table->id();
+            $table->string('registration_no')->primary();
             $table->string('name');
             $table->string('district');
+            $table->string("representative_name");
+            $table->string("representative_email")->unique();
             $table->timestamps();
         });
     }

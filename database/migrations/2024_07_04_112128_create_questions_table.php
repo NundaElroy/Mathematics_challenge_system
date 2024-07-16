@@ -15,7 +15,7 @@ return new class extends Migration
     {
        // database/migrations/xxxx_xx_xx_create_questions_table.php
     Schema::create('questions', function (Blueprint $table) {
-    $table->id();
+    $table->string('questionid')->primary();
     $table->string('question_text');
     $table->timestamps();
 });

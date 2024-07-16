@@ -14,15 +14,15 @@ class CreateParticipantsTable extends Migration
     public function up()
     {
         Schema::create('participants', function (Blueprint $table) {
-            $table->id();
+            $table->string('participantid')->primary();
             $table->string('username')->unique();
             $table->string('firstname');
             $table->string('lastname');
             $table->string('email')->unique();
             $table->date('DOB');
             $table->binary('image');
-            $table->foreignId('school_registration_no')-> constrained('schools');
-           
+            $table->string('school_registration_no');
+            $table->foreign('school_registration_no')-> references('registration_no')->on('schools')->onDelete('cascade');
             $table->timestamps();
         });
     }
