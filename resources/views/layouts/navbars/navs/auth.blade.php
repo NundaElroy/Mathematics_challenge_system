@@ -42,11 +42,13 @@
                     </a>
                 </li> -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="no-icon">{{ __('Dropdown') }}</span>
-                    </a>
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: inline-block; position: relative;">
+                    <img src="{{ asset('image/profile-img.jpg')}}" alt="admin profile pic" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover; margin-right: 5px;">
+                    <span class="no-icon" style="vertical-align: middle;">{{ __('Xwale Abdu') }}</span>
+                </a>
+
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{route('profile.edit') }}">{{ __('Profile') }}</a>
+                        <a class="dropdown-item" href="{{route('profile.edit') }}">{{ __('my profile') }}</a>
     
                         <div class="divider"></div>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST">
