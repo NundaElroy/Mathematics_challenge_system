@@ -27,7 +27,7 @@
             <label for="representative_email">Representative Email</label>
             <input type="email" class="form-control" id="representative_email" name="representative_email" required>
         </div>
-        <button type="submit" class="btn btn-success">Add School</button>
+        <button type="submit" class="btn btn-info">Add School</button>
     </form>
 </div>
 @endsection
