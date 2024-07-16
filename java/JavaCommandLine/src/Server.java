@@ -182,7 +182,7 @@ public class Server {
                             //remove the applicant from the list
                             applicants.remove(0);
                             //write the remaining applicants back to the file
-                            writeToFile("C:\\Users\\elvoy\\OneDrive\\Desktop\\JavaCommandLine\\src\\Applicants.txt", applicants);
+                            writeToFile("C:\\Users\\elvoy\\OneDrive\\Desktop\\Mathematics_challenge_system\\java\\JavaCommandLine\\src\\Applicants.txt", applicants);
                         }else if(confirmationResponse.equalsIgnoreCase("Quit")){
                             //terminate the session for rep
                             
@@ -310,7 +310,7 @@ public class Server {
     BufferedWriter out = null;
 
     try{
-        file = new File("C:\\Users\\elvoy\\OneDrive\\Desktop\\JavaCommandLine\\src\\Applicants.txt");
+        file = new File("C:\\Users\\elvoy\\OneDrive\\Desktop\\Mathematics_challenge_system\\java\\JavaCommandLine\\src\\Applicants.txt");
         writer = new FileWriter(file,true);
         out = new BufferedWriter(writer);
         out.write(registrationDetails);
