@@ -4,7 +4,7 @@
 @section('content')
 <div class="container">
     <h1>Schools</h1>
-    <a href="{{ route('schools.create') }}" class="btn btn-primary">Add New School</a>
+    <a href="{{ route('schools.create') }}" class="btn btn-info">Add New School</a>
     <table class="table mt-3">
         <thead>
             <tr>
