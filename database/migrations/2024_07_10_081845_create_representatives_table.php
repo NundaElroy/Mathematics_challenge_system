@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompetitionSettingsTable extends Migration
+class CreateRepresentativesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateCompetitionSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('competition_settings', function (Blueprint $table) {
+        Schema::create('representatives', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
-            $table->integer('duration_minutes');
+            $table->string("representative_name");
+            $table->string("representative_email")->unique();;
+            $table->foreignId('school_registration_number')->constrained('schools');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateCompetitionSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('competition_settings');
+        Schema::dropIfExists('representatives');
     }
 }

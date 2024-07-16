@@ -123,7 +123,7 @@ public class Server {
                         if (menuChoice.equalsIgnoreCase("viewApplicants")){
                             //read the applicants from the file
                                 ObjectOutputStream outputStream = new ObjectOutputStream(ClientSocket.getOutputStream());
-                                List<Map<String, String>> applicants = readApplicantsFromFile("C:\\Users\\elvoy\\OneDrive\\Desktop\\JavaCommandLine\\src\\Applicants.txt");
+                                List<Map<String, String>> applicants = readApplicantsFromFile("C:\\Users\\Alvin\\OneDrive\\Desktop\\Mathematics_challenge_system\\java\\JavaCommandLine\\src\\Applicants.txt");
                               
                                 
                                 //send the applicants to the client
@@ -137,7 +137,7 @@ public class Server {
                         ArrayList<String> applicants;
                         String applicant;
                         while (true) {
-                             applicants = readApplicantsFromFileForConfirmation("C:\\Users\\elvoy\\OneDrive\\Desktop\\Mathematics_challenge_system\\java\\JavaCommandLine\\src\\Applicants.txt");
+                             applicants = readApplicantsFromFileForConfirmation("C:\\Users\\Alvin\\OneDrive\\Desktop\\Mathematics_challenge_system\\java\\JavaCommandLine\\src\\Applicants.txt");
                            //checking if applicants are done
                             if (applicants.isEmpty()) {
                                 writer.write("No applicants to confirm..redirecting back to representative menu");
@@ -169,7 +169,7 @@ public class Server {
                             //remove the applicant from the list
                             applicants.remove(0);
                             //write the remaining applicants back to the file
-                            writeToFile("C:\\Users\\elvoy\\OneDrive\\Desktop\\Mathematics_challenge_system\\java\\JavaCommandLine\\src\\Applicants.txt", applicants);
+                            writeToFile("C:\\Users\\Alvin\\OneDrive\\Desktop\\Mathematics_challenge_system\\java\\JavaCommandLine\\src\\Applicants.txt", applicants);
                             
                         }else if(confirmationResponse.equalsIgnoreCase("no")){
                             //converting to pupil object and setting status false and a method to move applicant to rejected database

@@ -15,10 +15,11 @@ class CreateAttemptsTable extends Migration
     {
         Schema::create('attempts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('participant_id')->constrained('participants');
-            $table->foreignId('challenge_id')->constrained('challenges');
-            $table->dateTime('start_time');
-            $table->dateTime('end_time')->nullable();
+            $table->foreignId('participantid')->constrained('participants')->onDelete('cascade');
+            $table->foreignId('schoolid')->constrained('schools')->onDelete('cascade');
+            $table->foreignId('challengeid')->constrained('challenge')->onDelete('cascade');
+            $table->dateTime('timetaken');
+            $table->date('attempt_date');
             $table->integer('score')->nullable();
             $table->timestamps();
         });
@@ -31,6 +32,10 @@ class CreateAttemptsTable extends Migration
      */
     public function down()
     {
+        Schema::table('attempts', function (Blueprint $table) {
+            // Assuming 'attempts_user_id_foreign' is the convention Laravel uses for naming foreign key constraints
+            $table->dropForeign(['participantid']);
+        });
         Schema::dropIfExists('attempts');
     }
 }

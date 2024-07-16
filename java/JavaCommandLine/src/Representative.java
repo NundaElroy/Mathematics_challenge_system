@@ -23,7 +23,7 @@ public class Representative implements Serializable{
     }
     //verification of details of representative during logging
     public boolean login() {
-        String databaseURL = "jdbc:mysql://localhost:3306/dummy_database";
+        String databaseURL = "jdbc:mysql://localhost:3306/mathematics_challenge";
         Connection connection = null; 
         Statement statement = null;
         ResultSet result = null; 
@@ -32,7 +32,7 @@ public class Representative implements Serializable{
         try {
             connection = DriverManager.getConnection(databaseURL, "root", "");
             statement = connection.createStatement();
-            preparedStatement = connection.prepareStatement("SELECT EXISTS (SELECT 1 FROM representative WHERE representative_name = ? AND representative_email = ?) AS user_exists");
+            preparedStatement = connection.prepareStatement("SELECT EXISTS (SELECT 1 FROM representatives WHERE representative_name = ? AND representative_email = ?) AS user_exists");
             preparedStatement.setString(1, RepresentativeName); // 1st question mark will be replaced by "representative_name"
             preparedStatement.setString(2, email); // 2nd question mark will be replaced by "email"
             result = preparedStatement.executeQuery();

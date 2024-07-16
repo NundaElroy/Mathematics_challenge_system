@@ -17,9 +17,6 @@ class CreateSchoolsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('district');
-            $table->string('registration_number')->unique();
-            $table->string('representative_name');
-            $table->string('representative_email');
             $table->timestamps();
         });
     }
