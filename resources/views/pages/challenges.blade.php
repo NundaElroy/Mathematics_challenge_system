@@ -22,70 +22,70 @@
                             <tbody>
 
                                 <tr>
-                                    <td>Challenge One</td>
+                                    <td>Pythagorus theorem</td>
                                     <td>10</td>
                                     <td>2024-07-15</td>
                                     <td>2024-07-16</td>
                                     <td>30</td>
                                 </tr>
                                 <tr>
-                                    <td>Challenge Two</td>
+                                    <td>Algebra</td>
                                     <td>10</td>
                                     <td>2024-07-17</td>
                                     <td>2024-07-18</td>
                                     <td>30</td>
                                 </tr>
                                 <tr>
-                                    <td>Challenge Three</td>
+                                    <td>Geometry</td>
                                     <td>10</td>
                                     <td>2024-07-19</td>
                                     <td>2024-07-20</td>
                                     <td>30</td>
                                 </tr>
                                 <tr>
-                                    <td>Challenge Four</td>
+                                    <td>Data analysis</td>
                                     <td>10</td>
                                     <td>2024-07-21</td>
                                     <td>2024-07-22</td>
                                     <td>30</td>
                                 </tr>
                                 <tr>
-                                    <td>Challenge Five</td>
+                                    <td>Measurement</td>
                                     <td>10</td>
                                     <td>2024-07-23</td>
                                     <td>2024-07-24</td>
                                     <td>30</td>
                                 </tr>
                                 <tr>
-                                    <td>Challenge Six</td>
+                                    <td>Integers</td>
                                     <td>10</td>
                                     <td>2024-08-01</td>
                                     <td>2024-08-02</td>
                                     <td>30</td>
                                 </tr>
                                 <tr>
-                                    <td>Challenge Seven</td>
+                                    <td>Multiplication</td>
                                     <td>10</td>
                                     <td>2024-08-03</td>
                                     <td>2024-08-04</td>
                                     <td>30</td>
                                 </tr>
                                 <tr>
-                                    <td>Challenge Eight</td>
+                                    <td>Division</td>
                                     <td>10</td>
                                     <td>2024-08-05</td>
                                     <td>2024-08-06</td>
                                     <td>30</td>
                                 </tr>
                                 <tr>
-                                    <td>Challenge Nine</td>
+                                    <td>Subtraction</td>
                                     <td>10</td>
                                     <td>2024-08-07</td>
                                     <td>2024-08-08</td>
                                     <td>30</td>
                                 </tr>
                                 <tr>
-                                    <td>Challenge Ten</td>
+                                    <td>Patterns</td>
                                     <td>10</td>
                                     <td>2024-08-09</td>
                                     <td>2024-08-10</td>

@@ -1,7 +1,7 @@
 @extends('layouts.app', ['activePage' => 'register', 'title' => 'Light Bootstrap Dashboard Laravel by Creative Tim & UPDIVISION'])
 
 @section('content')
-    <div class="full-page register-page section-image" data-color="orange" data-image="{{ asset('light-bootstrap/img/bg5.jpg') }}">
+    <div class="full-page register-page section-image" data-image="{{ asset('light-bootstrap/img/bg-image.jpg') }}">
         <div class="content">
             <div class="container">
                 <div class="card card-register card-plain text-center">
@@ -16,7 +16,7 @@
                                     </div>
                                     <div class="media-body">
                                         <h4>{{ __('Free Account') }}</h4>
-                                        <p>{{ __('Here you can write a feature description for your dashboard, let the users know what is the value that you give them.') }}</p>
+                                        <p>{{ __('Create an account at zero cost anytime and anywhere with your account details encrypted.') }}</p>
                                     </div>
                                 </div>
                                 <div class="media">
@@ -27,7 +27,7 @@
                                     </div>
                                     <div class="media-body">
                                         <h4>{{ __('Awesome Performances') }}</h4>
-                                        <p>{{ __('Here you can write a feature description for your dashboard, let the users know what is the value that you give them.') }}</p>
+                                        <p>{{ __('Analytics on the outstanding performances from the best schools and best students are also shown.') }}</p>
                                     </div>
                                 </div>
                                 <div class="media">
@@ -38,7 +38,7 @@
                                     </div>
                                     <div class="media-body">
                                         <h4>{{ __('Global Support') }}</h4>
-                                        <p>{{ __('Here you can write a feature description for your dashboard, let the users know what is the value that you give them.') }}</p>
+                                        <p>{{ __('Ensuring pupils nationwide have an opportunity to access a platform to exercise their mathematics skills and promote use of basic maths in their daily lives.') }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +56,8 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <input type="password" name="password" class="form-control" required >
+                                                <input type="password" name="password"
+                                                placeholder="Custom password" class="form-control" required >
                                             </div>
                                             <div class="form-group">
                                                 <input type="password" name="password_confirmation" placeholder="Password Confirmation" class="form-control" required autofocus>

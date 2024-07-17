@@ -7,7 +7,7 @@
                 <div class="col-md-12">
                     <div class="card strpied-tabled-with-hover">
                         <div class="card-header ">
-                            <h4 class="card-title">list of paticipating schools</h4>
+                            <h4 class="card-title">List of paticipating schools</h4>
                             
                         </div>
                         <div class="card-body table-full-width table-responsive">
