@@ -18,7 +18,7 @@ class CreateChallengesTable extends Migration
             $table->date('opening_date');
             $table->date('closing_date');
             $table->string("challenge_name");
-            $table->integer('duration');
+            $table->integer('no_of_questions');
             $table->integer('duration');
             $table->timestamps();
             
