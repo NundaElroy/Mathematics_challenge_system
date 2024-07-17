@@ -17,7 +17,7 @@ class CreateRepresentativesTable extends Migration
             $table->id();
             $table->string("representative_name");
             $table->string("representative_email")->unique();;
-            $table->foreignId('school_registration_number')->constrained('schools');
+            $table->foreignId('registration_number')->constrained('schools');
             $table->timestamps();
         });
     }

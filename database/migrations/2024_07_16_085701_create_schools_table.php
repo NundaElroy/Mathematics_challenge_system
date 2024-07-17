@@ -17,7 +17,17 @@ class CreateSchoolsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('district');
+            $table->string('registration_number')->unique();
+            $table->unsignedBigInteger('representative_id')->nullable();
+            $table->string('representative_name')->nullable();
+            $table->string('representative_email')->nullable();
             $table->timestamps();
+
+            // Add foreign key constraints
+            $table->foreign('representative_id')->references('id')->on('representatives')->onDelete('set null');
+
+            // Add index for representative_name
+            $table->index('representative_name');
         });
     }
 
