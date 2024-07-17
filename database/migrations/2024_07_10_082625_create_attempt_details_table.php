@@ -14,14 +14,21 @@ class CreateAttemptDetailsTable extends Migration
     public function up()
     {
         Schema::create('attempt_details', function (Blueprint $table) {
-            $table->id();
-            $table ->foreignId('attemptid')->constrained('attempts');
-            $table ->foreignId('questionid')->constrained('questions');
-
-            $table ->foreignId('participantid')->constrained('participants');
+            $table->string('attempt_detail_id')->primary();
+            
+            $table->string('attemptid');
+            $table->foreign('attemptid')-> references('attemptid')->on('attempts')->onDelete('cascade');
+            
+            $table->string('questionid');
+            $table->foreign('questionid')-> references('questionid')->on('questions')->onDelete('cascade');
+            $table->string('participantid');
+            $table->foreign('participantid')-> references('participantid')->on('participants')->onDelete('cascade');
+            $table->string('challengeId');
+            $table->foreign('challengeId')-> references('challengeid')->on('challenge')->onDelete('cascade');
             $table ->string("selected_answer");
             $table ->string("correct_answer");
-            $table ->dateTime("timetaken_per_question");
+            $table ->integer("score");
+            $table ->time("timetaken_per_question");
             $table->timestamps();
         });
     }

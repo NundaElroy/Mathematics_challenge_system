@@ -8,11 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class School extends Model
 {
-    protected $fillable = ['name', 'district'];
+    
 
-    public function representatives()
-    {
-        return $this->hasMany(Representative::class);
-    }
+    protected $fillable = [
+        'registration_no',
+        'name',
+         'district',
+           'representative_name',
+            'representative_email'
+    ];
 }
 

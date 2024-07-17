@@ -14,11 +14,14 @@ class CreateAttemptsTable extends Migration
     public function up()
     {
         Schema::create('attempts', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('participantid')->constrained('participants')->onDelete('cascade');
-            $table->foreignId('schoolid')->constrained('schools')->onDelete('cascade');
-            $table->foreignId('challengeid')->constrained('challenge')->onDelete('cascade');
-            $table->dateTime('timetaken');
+            $table->string('attemptid')->primary();
+            $table->string('participantid');
+            $table->foreign('participantid')-> references('participantid')->on('participants')->onDelete('cascade');
+            $table->string('school_registration_no');
+            $table->foreign('school_registration_no')-> references('registration_no')->on('schools')->onDelete('cascade');
+            $table->string('challengeId');
+            $table->foreign('challengeId')-> references('challengeid')->on('challenge')->onDelete('cascade');
+            $table->time('timetaken');
             $table->date('attempt_date');
             $table->integer('score')->nullable();
             $table->timestamps();

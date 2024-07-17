@@ -21,7 +21,8 @@ class CreateRejectedTable extends Migration
             $table->string('email')->unique();
             $table->date('DOB');
             $table->binary('image');
-            $table->foreignId('registration_no')->constrained('schools');
+            $table->string('school_registration_no');
+            $table->foreign('school_registration_no')-> references('registration_no')->on('schools')->onDelete('cascade');
         });
     }
 

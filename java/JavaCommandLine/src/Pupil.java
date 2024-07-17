@@ -23,11 +23,7 @@ public class Pupil  {
         this.FilePathOfImage = manageFilePath(FilePathOfImage);
     }
     public static void main(String[] args) {
-        // Pupil pupil1 = new Pupil("24/U/1582", "jdoe", "John", "Doe", "johndoe@example.com", "2003-05-21", "C:/Users/jdoe/OneDrive/Desktop/JavaCommandLine/src/student1.JPG");
-        // Pupil pupil2 = new Pupil("25/U/1743", "asmith", "ASpassword123", "Anna", "Smith", "annasmith@example.com", "2004-08-15", "C:/Users/asmith/OneDrive/Desktop/JavaCommandLine/src/student2.JPG");
-        // Pupil pupil3 = new Pupil("26/U/1829", "mbrown", "MBpassword123", "Michael", "Brown", "michaelbrown@example.com", "2001-12-09", "C:/Users/mbrown/OneDrive/Desktop/JavaCommandLine/src/student3.JPG");
-        // Pupil pupil4 = new Pupil("27/U/1930", "ljohnson", "LJpassword123", "Linda", "Johnson", "lindajohnson@example.com", "2002-03-26", "C:/Users/ljohnson/OneDrive/Desktop/JavaCommandLine/src/student4.JPG");
-        
+       
         
         
     }
@@ -121,7 +117,7 @@ public void setStatus(boolean status){
 }
 
 private static String manageFilePath(String jpeg){
-    return "C:\\Users\\Alvin\\OneDrive\\Desktop\\photos\\" + jpeg;
+    return AppConfig.getImageFolderPath() + jpeg;
 }
 
 

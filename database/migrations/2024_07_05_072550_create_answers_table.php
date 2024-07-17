@@ -15,13 +15,14 @@ return new class extends Migration
     {
         // database/migrations/xxxx_xx_xx_create_answers_table.php
     Schema::create('answers', function (Blueprint $table) {
-    $table->id();
+    $table->string('answerid')->primary();
     $table->string('option1');
     $table->string('option2');
     $table->string('option3');
     $table->string('option4');
     $table->string('correct_answer');
-    $table->foreignId('questionid')->constrained('questions')->onDelete('cascade');
+    $table->string('question');
+    $table->foreign('question')-> references('questionid')->on('questions')->onDelete('cascade');
     
     
     $table->timestamps();

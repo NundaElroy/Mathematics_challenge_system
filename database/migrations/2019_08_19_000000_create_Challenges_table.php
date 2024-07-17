@@ -14,11 +14,12 @@ class CreateChallengesTable extends Migration
     public function up()
     {
         Schema::create('challenge', function (Blueprint $table) {
-            $table->id();
+            $table->string('challengeid')->primary();
             $table->date('opening_date');
             $table->date('closing_date');
             $table->string("challenge_name");
-            $table->time('Duration');
+            $table->integer('duration');
+            $table->integer('duration');
             $table->timestamps();
             
         });

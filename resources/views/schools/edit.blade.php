@@ -9,16 +9,16 @@
         @csrf
         @method('PUT')
         <div class="form-group">
+            <label for="registration_number">Registration Number</label>
+            <input type="text" class="form-control" id="registration_number" name="registration_number" value="{{ $school->registration_no }}" required>
+        </div>
+        <div class="form-group">
             <label for="name">School Name</label>
             <input type="text" class="form-control" id="name" name="name" value="{{ $school->name }}" required>
         </div>
         <div class="form-group">
             <label for="district">District</label>
             <input type="text" class="form-control" id="district" name="district" value="{{ $school->district }}" required>
-        </div>
-        <div class="form-group">
-            <label for="registration_number">Registration Number</label>
-            <input type="text" class="form-control" id="registration_number" name="registration_number" value="{{ $school->registration_number }}" required>
         </div>
         <div class="form-group">
             <label for="representative_name">Representative Name</label>
