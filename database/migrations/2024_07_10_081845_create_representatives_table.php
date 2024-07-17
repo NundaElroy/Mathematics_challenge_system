@@ -32,3 +32,4 @@ class CreateRepresentativesTable extends Migration
         Schema::dropIfExists('representatives');
     }
 }
+

@@ -3,6 +3,7 @@ import java.util.Collections;
 import java.util.List;
 import java.sql.*;
 import java.io.Serializable;
+import java.time.*;
 
 public class Question implements Serializable{
     private int questionId;
@@ -11,7 +12,7 @@ public class Question implements Serializable{
     private String correctAnswer;
     private int  marksScored;
     private String participantAnswer;
-    private double Timetaken ;
+    private String Timetaken ;
     private static final int CORRECT_MARKS = 10; 
     private static final int WRONG_MARKS = -3;
     private static final int IDK_MARKS = 0;
@@ -37,6 +38,7 @@ public class Question implements Serializable{
             question.displayQuestion(counter);
             counter +=1;
         }
+       
     }
 
     //method to check answer
@@ -114,15 +116,48 @@ public static List<Question> fetchRandomQuestions() {
     return questions;
 }
     
-    //setter for totaltime taken
-    public void setTimetaken(double time){
-        this.Timetaken = time;
+    
+//setter for totaltime taken
+    public void setTimetaken(Duration duration){
+        
+        long hours =  duration.toHours();
+        long minutes = duration.toMinutes() % 60;
+        long seconds = duration.getSeconds() % 60;
+        String formattedDuration = String.format("%02d:%02d:%02d", hours,minutes,seconds);
+        this.Timetaken = formattedDuration;
+    }
+     // Getter for Timetaken
+     public String getTimetaken() {
+        return Timetaken;
     }
 
-    public double getTimetaken(){
-        return this.Timetaken;
+    public int getQuestionId(){
+        return this.questionId;
     }
 
+    public int getMarksScored() {
+        return marksScored;
+    }
+
+    // Setter for marksScored
+    public void setMarksScored(int marksScored) {
+        this.marksScored = marksScored;
+    }
+
+    // Getter for participantAnswer
+    public String getParticipantAnswer() {
+        return participantAnswer;
+    }
+
+     // Setter for participantAnswer
+     public void setParticipantAnswer(String participantAnswer) {
+        this.participantAnswer = participantAnswer;
+    }
+
+   
+
+   
+   
 
     
 }

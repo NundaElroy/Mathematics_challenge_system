@@ -13,13 +13,13 @@ class CreateChallengesTable extends Migration
      */
     public function up()
     {
-        Schema::create('challenges', function (Blueprint $table) {
-            $table->id();
-            $table->date('opening_date')->nullable(false);
-            $table->date('closing_date')->nullable(false);
-            $table->string('challenge_name')->unique()->nullable(false);
-            $table->time('duration')->nullable(false);
-            $table->integer('number_of_questions');
+        Schema::create('challenge', function (Blueprint $table) {
+            $table->string('challengeid')->primary();
+            $table->date('opening_date');
+            $table->date('closing_date');
+            $table->string("challenge_name");
+            $table->integer('duration');
+            $table->integer('duration');
             $table->timestamps();
 
             // Add other constraints if necessary

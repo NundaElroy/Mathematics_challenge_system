@@ -1,0 +1,137 @@
+import java.io.Serializable;
+import java.sql.*;
+import java.util.Date;
+import java.util.*;
+import java.time.*;
+
+
+
+
+
+public class Challenge implements Serializable {
+    private int challengeId;
+    private Date openDate;
+    private Date closeDate;
+    private int duration;
+    private String timetakenAttempting;
+    private int scoreOfChallenge;                      
+    private List<Question> questions;//holds the questions(10) for the challenge
+    
+
+    //will be used when attempting the challenge
+    public Challenge(int challengeId,  int duration, List<Question> questions) {
+        this.challengeId = challengeId;
+        this.duration = duration; 
+        this.questions = questions;
+        
+    }
+    
+    //constructor that will be used to display the available challenges
+    //overloaded constructor
+    public Challenge(int challengeId, Date openDate, Date closeDate, int duration) {
+        this.challengeId = challengeId;
+        this.openDate = openDate;
+        this.closeDate = closeDate;
+        this.duration = duration;
+    }
+    public static void main(String[] args) {
+
+       List<Question> questions = Question.fetchRandomQuestions();
+    
+    
+    
+    Challenge challenge = new Challenge(4444, 40, questions);
+    challenge.startChallenge();
+    challenge.getScore();
+    System.out.println(challenge.timetakenAttempting);
+
+
+    
+    Attempt attempt = new Attempt(challenge.challengeId,1,challenge.scoreOfChallenge,challenge.timetakenAttempting);
+    int attempt_id_generated = attempt.insertIntoDatabase();
+    System.out.println(attempt_id_generated);
+
+    for(Question question:challenge.questions){
+        AttemptDetails attemptDetails = new AttemptDetails( attempt_id_generated,question.getQuestionId(), 1 ,question.getParticipantAnswer(), question.getTimetaken(), question.getMarksScored());
+        attemptDetails.insertIntoDatabase();
+    }
+
+        
+    }
+     // Static method to display all valid available challenges
+     public static List<Challenge> displayAvailableChallenges() {
+        List<Challenge> availableChallenges = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dummy_database", "root", "");
+             Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery("SELECT * FROM challenge WHERE CURDATE() BETWEEN opening_date AND closing_date")) {
+             System.out.println("Executing query...");
+            while (rs.next()) {
+                int id = rs.getInt("challengeid");
+                Date openDate = rs.getDate("opening_date");
+                Date closeDate = rs.getDate("closing_date");
+                int duration = rs.getInt("duration");
+                Challenge challenge = new Challenge(id, openDate, closeDate, duration);
+                availableChallenges.add(challenge);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return availableChallenges;
+    }
+//static method to print out the challenges from a list
+  public static void printOutChallenges(List<Challenge> availableChallenges) {
+    for (Challenge challenge : availableChallenges) {
+        System.out.println("_".repeat(50));
+        System.out.println("Challenge ID: " + challenge.challengeId);
+        System.out.println("Open Date: " + challenge.openDate);
+        System.out.println("Close Date: " + challenge.closeDate);
+        System.out.println("Duration: " + challenge.duration + "minutes");
+        System.out.println("_".repeat(50));
+    }
+
+  }
+//method for printing out questions in challenge
+public void startChallenge() {
+    Scanner scanner = new Scanner(System.in);
+    int totalMarks = 0;
+    LocalTime totalTime = null;
+    
+    System.out.println("Enter your the correct answer for the given \n option incase you dont know enter a minus(-) sign ");
+    System.out.println("=".repeat(100));
+    int counter = 1;
+    Duration totalDuration = Duration.ZERO;
+    for (Question question : questions) {
+        question.displayQuestion(counter);
+        //start time
+        LocalTime startTime = LocalTime.now();
+
+        String userAnswer = scanner.nextLine();
+        LocalTime endTime   = LocalTime.now();
+        Duration questionDuration = Duration.between(startTime,endTime);
+        question.setTimetaken(questionDuration);
+        int mark = question.checkAnswer(userAnswer);
+        System.out.println("_".repeat(100));
+        counter++;
+        totalDuration = totalDuration.plus(questionDuration);
+        totalMarks += mark;
+    }
+    this.timetakenAttempting = getTimetaken(totalDuration);
+    this.scoreOfChallenge = totalMarks;
+    // Here, you could pass totalMarks to another class instance as needed.
+}
+public void getScore(){
+    System.out.println(this.scoreOfChallenge);
+}
+
+//totaltime taken attempting the challenge in a desirable
+public static String getTimetaken(Duration duration){
+        
+    long hours =  duration.toHours();
+    long minutes = duration.toMinutes() % 60;
+    long seconds = duration.getSeconds() % 60;
+    return String.format("%02d:%02d:%02d", hours,minutes,seconds);
+    
+}
+
+ 
+}
