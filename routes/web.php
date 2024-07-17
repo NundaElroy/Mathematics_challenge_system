@@ -40,7 +40,7 @@ Route::post('/admin/questions/upload', [QuestionController::class, 'uploadQuesti
 // School routes
 Route::resource('schools', SchoolController::class);
 
-Route::resource('challenges', ChallengeController::class);
+Route::resource('challenge', ChallengeController::class);
 
 
 Route::get('/questions/upload', [QuestionController::class, 'showUploadForm'])->name('questions.questions-form');

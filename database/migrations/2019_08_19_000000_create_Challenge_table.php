@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChallengesTable extends Migration
+class CreateChallengeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,7 +19,7 @@ class CreateChallengesTable extends Migration
             $table->date('closing_date');
             $table->string("challenge_name");
             $table->integer('duration');
-            $table->integer('duration');
+            $table->integer('number_of_questions');
             $table->timestamps();
 
             // Add other constraints if necessary

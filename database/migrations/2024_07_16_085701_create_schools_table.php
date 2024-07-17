@@ -21,11 +21,7 @@ class CreateSchoolsTable extends Migration
             $table->string("representative_email")->unique();
             $table->timestamps();
 
-            // Add foreign key constraints
-            $table->foreign('representative_id')->references('id')->on('representatives')->onDelete('set null');
-
-            // Add index for representative_name
-            $table->index('representative_name');
+           
         });
     }
 

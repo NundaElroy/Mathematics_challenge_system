@@ -9,7 +9,12 @@ class Challenge extends Model
 {
     use HasFactory;
 
+    protected $table = 'challenge'; // Specify the correct table name
+
+    protected $primaryKey = 'challengeid'; // Specify the correct primary key
+
     protected $fillable = [
+        'challengeid',
         'opening_date',
         'closing_date',
         'challenge_name',

@@ -19,7 +19,7 @@
                         <table class="table table-striped table-hover" style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                             <thead class="bg-dark text-white" style="font-size: 1.1rem;">
                                 <tr>
-                                    <th>ID</th>
+                                    <th>Challenge ID</th>
                                     <th>Opening Date</th>
                                     <th>Closing Date</th>
                                     <th>Challenge Name</th>
@@ -31,16 +31,16 @@
                             <tbody>
                                 @foreach ($challenges as $challenge)
                                     <tr>
-                                        <td>{{ $challenge->id }}</td>
+                                        <td>{{ $challenge->challengeid }}</td>
                                         <td>{{ $challenge->opening_date }}</td>
                                         <td>{{ $challenge->closing_date }}</td>
                                         <td>{{ $challenge->challenge_name }}</td>
                                         <td>{{ $challenge->duration }}</td>
                                         <td>{{ $challenge->number_of_questions }}</td>
                                         <td>
-                                            <a href="{{ route('challenges.show', $challenge->id) }}" class="btn btn-info btn-sm" style="background-color: #17a2b8; border-color: #17a2b8; color: #ffffff;">View</a>
-                                            <a href="{{ route('challenges.edit', $challenge->id) }}" class="btn btn-warning btn-sm" style="background-color: #fd7e14; border-color: #fd7e14; color: #ffffff;">Edit</a>
-                                            <form action="{{ route('challenges.destroy', $challenge->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirmDelete();">
+                                            <a href="{{ route('challenges.show', $challenge->challengeid) }}" class="btn btn-info btn-sm" style="background-color: #17a2b8; border-color: #17a2b8; color: #ffffff;">View</a>
+                                            <a href="{{ route('challenges.edit', $challenge->challengeid) }}" class="btn btn-warning btn-sm" style="background-color: #fd7e14; border-color: #fd7e14; color: #ffffff;">Edit</a>
+                                            <form action="{{ route('challenges.destroy', $challenge->challengeid) }}" method="POST" style="display:inline-block;" onsubmit="return confirmDelete();">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" style="background-color: #dc3545; border-color: #dc3545; color: #ffffff;">Delete</button>

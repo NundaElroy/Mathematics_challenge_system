@@ -10,6 +10,9 @@
                 </div>
                 <div class="card-body">
                     <dl class="row">
+                        <dt class="col-sm-4">Challenge ID:</dt>
+                        <dd class="col-sm-8">{{ $challenge->challengeid }}</dd>
+
                         <dt class="col-sm-4">Challenge Name:</dt>
                         <dd class="col-sm-8">{{ $challenge->challenge_name }}</dd>
 
@@ -26,9 +29,9 @@
                         <dd class="col-sm-8">{{ $challenge->number_of_questions }}</dd>
                     </dl>
                     <div class="text-center mt-4">
-                        <a href="{{ route('challenges.edit', $challenge->id) }}" class="btn btn-warning btn-lg" style="border-radius: 20px; padding: 10px 20px;">Edit Challenge</a>
+                        <a href="{{ route('challenges.edit', $challenge->challengeid) }}" class="btn btn-warning btn-lg" style="border-radius: 20px; padding: 10px 20px;">Edit Challenge</a>
 
-                        <form action="{{ route('challenges.destroy', $challenge->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirmDelete();">
+                        <form action="{{ route('challenges.destroy', $challenge->challengeid) }}" method="POST" style="display:inline-block;" onsubmit="return confirmDelete();">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-lg" style="border-radius: 20px; padding: 10px 20px;">Delete Challenge</button>
