@@ -10,7 +10,7 @@
                        
                         
                             
-                            <div class="full-page section-image" data-color="red" data-image="{{asset('C:\code\sebabe\public\light-bootstrap\img\Screenshot (14).png')}}">
+                            <div class="full-page section-image"  data-image="{{asset('C:\code\sebabe\public\light-bootstrap\img\Screenshot (14).png')}}">
                             
                         </div>
                     </div>
@@ -26,15 +26,15 @@
                     <div class="card ">
                         <div class="card-header ">
                             <h4 class="card-title">{{ __('2024 mathematics competition') }}</h4>
-                            <p class="card-category">{{ __('school rankings') }}</p>
+                            <p class="card-category">{{ __('School rankings') }}</p>
                         </div>
                         <div class="card-body ">
                             <div id="chartActivity" class="ct-chart"></div>
                         </div>
                         <div class="card-footer ">
                             <div class="legend">
-                                <i class="fa fa-circle text-info"></i> {{ __('kibuli') }}
-                                <i class="fa fa-circle text-danger"></i> {{ __('moroto') }}
+                                <i class="fa fa-circle text-info"></i> {{ __('Kibuli PS') }}
+                                <i class="fa fa-circle text-danger"></i> {{ __('Moroto PS') }}
 
                             </div>
                             <hr>
@@ -46,7 +46,7 @@
                     <div class="card  card-tasks">
                         <div class="card-header ">
                             <h4 class="card-title">{{ __('Protocols') }}</h4>
-                            <p class="card-category">{{ __('as guides to the examination') }}</p>
+                            <p class="card-category">{{ __('As guides to the examination') }}</p>
                         </div>
                         <div class="card-body ">
                             <div class="table-full-width">
@@ -61,7 +61,7 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td>{{ __('all students are expected to register?"') }}</td>
+                                            <td>{{ __('All students are expected to register?"') }}</td>
                                             <td class="td-actions text-right">
                                                 <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
                                                     <i class="fa fa-edit"></i>
@@ -80,7 +80,7 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td>{{ __('schools shall provide three representatives?') }}</td>
+                                            <td>{{ __('Schools shall provide three representatives?') }}</td>
                                             <td class="td-actions text-right">
                                                 <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
                                                     <i class="fa fa-edit"></i>
@@ -99,7 +99,7 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td>{{ __('marks shall be awarded accordingly') }}
+                                            <td>{{ __('Marks shall be awarded accordingly') }}
                                             </td>
                                             <td class="td-actions text-right">
                                                 <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
@@ -119,7 +119,7 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td>{{ __('examination materials are free of use') }}</td>
+                                            <td>{{ __('Examination materials are free of use') }}</td>
                                             <td class="td-actions text-right">
                                                 <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
                                                     <i class="fa fa-edit"></i>
@@ -138,7 +138,7 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td>{{ __('awards ') }}</td>
+                                            <td>{{ __('Awards ') }}</td>
                                             <td class="td-actions text-right">
                                                 <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
                                                     <i class="fa fa-edit"></i>
@@ -157,7 +157,7 @@
                                                     </label>
                                                 </div>
                                             </td>
-                                            <td>{{ __('all questions are standard') }}</td>
+                                            <td>{{ __('All questions are standard') }}</td>
                                             <td class="td-actions text-right">
                                                 <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
                                                     <i class="fa fa-edit"></i>
@@ -174,7 +174,7 @@
                         <div class="card-footer ">
                             <hr>
                             <div class="stats">
-                                <i class="now-ui-icons loader_refresh spin"></i> {{ __('Updated by group i 3 minutes ago') }}
+                                <i class="now-ui-icons loader_refresh spin"></i> {{ __('Updated by group i, 3 minutes ago') }}
                             </div>
                         </div>
                     </div>

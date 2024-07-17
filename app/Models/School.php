@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class School extends Model
 {
-    use HasFactory;
+    protected $fillable = ['name', 'district'];
 
-    protected $fillable = [
-        'name',
-         'district',
-          'registration_number',
-           'representative_name',
-            'representative_email'
-    ];
+    public function representatives()
+    {
+        return $this->hasMany(Representative::class);
+    }
 }
+

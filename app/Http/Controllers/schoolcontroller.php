@@ -4,63 +4,123 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\School;
+use App\Models\Representative;
 
 class SchoolController extends Controller
 {
-    //dispaly a list of schools
+    // Display a list of schools
     public function index()
     {
         $title = 'Schools';
         $activePage = 'schools';
-        $schools = School::all();
+        $schools = School::with('representatives')->get();
         return view('pages.schools', compact('title', 'schools', 'activePage'));
     }
 
-    //show the form for creating a new school
+    // Show the form for creating a new school
     public function create()
     {
-         $activePage = 'create';
-        return view('schools.create' ,  ['title' => 'Add School'], compact('activePage'));
+        $activePage = 'create';
+        return view('schools.create', ['title' => 'Add School', 'activePage' => $activePage]);
     }
 
-    //store newlyy created school in the database
+    // Store newly created school in the database
     public function store(Request $request)
     {
-        $school = new School($request->all());
-        $school->save();
-        return redirect()->route('schools.index');
+        // Validate request data
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'district' => 'required|string|max:255',
+            'representatives.*.representative_name' => 'required|string|max:255',
+            'representatives.*.representative_email' => 'required|string|email|max:255',
+        ]);
+
+        // Create school
+        $school = School::create([
+            'name' => $validatedData['name'],
+            'district' => $validatedData['district'],
+        ]);
+
+        // Create representatives for the school
+        foreach ($validatedData['representatives'] as $repData) {
+            $school->representatives()->create([
+                'representative_name' => $repData['representative_name'],
+                'representative_email' => $repData['representative_email'],
+                'school_id' => $school->id,
+            ]);
+        }
+
+        return redirect()->route('schools.index')->with('success', 'School and representatives added successfully.');
     }
 
-//display a specific school
+    // Display a specific school
     public function show($id)
     {
         $activePage = 'schools';
-        $school = School::findOrFail($id);
-        return view('schools.show',['title' => 'View School'], compact('school', 'activePage'));
+        $school = School::with('representatives')->findOrFail($id);
+        return view('schools.show', ['title' => 'View School', 'school' => $school, 'activePage' => $activePage]);
     }
 
-//show form for editing a specific school.
+    // Show form for editing a specific school
     public function edit($id)
     {
         $activePage = 'schools';
-        $title = 'Edit school';
-        $school = School::find($id);
-        return view('schools.edit', compact('title','school', 'activePage'));
+        $title = 'Edit School';
+        $school = School::with('representatives')->findOrFail($id);
+        return view('schools.edit', compact('title', 'school', 'activePage'));
     }
 
-//update specified school in the database
+    // Update specified school in the database
     public function update(Request $request, $id)
     {
-        $school = school::findOrFail($id);
-        $school->update($request->all());
-        return redirect()->route('schools.index')-> with ('success','School updated successfully.');
+        $school = School::findOrFail($id);
+
+        // Validate request data
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'district' => 'required|string|max:255',
+            'representatives.*.representative_name' => 'sometimes|required|string|max:255',
+            'representatives.*.representative_email' => 'sometimes|required|string|email|max:255',
+        ]);
+
+        // Update school
+        $school->update([
+            'name' => $validatedData['name'],
+            'district' => $validatedData['district'],
+        ]);
+
+        // Update representatives for the school
+        if (isset($validatedData['representatives'])) {
+            foreach ($validatedData['representatives'] as $repData) {
+                $representative = $school->representatives()->where('representative_email', $repData['representative_email'])->first();
+                if ($representative) {
+                    $representative->update([
+                        'representative_name' => $repData['representative_name'],
+                        'representative_email' => $repData['representative_email'],
+                    ]);
+                } else {
+                    $school->representatives()->create([
+                        'representative_name' => $repData['representative_name'],
+                        'representative_email' => $repData['representative_email'],
+                        'school_id' => $school->id,
+                    ]);
+                }
+            }
+        }
+
+        return redirect()->route('schools.index')->with('success', 'School updated successfully.');
     }
 
-//Remove a specific school from the storage
+    // Remove a specific school from the storage
     public function destroy($id)
     {
-        $school = School::find($id);
+        $school = School::findOrFail($id);
         $school->delete();
-        return redirect()->route('schools.index')-> with ('success', 'school delleted succefully.');
+        return redirect()->route('schools.index')->with('success', 'School deleted successfully.');
+    }
+   //defines relationship btn reps and the schools
+    public function representatives()
+    {
+        return $this->hasMany(Representative::class);
     }
 }

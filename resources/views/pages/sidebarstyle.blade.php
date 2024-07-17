@@ -20,9 +20,9 @@
                     <p>Filters</p>
                     <div class="pull-right">
                         <span class="badge filter badge-black" data-color="black"></span>
-                        <span class="badge filter badge-azure" data-color="azure"></span>
+                        <span class="badge filter badge-azure active" data-color="azure"></span>
                         <span class="badge filter badge-green" data-color="green"></span>
-                        <span class="badge filter badge-orange active" data-color="orange"></span>
+                        <span class="badge filter badge-orange" data-color="orange"></span>
                         <span class="badge filter badge-red" data-color="red"></span>
                         <span class="badge filter badge-purple" data-color="purple"></span>
                     </div>
@@ -32,7 +32,7 @@
             <li class="header-title">{{ __('Sidebar Images') }}</li>
             <li class="active">
                 <a class="img-holder switch-trigger" href="javascript:void(0)">
-                    <img src="{{ asset('/light-bootstrap/img/Side5.jpg') }}" alt="" />
+                    <img src="{{ asset('/light-bootstrap/img/Student.webp') }}" alt="" />
                 </a>
             </li>
             <li>
