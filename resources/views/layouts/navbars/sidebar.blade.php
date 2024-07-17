@@ -1,4 +1,4 @@
-<div class="sidebar" data-color="orange" data-image="{{ asset('light-bootstrap/img/Side2.jpg') }}">
+<div class="sidebar" data-color="azure" data-image="{{ asset('light-bootstrap/img/Side2.jpg') }}">
     <!--
 Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
 
@@ -43,6 +43,8 @@ Tip 2: you can also add an image using data-image tag
 
             <li class="nav-item @if($activePage == 'questions&Answer') active @endif">
                 <a class="nav-link" href="{{route('questions.questions-form', 'questions&Answer')}}">
+            <li class="nav-item @if($activePage == 'QuestionAnswer') active @endif">
+                <a class="nav-link" href="{{route('page.index', 'questAnswer')}}">
                     <i class="nc-icon nc-atom"></i>
                     <p>{{ __("Questions & Answers") }}</p>
                 </a>

@@ -6,7 +6,7 @@
 <body>
 
     @section('content')
-    <div class="full-page section-image" data-color="black" data-image="{{asset('light-bootstrap/img/bg-image.jpg')}}">
+    <div class="full-page section-image" data-image="{{asset('light-bootstrap/img/math-problem.jpg')}}">
     <div class="content">
     <div class="text-center">
     <img src="{{asset('light-bootstrap/img/logo1.png')}}" alt="logo" class="logo">
@@ -19,10 +19,10 @@
                 </div>
             </div>
             <div class="container" data-color="white" style="padding:1em;position:absolute;bottom:0;">
-            <footer>
+            <footer style="color: white;">
             <p>&copy;{{date('Y')}}</p>
             </footer>
-            <a href="http://www.creative-tim.com" data-color="white">{{__('Mathematics National Challenge Platform')}}</a>
+            <a href="http://www.creative-tim.com" style="color: white;">{{__('Mathematics National Challenge Platform')}}</a>
             </div>
            
 

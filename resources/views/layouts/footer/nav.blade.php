@@ -3,12 +3,12 @@
         <nav>
 
         
-            <p class="copyright text-center">
+            <p class="copyright text-center"  >
                 ©
                 <script>
                     document.write(new Date().getFullYear())
                 </script>
-            <a href="http://www.creative-tim.com" data-color="white">{{__('Mathematics National Challenge Platform')}}</a>
+            <a href="http://www.creative-tim.com" style="color: white;" >{{__('Mathematics National Challenge Platform')}}</a>
             </p>
         </nav>
     </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\School;
+use App\Models\Representative;
 
 class SchoolController extends Controller
 {
@@ -12,7 +13,7 @@ class SchoolController extends Controller
     {
         $title = 'Schools';
         $activePage = 'schools';
-        $schools = School::all();
+        $schools = School::with('representatives')->get();
         return view('pages.schools', compact('title', 'schools', 'activePage'));
     }
 
