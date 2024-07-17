@@ -43,15 +43,14 @@ Tip 2: you can also add an image using data-image tag
 
             <li class="nav-item @if($activePage == 'questions&Answer') active @endif">
                 <a class="nav-link" href="{{route('questions.questions-form', 'questions&Answer')}}">
-            <li class="nav-item @if($activePage == 'QuestionAnswer') active @endif">
-                <a class="nav-link" href="{{route('page.index', 'questAnswer')}}">
+            
                     <i class="nc-icon nc-atom"></i>
                     <p>{{ __("Questions & Answers") }}</p>
                 </a>
             </li>
 
             <li class="nav-item @if($activePage == 'challenges') active @endif">
-            <a class="nav-link" href="{{route('challenges.index', 'challenges')}}">
+            <a class="nav-link" href="{{route('challenge.index', 'challenge')}}">
                 <i class="nc-icon nc-notes"></i>
                 <p>{{ __("Challenges") }}</p>
             </a>
