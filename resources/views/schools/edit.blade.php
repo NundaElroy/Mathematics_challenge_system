@@ -1,5 +1,3 @@
-
-
 @extends('layouts.app')
 
 @section('content')
@@ -28,7 +26,6 @@
             <label for="representative_email">Representative Email</label>
             <input type="email" class="form-control" id="representative_email" name="representative_email" value="{{ $school->representative_email }}" required>
         </div>
-        <button type="submit" class="btn btn-success">Update School</button>
-    </form>
+    </div>
 </div>
 @endsection

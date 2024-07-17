@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\School;
+use App\Models\Challenge;
 
 class PageController extends Controller
 {
@@ -18,10 +19,11 @@ class PageController extends Controller
         switch ($page) {
             case 'schools':
                 return $this->schools();
-
+            case 'challenges':
+                return $this->challenges();
+            case 'upload-questions-answers':
+                return $this->uploadQuestionsAnswers();
             // Add other cases here for different pages
-
-
             default:
                 return $this->defaultPage($page);
         }
@@ -38,6 +40,31 @@ class PageController extends Controller
         $title = "Schools"; // Define the title
         $activePage = 'schools'; // Define the active page
         return view('pages.schools', compact('schools', 'title', 'activePage'));
+    }
+
+    /**
+     * Display the list of challenges.
+     *
+     * @return \Illuminate\View\View
+     */
+    protected function challenges()
+    {
+        $challenges = Challenge::all();
+        $title = "Challenges"; // Define the title
+        $activePage = 'challenges'; // Define the active page
+        return view('pages.challenges', compact('challenges', 'title', 'activePage'));
+    }
+
+    /**
+     * Display the upload questions and answers form.
+     *
+     * @return \Illuminate\View\View
+     */
+    protected function uploadQuestionsAnswers()
+    {
+        $title = "Upload Questions and Answers"; // Define the title
+        $activePage = 'upload-questions-answers'; // Define the active page
+        return view('pages.questions', compact('title', 'activePage'));
     }
 
     /**

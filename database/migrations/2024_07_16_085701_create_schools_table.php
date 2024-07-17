@@ -20,6 +20,8 @@ class CreateSchoolsTable extends Migration
             $table->string("representative_name");
             $table->string("representative_email")->unique();
             $table->timestamps();
+
+           
         });
     }
 

@@ -23,8 +23,8 @@ return new class extends Migration
     $table->string('correct_answer');
     $table->string('question');
     $table->foreign('question')-> references('questionid')->on('questions')->onDelete('cascade');
-    
-    
+
+
     $table->timestamps();
 });
 
