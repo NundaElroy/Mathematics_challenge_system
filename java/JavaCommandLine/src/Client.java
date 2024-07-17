@@ -118,19 +118,19 @@ public class Client  {
             while (true) {
                 String loginDetails = scanner.nextLine();
                 System.out.println("_".repeat(50));
-                System.out.println("confirm your details if correct:enter yes or no for not incorrect/order");
+                System.out.println("\u001B[32mconfirm your details if correct: enter yes or no for not incorrect/order\u001B[0m");
                 String confirm = scanner.nextLine();
                 System.out.println("_".repeat(50));
                 
                 if (confirm.equalsIgnoreCase("yes")) {
-                    System.out.println("loading.... wait a moment");
+                    System.out.println("\u001B[32mloading.... wait a moment\u001B[0m");
                     writer.write(loginDetails);
                     writer.newLine();
                     writer.flush();
                     
                     break;
                 }else{
-                    System.out.println("try again");
+                    System.out.println("\u001B[31mtry again\u001B[0m");
                     
                 }
            
@@ -140,7 +140,7 @@ public class Client  {
              String serverResponse = reader.readLine();
              if(serverResponse.equalsIgnoreCase("!none")){
                 System.out.println("_".repeat(50));
-                System.out.println("login failed, try again");
+                System.out.println("\u001B[31mlogin failed, try again\u001B[0m");
                 System.out.println("_".repeat(50));
 
                 continue;
@@ -200,7 +200,7 @@ public class Client  {
                         }
                      System.out.println(Applicantdetail);
                      System.out.println("_".repeat(50));
-                     System.out.println("yes to accept applicant and no to reject or quit to exit");
+                     System.out.println("\u001B[32myes to accept applicant and no to reject or quit to exit\u001B[0m");
 
                      String confirmApplicant = scanner.nextLine();
                      writer.write(confirmApplicant);
@@ -208,7 +208,7 @@ public class Client  {
                      writer.flush();
  
                      if(confirmApplicant.equalsIgnoreCase("quit")){
-                        System.out.println("redirecting back to previous menu");
+                        System.out.println("\u001B[34mredirecting back to previous menu\u001B[0m");
                         
                          break;
                      }
@@ -243,8 +243,12 @@ public class Client  {
                       
                   }
                   System.out.println("_".repeat(50));
+                  System.out.println("\u001B[32mEnter 'challengeID/attemptChallenge'to attempt a challenge.\u001B[0m");
                   //response can be viewapplicants /confirm applicants / quit
-                  String participantResponse = scanner.nextLine();
+                  String participantResponseFromConsole = scanner.nextLine();
+                  //Array to hold response data and case of attemptChallenge/challengeid
+                  String [] responseData = participantResponseFromConsole.split("/"); 
+                  String participantResponse = responseData[0];
                   System.out.println("_".repeat(50));
                   writer.write(participantResponse);
                   writer.newLine();
@@ -259,7 +263,24 @@ public class Client  {
                  
                       Challenge.printOutChallenges(availableChallenges);
                   }else if(participantResponse.equalsIgnoreCase("attemptChallenge")){
-                      //TODO: receiving first challenge and implement its logic
+                      //Tchallengeid
+                      String challengeid = responseData[2];
+                      //send to server to confirm whether it exists
+                      writer.write(challengeid);
+                      writer.newLine();
+                      writer.flush();
+
+                      //receiving the server response
+                      String serverRepRegardingChallenge = reader.readLine();
+
+                      //handling the response
+                      if(serverRepRegardingChallenge.equalsIgnoreCase("error")){
+                        System.out.println("\u001B[31m invalid challenge/doesnot exist\u001B[0m");
+                        break;
+                      }else{
+                        
+                      }
+
                      
                       
                   }else if (participantResponse.equalsIgnoreCase("quit")){

@@ -47,12 +47,16 @@ public class Question implements Serializable{
             this.participantAnswer = userAnswer;
 
             //when user doesnt know
-            if (userAnswer.equalsIgnoreCase("-")) {
+            if (userAnswer.equalsIgnoreCase("-") ) {
                 
                 this.marksScored =  IDK_MARKS;
                 return IDK_MARKS;
             
             //answers correctly
+            }else if(userAnswer.equalsIgnoreCase(null)||(userAnswer.equalsIgnoreCase(""))){
+                this.marksScored =  IDK_MARKS;
+                return IDK_MARKS;
+            
             }else if(userAnswer.equalsIgnoreCase(this.correctAnswer)) {
                 this.marksScored = CORRECT_MARKS;
                 

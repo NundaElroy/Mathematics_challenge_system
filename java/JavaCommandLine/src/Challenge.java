@@ -34,27 +34,28 @@ public class Challenge implements Serializable {
         Challenge challenge = new Challenge(4444, 1, questions);
         challenge.startTimedChallenge();
         System.out.println("Time taken: " + challenge.timetakenAttempting);
+        System.out.println("Score: " + challenge.scoreOfChallenge);
 
-        // Attempt attempt = new Attempt(challenge.challengeId, 1, challenge.scoreOfChallenge, challenge.timetakenAttempting);
-        // int attempt_id_generated = attempt.insertIntoDatabase();
-        // System.out.println("Attempt ID: " + attempt_id_generated);
+        Attempt attempt = new Attempt(challenge.challengeId, 1, challenge.scoreOfChallenge, challenge.timetakenAttempting);
+        int attempt_id_generated = attempt.insertIntoDatabase();
+        System.out.println("Attempt ID: " + attempt_id_generated);
 
-        // for (Question question : challenge.questions) {
-        //     AttemptDetails attemptDetails = new AttemptDetails(attempt_id_generated, question.getQuestionId(), 1,
-        //             question.getParticipantAnswer(), question.getTimetaken(), question.getMarksScored());
-        //     attemptDetails.insertIntoDatabase();
-        // }
+        for (Question question : challenge.questions) {
+            AttemptDetails attemptDetails = new AttemptDetails(attempt_id_generated, question.getQuestionId(), 1,
+                    question.getParticipantAnswer(), question.getTimetaken(), question.getMarksScored());
+            attemptDetails.insertIntoDatabase();
+        }
     }
 
     // Static method to display all valid available challenges
     public static List<Challenge> displayAvailableChallenges() {
         List<Challenge> availableChallenges = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mathematics_challenge", "root", "");
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mathematics_challenge_db", "root", "");
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery("SELECT * FROM challenge WHERE CURDATE() BETWEEN opening_date AND closing_date")) {
             System.out.println("Executing query...");
             while (rs.next()) {
-                int id = rs.getInt("id");
+                int id = rs.getInt("challengeid");
                 Date openDate = rs.getDate("opening_date");
                 Date closeDate = rs.getDate("closing_date");
                 int duration = rs.getInt("duration");
@@ -68,29 +69,33 @@ public class Challenge implements Serializable {
     }
 
     // static method to print out the challenges from a list
+    // static method to print out the challenges from a list
     public static void printOutChallenges(List<Challenge> availableChallenges) {
+        // Print the header
+        System.out.printf("%-20s %-20s %-20s %-20s%n", "Challenge ID", "Open Date", "Close Date", "Duration");
+        System.out.println("".repeat(80)); // Separator line
+    
+        // Print each challenge in tabular format
         for (Challenge challenge : availableChallenges) {
-            System.out.println("_".repeat(50));
-            System.out.println("Challenge ID: " + challenge.challengeId);
-            System.out.println("Open Date: " + challenge.openDate);
-            System.out.println("Close Date: " + challenge.closeDate);
-            System.out.println("Duration: " + challenge.duration + " minutes");
-            System.out.println("_".repeat(50));
+            System.out.printf("%-20s %-20s %-20s %-20s minutes%n",
+                    challenge.challengeId,
+                    challenge.openDate,
+                    challenge.closeDate,
+                    challenge.duration);
         }
     }
 
     // method for printing out questions in challenge
     public void startTimedChallenge() {
-        //anonymous class with implicit implementation of the anonymous interface
         Thread timerThread = new Thread(new Runnable() {
             public void run() {
                 try {
                     Thread.sleep(duration * 60 * 1000);
-                    System.out.println("Time is up! Challenge has ended.");
-                    
+                    System.out.println("\u001B[31mTime is up! Challenge has ended.\u001B[0m");
+                    System.out.println("\u001B[32mPress enter to continue...\u001B[0m");
+        
                 } catch (InterruptedException e) {
                     // Challenge ended early
-                    e.printStackTrace();
                 }
             }
         });
@@ -98,40 +103,30 @@ public class Challenge implements Serializable {
         timerThread.start();
         startChallenge(timerThread);
     }
+
+    
+
     public void startChallenge(Thread timerThread) {
+        Scanner scanner = new Scanner(System.in);
         int totalMarks = 0;
         Duration totalDuration = Duration.ZERO;
+        LocalDateTime startTime = LocalDateTime.now();
 
-        System.out.println("Enter the correct answer for the given \n option in case you don't know, enter a minus (-) sign.");
+        System.out.println("\u001B[32mEnter the correct answer for the given \noption in case you don't know, enter a minus (-) sign\u001B[0m");
         System.out.println("=".repeat(100));
         int counter = 1;
 
         for (Question question : questions) {
-            if (!timerThread.isAlive()) {
-                System.out.println("Challenge has been interrupted.");
-                break;
-            }
-
+            // if(totalDuration.toMinutes() >= duration ){
+            //     System.out.println("\u001B[31mTime is up! Challenge has ended.\u001B[0m");
+            //     System.out.println("\u001B[32mPress enter to continue...\u001B[0m");
+            //     break;
+            // }
             question.displayQuestion(counter);
-
+            // start time for the question
             LocalTime questionStartTime = LocalTime.now();
-            InputRead inputReader = new InputRead();
 
-            while (!inputReader.isInterrupted() && inputReader.getInput() == null) {
-                try {
-                    Thread.sleep(100); // Small sleep to allow interrupt to be caught
-                } catch (InterruptedException e) {
-                    System.out.println("Input interrupted.");
-                    break;
-                }
-            }
-
-            if (inputReader.isInterrupted() || !timerThread.isAlive()) {
-                System.out.println("Challenge has been interrupted.");
-                break;
-            }
-
-            String userAnswer = inputReader.getInput();
+            String userAnswer = scanner.nextLine();
             LocalTime questionEndTime = LocalTime.now();
             Duration questionDuration = Duration.between(questionStartTime, questionEndTime);
             question.setTimetaken(questionDuration);
@@ -141,76 +136,30 @@ public class Challenge implements Serializable {
             totalDuration = totalDuration.plus(questionDuration);
             totalMarks += mark;
 
+            // Update remaining time and questions
             long minutesLeft = duration - totalDuration.toMinutes();
             System.out.println("Time remaining: " + minutesLeft + " minutes");
             System.out.println("Questions remaining: " + (questions.size() - counter + 1));
+
+            // Check if the allocated duration is exceeded
+            if(totalDuration.toMinutes() >= duration){
+                totalDuration = Duration.ofMinutes(duration);
+                // System.out.println("\u001B[31mTime is up! Challenge has ended.\u001B[0m");
+                // System.out.println("\u001B[32mPress enter to continue...\u001B[0m");
+                break;
+            }
+            
         }
 
         this.timetakenAttempting = getTimetaken(totalDuration);
         this.scoreOfChallenge = totalMarks;
-
+       
+        // Stop the timer thread if the challenge finishes early
         if (timerThread.isAlive()) {
             timerThread.interrupt();
         }
+        System.out.println("\u001B[1;92mCHALLENGE COMPLETED\u001B[0m");
     }
-
-
-    // private void endChallengeEarly() {
-    //     this.timetakenAttempting = getTimetaken(Duration.ofMinutes(duration));
-    //     this.scoreOfChallenge = calculateTotalScore();
-    // }
-
-    // public void startChallenge(Thread timerThread) {
-    //     Scanner scanner = new Scanner(System.in);
-    //     int totalMarks = 0;
-    //     Duration totalDuration = Duration.ZERO;
-    //     LocalDateTime startTime = LocalDateTime.now();
-
-    //     System.out.println("Enter the correct answer for the given \n option in case you don't know, enter a minus (-) sign.");
-    //     System.out.println("=".repeat(100));
-    //     int counter = 1;
-
-    //     for (Question question : questions) {
-    //     //     if ( Thread.interrupted()) {
-               
-    //     //         // Interrupt the timer thread if not already interrupted
-    //     //        break; // Exit the loop immediately
-    //     //    }
-    //         question.displayQuestion(counter);
-    //         // start time for the question
-    //         LocalTime questionStartTime = LocalTime.now();
-
-    //         String userAnswer = scanner.nextLine();
-    //         LocalTime questionEndTime = LocalTime.now();
-    //         Duration questionDuration = Duration.between(questionStartTime, questionEndTime);
-    //         question.setTimetaken(questionDuration);
-    //         int mark = question.checkAnswer(userAnswer);
-    //         System.out.println("_".repeat(100));
-    //         counter++;
-    //         totalDuration = totalDuration.plus(questionDuration);
-    //         totalMarks += mark;
-
-    //         // Update remaining time and questions
-    //         long minutesLeft = duration - totalDuration.toMinutes();
-    //         System.out.println("Time remaining: " + minutesLeft + " minutes");
-    //         System.out.println("Questions remaining: " + (questions.size() - counter + 1));
-
-    //         // Check if the allocated duration is exceeded
-    //         if ( Thread.interrupted()) {
-               
-    //              // Interrupt the timer thread if not already interrupted
-    //             break; // Exit the loop immediately
-    //         }
-    //     }
-
-    //     this.timetakenAttempting = getTimetaken(totalDuration);
-    //     this.scoreOfChallenge = totalMarks;
-
-    //     // Stop the timer thread if the challenge finishes early
-    //     if (timerThread.isAlive()) {
-    //         timerThread.interrupt();
-    //     }
-    // }
 
     public void getScore() {
         System.out.println(this.scoreOfChallenge);

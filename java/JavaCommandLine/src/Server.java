@@ -263,7 +263,19 @@ public class Server {
 
                                 
                         }else if(menuChoice2.equalsIgnoreCase("attemptChallenge")){
-                            //TODO implement the attempt challenge method/functionality
+                            //receving challengeid
+                            String challengeid = reader.readLine();
+                            if (!isChallengeValid(challengeid)){
+                                writer.write("error");//code error - challenge not found
+                                writer.newLine();
+                                writer.flush();
+                                break;//to resend menu
+                            }else{
+                                writer.write("success");//challenge exists
+                                writer.newLine();
+                                writer.flush();
+
+                            }
                         
                         
                        }else if(menuChoice2.equalsIgnoreCase("Quit")){
