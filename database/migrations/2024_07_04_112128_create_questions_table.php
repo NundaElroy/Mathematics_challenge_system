@@ -17,6 +17,9 @@ return new class extends Migration
     Schema::create('questions', function (Blueprint $table) {
     $table->string('questionid')->primary();
     $table->string('question_text');
+    $table->integer('marks');
+    $table->string('challengeId');
+    $table->foreign('challengeId')-> references('challengeid')->on('challenge')->onDelete('cascade');
     $table->timestamps();
 });
 

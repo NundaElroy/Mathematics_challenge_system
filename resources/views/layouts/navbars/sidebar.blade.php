@@ -50,7 +50,7 @@ Tip 2: you can also add an image using data-image tag
             </li>
 
             <li class="nav-item @if($activePage == 'challenges') active @endif">
-            <a class="nav-link" href="{{route('challenge.index', 'challenge')}}">
+            <a class="nav-link" href="{{route('challenges.index', 'challenges')}}">
                 <i class="nc-icon nc-notes"></i>
                 <p>{{ __("Challenges") }}</p>
             </a>

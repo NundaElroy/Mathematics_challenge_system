@@ -12,6 +12,7 @@ class Question extends Model
     protected $fillable = [
         'question_id',
         'question_text',
+        'challenegeId',
     ];
 
 
