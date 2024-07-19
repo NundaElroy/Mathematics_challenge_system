@@ -17,6 +17,7 @@ return new class extends Migration
     Schema::create('answers', function (Blueprint $table) {
     $table->string('answerid')->primary();
     $table->string('correct_answer');
+    $table->integer('marks');
     $table->string('question');
     $table->foreign('question')-> references('questionid')->on('questions')->onDelete('cascade');
 

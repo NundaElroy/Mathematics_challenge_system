@@ -17,5 +17,10 @@ class School extends Model
            'representative_name',
             'representative_email'
     ];
+    public function participants()
+    {
+        return $this->hasMany(Participant::class);
+    }
+
 }
 

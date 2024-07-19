@@ -21,4 +21,8 @@ class Challenge extends Model
         'number_of_questions',
         'duration',
     ];
+    public function participants()
+    {
+        return $this->belongsToMany(Participant::class);
+    }
 }

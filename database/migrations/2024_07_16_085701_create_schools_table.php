@@ -13,6 +13,7 @@ class CreateSchoolsTable extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('schools')) {
         Schema::create('schools', function (Blueprint $table) {
             $table->string('registration_no')->primary();
             $table->string('name');
@@ -24,6 +25,7 @@ class CreateSchoolsTable extends Migration
            
         });
     }
+}
 
     /**
      * Reverse the migrations.

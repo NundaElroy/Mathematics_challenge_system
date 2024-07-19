@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\QuestionController;
@@ -15,6 +16,15 @@ use App\Http\Controllers\PageController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+//route for guest view
+Route::get('/guest-welcome', function () {
+    return view('guest_welcome');
+})->name('guest.welcome');
+
+Route::get('/analytics', 'AnalyticsController@showAnalytics')->name('analytics');
+
+
 
 // Authentication routes
 Auth::routes();
@@ -36,7 +46,6 @@ Route::post('/admin/questions/upload', [QuestionController::class, 'uploadQuesti
 
 });
 
-
 // School routes
 Route::resource('/schools', SchoolController::class);
 
@@ -45,3 +54,5 @@ Route::resource('/challenges', ChallengeController::class);
 
 Route::get('/questions/upload', [QuestionController::class, 'showUploadForm'])->name('questions.questions-form');
 Route::post('/questions/upload', [QuestionController::class, 'uploadQuestions'])->name('questions.questions');
+Route::get('/challenges', [ChallengeController::class, 'index'])->name('challenges.index');
+

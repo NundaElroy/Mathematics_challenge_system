@@ -25,11 +25,19 @@
                         <i class="nc-icon nc-mobile"></i> {{ __('Login') }}
                     </a>
                 </li>
+                <li class="nav-item @if($activePage == 'guest.welcome') active @endif">
+                <a href="{{ route('guest.welcome') }}" class="nav-link">
+                <i class="nc-icon nc-badge"></i>{{ __('Guest View') }}
+            </a>
+                </li>
             </ul>
+            </div>
+
+
+            
         </div>
 
        
-    </div>
-    </div>
+    
     </body>
 </nav>

@@ -22,7 +22,7 @@ class CreateParticipantsTable extends Migration
             $table->date('DOB');
             $table->binary('image');
             $table->string('school_registration_no');
-            $table->foreign('school_registration_no')-> references('registration_no')->on('schools')->onDelete('cascade');
+            $table->foreignId('school_registration_no')-> references('registration_no')->on('schools')->onDelete('cascade');
             $table->timestamps();
         });
     }

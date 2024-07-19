@@ -13,7 +13,8 @@ class CreateChallengeTable extends Migration
      */
     public function up()
     {
-        Schema::create('challenge', function (Blueprint $table) {
+        if (!Schema::hasTable('challenge')) {
+            Schema::create('challenge', function (Blueprint $table) {
             $table->string('challengeid')->primary();
             $table->date('opening_date');
             $table->date('closing_date');
@@ -25,7 +26,7 @@ class CreateChallengeTable extends Migration
             // Add other constraints if necessary
         });
     }
-
+}
     /**
      * Reverse the migrations.
      *

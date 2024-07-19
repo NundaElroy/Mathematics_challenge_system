@@ -62,6 +62,15 @@ Tip 2: you can also add an image using data-image tag
                     <p>{{ __("Notifications") }}</p>
                 </a>
             </li>
+      <!--added a nav link for guest view-->
+      <li class="nav-item{{ $activePage == 'guest_welcome' ? ' active' : '' }}">
+    <a class="nav-link" href="{{ route('guest.welcome') }}">
+        <i class="nc-icon nc-layout-11"></i>
+        <p>{{ __('Guest Welcome') }}</p>
+    </a>
+</li>
+<!--stops here-->
+
 
         </ul>
     </div>

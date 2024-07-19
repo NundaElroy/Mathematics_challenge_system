@@ -174,7 +174,7 @@
                         <div class="card-footer ">
                             <hr>
                             <div class="stats">
-                                <i class="now-ui-icons loader_refresh spin"></i> {{ __('Updated by group i, 3 minutes ago') }}
+                                <i class="now-ui-icons loader_refresh spin"></i> {{ __('Updated by group I, 3 minutes ago') }}
                             </div>
                         </div>
                     </div>

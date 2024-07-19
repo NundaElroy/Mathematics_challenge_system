@@ -1,4 +1,3 @@
-@extends('layouts/app', ['activePage' => 'welcome', 'title' => 'Light Bootstrap Dashboard Laravel by Creative Tim & UPDIVISION'])
 <head>
     
   
@@ -6,7 +5,7 @@
 <body>
 
     @section('content')
-    <div class="full-page section-image" data-image="{{asset('light-bootstrap/img/math-problem.jpg')}}">
+    <div class="full-page section-image" data-image="{{asset('light-bootstrap/img/Students.jpg')}}">
     <div class="content">
     <div class="text-center">
     <img src="{{asset('light-bootstrap/img/logo1.png')}}" alt="logo" class="logo">
@@ -18,7 +17,10 @@
                     <h4 class="text-white text-center"><i>{{ __(' "Unlock the Potential of Mathematics,One Challenge Gradually in Succession" ') }}</i></h4>
                 </div>
             </div>
-            
+            <div class="text-center">
+                <a href="{{ route('guest.welcome') }}" class="btn btn-primary">{{ __('Guest Welcome') }}</a>
+                
+            </div>
             <div class="container" data-color="white" style="padding:1em;position:absolute;bottom:0;">
             <footer style="color: white;">
             <p>&copy;{{date('Y')}}</p>
@@ -43,10 +45,7 @@
     $(document).ready(function() {
         demo.checkFullPageBackgroundImage();
 
-        setTimeout(function() {
-            // after 1000 ms we add the class animated to the login/register card
-            $('.card').removeClass('card-hidden');
-        }, 700)
+        
     });
 </script>
 @endpush

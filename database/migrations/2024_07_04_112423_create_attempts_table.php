@@ -38,6 +38,11 @@ class CreateAttemptsTable extends Migration
         Schema::table('attempts', function (Blueprint $table) {
             // Assuming 'attempts_user_id_foreign' is the convention Laravel uses for naming foreign key constraints
             $table->dropForeign(['participantid']);
+            $table->foreignId('challenge_id')->constrained()->onDelete('cascade');
+            $table->integer('score');
+            $table->enum('status', ['completed', 'incomplete']);
+            $table->timestamps();
+
         });
         Schema::dropIfExists('attempts');
     }
