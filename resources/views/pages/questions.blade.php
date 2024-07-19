@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow-lg">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header bg-info text-white">
                     <h2 class="mb-0">Upload Questions and Answers</h2>
                 </div>
                 <div class="card-body">
@@ -46,7 +46,7 @@
                             <input type="file" class="form-control" id="answers_file" name="answers_file" required>
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary btn-lg">Upload</button>
+                            <button type="submit" class="btn btn-info btn-lg">Upload</button>
                         </div>
                     </form>
                 </div>

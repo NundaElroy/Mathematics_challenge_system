@@ -9,19 +9,16 @@ class Question extends Model
 {
     use HasFactory;
 
+    protected $table = 'questions';
+
     protected $fillable = [
-        'question_id',
+        'questionid',
         'question_text',
-        'challenegeId',
+        'marks',
+        'challengeId',
     ];
 
 
 
-    /**
-     * Get the answers for the question.
-     */
-    public function answers()
-    {
-        return $this->hasMany(Answer::class);
-    }
+  
 }

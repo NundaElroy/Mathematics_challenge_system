@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'register', 'title' => 'Light Bootstrap Dashboard Laravel by Creative Tim & UPDIVISION'])
+@extends('layouts.app', ['activePage' => 'register', 'title' => 'register'])
 
 @section('content')
     <div class="full-page register-page section-image" data-image="{{ asset('light-bootstrap/img/bg-image.jpg') }}">
