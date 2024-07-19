@@ -50,6 +50,10 @@ Route::post('/admin/questions/upload', [QuestionController::class, 'uploadQuesti
 Route::resource('/schools', SchoolController::class);
 
 Route::resource('/challenges', ChallengeController::class);
+ 
+//new routes to handle importing of excel file
+Route::post('/challenges/upload-questions', [ChallengeController::class, 'uploadQuestions'])->name('questions.upload');
+Route::post('/challenges/upload-answers', [ChallengeController::class, 'uploadAnswers'])->name('answers.upload');
 
 
 Route::get('/questions/upload', [QuestionController::class, 'showUploadForm'])->name('questions.questions-form');

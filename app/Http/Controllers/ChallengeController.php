@@ -1,9 +1,12 @@
 <?php
-
 namespace App\Http\Controllers;
 
+
+use App\Imports\AnswerImport;
+use App\Imports\QuestionImport;
 use App\Models\Challenge;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ChallengeController extends Controller
 {
@@ -32,7 +35,7 @@ class ChallengeController extends Controller
 
         Challenge::create($request->all());
 
-        return redirect()->route('challenges.index')->with('success', 'Challenge created successfully.');
+        return response()->json(['success' => true, 'message' => 'Challenge created successfully']);
     }
 
     public function show($challengeid)
@@ -73,5 +76,31 @@ class ChallengeController extends Controller
         $challenge->delete();
 
         return redirect()->route('challenges.index')->with('success', 'Challenge deleted successfully.');
+    }
+
+    //submit question file funtions
+    public function uploadQuestions(Request $request)
+    {
+      
+        $request->validate([
+            'import_question_file' => 'required|file|mimes:xlsx,xls',
+        ]);
+
+        Excel::import(new  QuestionImport, $request->file('import_question_file'));
+
+        return response()->json(['success' => true, 'message' => 'Questions imported successfully']);
+    }
+
+    //handling uploading of answer.xlxs
+    public function uploadAnswers(Request $request)
+    {
+      
+        $request->validate([
+            'import_answer_file' => 'required|file|mimes:xlsx,xls',
+        ]);
+
+        Excel::import(new  AnswerImport, $request->file('import_answer_file'));
+
+        return response()->json(['success' => true, 'message' => 'Answers imported successfully']);
     }
 }
