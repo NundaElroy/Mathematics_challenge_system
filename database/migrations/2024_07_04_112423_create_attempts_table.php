@@ -14,8 +14,8 @@ class CreateAttemptsTable extends Migration
     public function up()
     {
         Schema::create('attempts', function (Blueprint $table) {
-            $table->string('attemptid')->primary();
-            $table->string('participantid');
+            $table->increments('attemptid');
+            $table->unsignedInteger('participantid');
             $table->foreign('participantid')-> references('participantid')->on('participants')->onDelete('cascade');
             $table->string('school_registration_no');
             $table->foreign('school_registration_no')-> references('registration_no')->on('schools')->onDelete('cascade');
