@@ -81,25 +81,25 @@ class ChallengeController extends Controller
     //submit question file funtions
     public function uploadQuestions(Request $request)
     {
-      
         $request->validate([
             'import_question_file' => 'required|file|mimes:xlsx,xls',
         ]);
 
-        Excel::import(new  QuestionImport, $request->file('import_question_file'));
+        // Clear previous mapping from session
+        session()->forget('questionMap');
+
+        Excel::import(new QuestionImport, $request->file('import_question_file'));
 
         return response()->json(['success' => true, 'message' => 'Questions imported successfully']);
     }
 
-    //handling uploading of answer.xlxs
     public function uploadAnswers(Request $request)
     {
-      
         $request->validate([
             'import_answer_file' => 'required|file|mimes:xlsx,xls',
         ]);
 
-        Excel::import(new  AnswerImport, $request->file('import_answer_file'));
+        Excel::import(new AnswerImport, $request->file('import_answer_file'));
 
         return response()->json(['success' => true, 'message' => 'Answers imported successfully']);
     }

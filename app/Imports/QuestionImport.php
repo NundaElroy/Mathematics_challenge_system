@@ -1,27 +1,46 @@
 <?php
-
+// QuestionImport.php
 namespace App\Imports;
-
 
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use App\Models\Question;
-class QuestionImport implements ToCollection
+use Illuminate\Support\Facades\Log;
+
+class QuestionImport implements ToCollection, WithHeadingRow
 {
-    /**
-    * @param Collection $collection
-    */
     public function collection(Collection $rows)
     {
-        $rows = $rows->skip(1);
+        // Clear any existing question map from the session
+        session()->forget('questionMap');
+
+        $questionMap = [];
+
         foreach ($rows as $row) 
         {
-            Question::create([
-                'questionid' => $row[0],
-                'question_text' => $row[1],
-                'marks' => $row[2],
-                'challengeId' => $row[3],
-            ]);
+            try {
+                // Log the row being processed
+                Log::info('Processing question row:', $row->toArray());
+
+                $question = Question::create([
+                    'question_text' => $row['question_text'],
+                    'marks' => $row['marks'],
+                    'challengeId' => $row['challengeid'],
+                ]);
+
+                // Store the mapping
+                $questionMap[$row['question_text']] = $question->id;
+
+                // Log successful creation
+                Log::info('Created question:', ['id' => $question->id, 'text' => $row['question_text']]);
+            } catch (\Exception $e) {
+                // Log any errors
+                Log::error('Error creating question:', ['error' => $e->getMessage(), 'row' => $row->toArray()]);
+            }
         }
+
+        // Store the mapping in session
+        session(['questionMap' => $questionMap]);
     }
 }
