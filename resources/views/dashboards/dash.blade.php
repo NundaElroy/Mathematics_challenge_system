@@ -3,60 +3,73 @@
 
 
 @section('content')
-<div class="container">
+<div class="container" style="margin-top: 20px;">
     <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">Participants</div>
+        <div class="col-md-4 mb-4">
+            <div class="card bg-info text-dark" style="border-radius: 0;">
+                <div class="card-header" style="font-size: 1.2rem; font-weight: bold;">
+                    <i class="bi bi-people" style="font-size: 2rem; margin-right: 10px;"></i>Participants
+                </div>
                 <div class="card-body">
-                    <h3>{{ $participantsCount }}</h3>
+                    <h3 style="font-size: 2.5rem;">{{ $participantsCount }}</h3>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">Challenges</div>
+        <div class="col-md-4 mb-4">
+            <div class="card bg-info text-dark" style="border-radius: 0;">
+                <div class="card-header" style="font-size: 1.2rem; font-weight: bold;">
+                    <i class="bi bi-trophy" style="font-size: 2rem; margin-right: 10px;"></i>Challenges
+                </div>
                 <div class="card-body">
-                    <h3>{{ $challengesCount }}</h3>
+                    <h3 style="font-size: 2.5rem;">{{ $challengesCount }}</h3>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">Questions</div>
+        <div class="col-md-4 mb-4">
+            <div class="card bg-info text-dark" style="border-radius: 0;">
+                <div class="card-header" style="font-size: 1.2rem; font-weight: bold;">
+                    <i class="bi bi-question-circle" style="font-size: 2rem; margin-right: 10px;"></i>Questions
+                </div>
                 <div class="card-body">
-                    <h3>{{ $questionsCount }}</h3>
+                    <h3 style="font-size: 2.5rem;">{{ $questionsCount }}</h3>
                 </div>
             </div>
         </div>
     </div>
     <div class="row mt-4">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">Schools</div>
+        <div class="col-md-4 mb-4">
+            <div class="card bg-info text-dark" style="border-radius: 0;">
+                <div class="card-header" style="font-size: 1.2rem; font-weight: bold;">
+                    <i class="bi bi-building" style="font-size: 2rem; margin-right: 10px;"></i>Schools
+                </div>
                 <div class="card-body">
-                    <h3>{{ $schoolsCount }}</h3>
+                    <h3 style="font-size: 2.5rem;">{{ $schoolsCount }}</h3>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">Attempts</div>
+        <div class="col-md-4 mb-4">
+            <div class="card bg-info text-dark" style="border-radius: 0;">
+                <div class="card-header" style="font-size: 1.2rem; font-weight: bold;">
+                    <i class="bi bi-clipboard-check" style="font-size: 2rem; margin-right: 10px;"></i>Attempts
+                </div>
                 <div class="card-body">
-                    <h3>{{ $attemptsCount }}</h3>
+                    <h3 style="font-size: 2.5rem;">{{ $attemptsCount }}</h3>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">Rejected</div>
+        <div class="col-md-4 mb-4">
+            <div class="card bg-info text-dark" style="border-radius: 0;">
+                <div class="card-header" style="font-size: 1.2rem; font-weight: bold;">
+                    <i class="bi bi-x-circle" style="font-size: 2rem; margin-right: 10px;"></i>Rejected
+                </div>
                 <div class="card-body">
-                    <h3>{{ $rejectedCount }}</h3>
+                    <h3 style="font-size: 2.5rem;">{{ $rejectedCount }}</h3>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 @endsection
 
 <!-- @section('content')
