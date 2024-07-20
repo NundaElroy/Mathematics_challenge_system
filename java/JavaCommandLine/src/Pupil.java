@@ -24,7 +24,7 @@ public class Pupil  {
     }
     public static void main(String[] args) {
        
-        
+        System.out.println(manageFilePath(" janedoe.jpeg"));
         
     }
 
@@ -117,7 +117,7 @@ public void setStatus(boolean status){
 }
 
 private static String manageFilePath(String jpeg){
-    return AppConfig.getImageFolderPath() + jpeg;
+    return "C:\\Users\\elvoy\\OneDrive\\Desktop\\photos\\" + jpeg;
 }
 
 
@@ -155,5 +155,33 @@ private static byte [] loadImage(String FilePathOfImage){
 //override of the toString method
 public String toString(){
     return "Registration Number: " + RegistrationNumber + "\n" + "UserName: " + UserName  + "FirstName: " + FirstName + "\n" + "LastName: " + LastName + "\n" + "EmailAddress: " + EmailAddress + "\n" + "DateOfBirth: " + DateOfBirth + "\n" + "Status: " + Status + "\n" + "Photo: " + FilePathOfImage + "\n";
+}
+
+//method returns the participant id for a given user
+public static int getParticipantIdByUsername(String username) {
+    int participantId = -1; // Default or error value
+    String url = "jdbc:mysql://localhost:3306/mathematics_challenge"; 
+    String dbUsername = "root"; 
+    String password = ""; // Update with the actual password
+
+    String query = "SELECT participantid FROM participants WHERE username = ?";
+
+    try (Connection conn = DriverManager.getConnection(url, dbUsername, password);
+         PreparedStatement pstmt = conn.prepareStatement(query)) {
+        
+        pstmt.setString(1, username); // Set the username parameter
+        
+        try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                participantId = rs.getInt("participantid");
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return participantId;
+}
+public boolean getStatus(){
+    return Status;
 }
 }

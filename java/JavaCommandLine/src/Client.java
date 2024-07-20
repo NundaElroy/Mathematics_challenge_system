@@ -19,7 +19,7 @@ public class Client  {
         scanner = new Scanner(System.in);
         System.out.println("connected to server");
         System.out.println("_".repeat(50));
-        System.out.println("welcome to the mathematics challenge commandLine system");
+        System.out.println("\033[1;36mwelcome to the mathematics challenge commandLine system\033[0m");
         while (true) {
             
             String line;
@@ -34,7 +34,7 @@ public class Client  {
                 
                 System.out.println(line);
             }
-            System.out.println("note for register use register/username/password/firstname/lastname/email/dob/photoPath");
+            System.out.println("\033[0;32mnote for register use register/username/password/firstname/lastname/email/dob/photoPath\033[0m");
 
            //prompting the user for a response
             System.out.println("_".repeat(50));
@@ -68,22 +68,26 @@ public class Client  {
                 
                 
                 System.out.println("_".repeat(50));
-                System.out.println("confirm your details if correct:enter yes or no for not incorrect/order");
+                System.out.println("\u001B[32mconfirm your details if correct: enter yes or no for not incorrect/order\u001B[0m");
                 System.out.println("_".repeat(50));
                 String confirm = scanner.nextLine();
                 
                 if (confirm.equalsIgnoreCase("yes")) {
                     System.out.println(registrationDetails);
                     //sending the registration details to the server
+                    System.out.println("_".repeat(50));
+                    System.out.println("\u001B[32mloading.... wait a moment\u001B[0m");
+                    System.out.println("_".repeat(50));
                     writer.write(registrationDetails);
                     writer.newLine();
                     writer.flush();
                     System.out.println(reader.readLine());
+                    System.out.println("_".repeat(50));
                     break;
                 }else{
-                    System.out.println("try again");
+                    System.out.println("\033[0;31mtry again\033[0m");
                     System.out.println("_".repeat(50));
-                    System.out.println(" try again regsiter/username/password/firstname/lastname/email/dob/photoPath");
+                    System.out.println("\u001B[31mtry again regsiter/username/password/firstname/lastname/email/dob/photoPath\u001B[0m");
                     String tryAgainResponse = scanner.nextLine();
                     responseArray = tryAgainResponse.split("/");
                     System.out.println("_".repeat(50));
@@ -216,10 +220,10 @@ public class Client  {
                      }
                      
                  }else if (repResponse.equalsIgnoreCase("quit")){
-                     System.out.println("representative logged out");
+                    System.out.println("\033[0;32mrepresentative logged out\033[0m");
                      break;
                  }else{
-                     System.out.println("invalid response");
+                    System.out.println("\033[0;31minvalid response\033[0m");
  
                  }
 
@@ -275,16 +279,38 @@ public class Client  {
 
                       //handling the response
                       if(serverRepRegardingChallenge.equalsIgnoreCase("error")){
+                        System.out.println("_".repeat(50));
                         System.out.println("\u001B[31m invalid challenge/doesnot exist\u001B[0m");
-                        break;
-                      }else{
+                        System.out.println("_".repeat(50));
                         
+                      }else if(serverRepRegardingChallenge.equalsIgnoreCase("success")){
+                        //server retrieving data and setting up the challenge so user is waiting 
+                        System.out.println("_".repeat(50));
+                        System.out.println("\u001B[32mloading.....please wait as we set up the challenge\u001B[0m");
+                        System.out.println("_".repeat(50));
+                        //receiving and deserializing challenge object
+                        ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
+                        
+                        Challenge challenge = (Challenge)inputStream.readObject();
+                        //Starting the challenge
+                        challenge.startTimedChallenge();
+                        //sending back challenge object after attempt
+                        ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+                        outputStream.writeObject(challenge);
+
+                        System.out.println("_".repeat(50));
+                        System.out.println("\u001B[32myou can check out other available challenges\u001B[0m");
+                        System.out.println("_".repeat(50));
+                        System.out.println("\u001B[32mloading.....please wait as we fetch the menu\u001B[0m");
+                        System.out.println("_".repeat(50));
+                        System.out.println("_".repeat(50));
+                    
                       }
 
                      
                       
                   }else if (participantResponse.equalsIgnoreCase("quit")){
-                      System.out.println("participant logged out");
+                      System.out.println("\033[0;32mparticipant logged out\033[0m");
                       break;
                   }else{
 

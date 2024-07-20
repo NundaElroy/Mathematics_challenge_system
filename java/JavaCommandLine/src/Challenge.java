@@ -5,13 +5,15 @@ import java.util.*;
 import java.time.*;
 
 public class Challenge implements Serializable {
-    private int challengeId;
+    public int challengeId;
     private Date openDate;
     private Date closeDate;
     private int duration; // in minutes
-    private String timetakenAttempting;
-    private int scoreOfChallenge;
-    private List<Question> questions; // holds the questions(10) for the challenge
+    public String timetakenAttempting;
+    private String challengeName;
+    private int number_of_questions;
+    public int scoreOfChallenge;
+    public List<Question> questions; // holds the questions(10) for the challenge
 
     // will be used when attempting the challenge
     public Challenge(int challengeId, int duration, List<Question> questions) {
@@ -22,15 +24,17 @@ public class Challenge implements Serializable {
 
     // constructor that will be used to display the available challenges
     // overloaded constructor
-    public Challenge(int challengeId, Date openDate, Date closeDate, int duration) {
+    public Challenge(int challengeId, Date openDate, Date closeDate, int duration,int number_of_questions, String challengeName) {
         this.challengeId = challengeId;
         this.openDate = openDate;
         this.closeDate = closeDate;
         this.duration = duration;
+        this.number_of_questions = number_of_questions;
+        this.challengeName = challengeName;
     }
 
     public static void main(String[] args) {
-        List<Question> questions = Question.fetchRandomQuestions();
+        List<Question> questions = Question.fetchRandomQuestions(4444);
         Challenge challenge = new Challenge(4444, 1, questions);
         challenge.startTimedChallenge();
         System.out.println("Time taken: " + challenge.timetakenAttempting);
@@ -50,7 +54,7 @@ public class Challenge implements Serializable {
     // Static method to display all valid available challenges
     public static List<Challenge> displayAvailableChallenges() {
         List<Challenge> availableChallenges = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mathematics_challenge_db", "root", "");
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mathematics_challenge", "root", "");
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery("SELECT * FROM challenge WHERE CURDATE() BETWEEN opening_date AND closing_date")) {
             System.out.println("Executing query...");
@@ -58,8 +62,10 @@ public class Challenge implements Serializable {
                 int id = rs.getInt("challengeid");
                 Date openDate = rs.getDate("opening_date");
                 Date closeDate = rs.getDate("closing_date");
+                String challengeName = rs.getString("challenge_name");
                 int duration = rs.getInt("duration");
-                Challenge challenge = new Challenge(id, openDate, closeDate, duration);
+                int numberOfQuestions = rs.getInt("number_of_questions");
+                Challenge challenge = new Challenge(id, openDate, closeDate,  duration, numberOfQuestions,challengeName);
                 availableChallenges.add(challenge);
             }
         } catch (SQLException e) {
@@ -67,20 +73,24 @@ public class Challenge implements Serializable {
         }
         return availableChallenges;
     }
+    
 
-    // static method to print out the challenges from a list
+
     // static method to print out the challenges from a list
     public static void printOutChallenges(List<Challenge> availableChallenges) {
         // Print the header
-        System.out.printf("%-20s %-20s %-20s %-20s%n", "Challenge ID", "Open Date", "Close Date", "Duration");
-        System.out.println("".repeat(80)); // Separator line
+        System.out.printf("%-20s %-25s %-20s %-20s %-20s %-15s%n", "Challenge ID", "Challenge Name", "Open Date", "Close Date", "Number of Questions", "Duration");
+    
+        System.out.println("".repeat(120)); // Separator line
     
         // Print each challenge in tabular format
         for (Challenge challenge : availableChallenges) {
-            System.out.printf("%-20s %-20s %-20s %-20s minutes%n",
+            System.out.printf("%-20s %-25s %-20s %-20s %-20s %-15s minutes%n",
                     challenge.challengeId,
+                    challenge.challengeName,
                     challenge.openDate,
                     challenge.closeDate,
+                    challenge.number_of_questions,
                     challenge.duration);
         }
     }
@@ -117,11 +127,7 @@ public class Challenge implements Serializable {
         int counter = 1;
 
         for (Question question : questions) {
-            // if(totalDuration.toMinutes() >= duration ){
-            //     System.out.println("\u001B[31mTime is up! Challenge has ended.\u001B[0m");
-            //     System.out.println("\u001B[32mPress enter to continue...\u001B[0m");
-            //     break;
-            // }
+            
             question.displayQuestion(counter);
             // start time for the question
             LocalTime questionStartTime = LocalTime.now();
@@ -144,8 +150,7 @@ public class Challenge implements Serializable {
             // Check if the allocated duration is exceeded
             if(totalDuration.toMinutes() >= duration){
                 totalDuration = Duration.ofMinutes(duration);
-                // System.out.println("\u001B[31mTime is up! Challenge has ended.\u001B[0m");
-                // System.out.println("\u001B[32mPress enter to continue...\u001B[0m");
+            
                 break;
             }
             
@@ -161,6 +166,66 @@ public class Challenge implements Serializable {
         System.out.println("\u001B[1;92mCHALLENGE COMPLETED\u001B[0m");
     }
 
+    //checks if the challenge the participant wants to answer is valid
+    public static boolean isChallengeValid(int chall_id) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        boolean isValid = false;
+        try {
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            
+            String url = "jdbc:mysql://localhost:3306/mathematics_challenge";
+            conn = DriverManager.getConnection(url, "root", "");
+            
+            // Prepare the SQL statement
+            String sql = "SELECT * FROM challenge WHERE challengeid = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, chall_id);
+            
+            // Execute the query
+            rs = pstmt.executeQuery();
+            
+            // Check the result
+            isValid = rs.next();
+        } catch (ClassNotFoundException e) {
+            System.out.println("Database driver not found.");
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+        } finally {
+            // Close resources
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                System.out.println("Error closing resources: " + e.getMessage());
+            }
+        }
+        return isValid;
+    }
+  //method to fetch challenge by id
+    public static int getDurationByChallengeId(int challengeId) {
+        String url = "jdbc:mysql://localhost:3306/mathematics_challenge";
+        try (Connection conn = DriverManager.getConnection(url, "root", "");
+             PreparedStatement pstmt = conn.prepareStatement("SELECT duration FROM challenge WHERE challengeid = ?")) {
+            
+            pstmt.setInt(1, challengeId);
+            
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("duration");
+                } else {
+                    return -1; // Challenge ID not found
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
     public void getScore() {
         System.out.println(this.scoreOfChallenge);
     }

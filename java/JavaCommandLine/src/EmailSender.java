@@ -45,8 +45,8 @@ public class EmailSender {
         properties.put("mail.smtp.auth",true);
         properties.put("mail.smtp.starttls.enable",true);
         properties.put("mail.transport.protocol","smtp");
-        properties.put("mail.smtp.starttls.required","true");
-        properties.put("mail.smtp.ssl.protocols","TLSv1.2" );
+        // properties.put("mail.smtp.starttls.required","true");
+        // properties.put("mail.smtp.ssl.protocols","TLSv1.2" );
         properties.put("mail.smtp.ssl.trust","smtp.gmail.com");
         // properties.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
         properties.put("mail.debug", true);
@@ -144,7 +144,7 @@ public class EmailSender {
         
             String body;
             if (isAccepted) {
-                body = "<h1>Congratulations: You've Been Accepted!</h1>" +
+                body = "<h1>Application Status</h1>" +
                         "<p>Dear " + applicantData[2] + " " + applicantData[3] + ",</p>" +
                         "<p>We are thrilled to inform you that your application has been accepted. Welcome to the team!</p>" +
                         "<p>Your Details:<br>" +
@@ -154,7 +154,7 @@ public class EmailSender {
                         "<p>Best regards,</p>" +
                         "<p>kasana Timothy<br>Head of Representatives</p>";
             } else {
-                body = "<h1>Application Status: Not Accepted</h1>" +
+                body = "<h1>Application Status</h1>" +
                         "<p>Dear " + applicantData[2] + " " + applicantData[3] + ",</p>" +
                         "<p>After careful consideration, we regret to inform you that your application has not been accepted at this time.</p>" +
                         "<p>We appreciate your interest and encourage you to apply again in the future.</p>" +
