@@ -10,7 +10,6 @@ class Answer extends Model
     use HasFactory;
 
     protected $fillable = [
-        'answerid',
         'correct_answer',
         'question',
     ];
