@@ -5,7 +5,7 @@ import java.util.*;
 import java.time.*;
 
 public class Challenge implements Serializable {
-    public int challengeId;
+    public String challengeId;
     private Date openDate;
     private Date closeDate;
     private int duration; // in minutes
@@ -16,7 +16,7 @@ public class Challenge implements Serializable {
     public List<Question> questions; // holds the questions(10) for the challenge
 
     // will be used when attempting the challenge
-    public Challenge(int challengeId, int duration, List<Question> questions) {
+    public Challenge(String challengeId, int duration, List<Question> questions) {
         this.challengeId = challengeId;
         this.duration = duration;
         this.questions = questions;
@@ -24,7 +24,7 @@ public class Challenge implements Serializable {
 
     // constructor that will be used to display the available challenges
     // overloaded constructor
-    public Challenge(int challengeId, Date openDate, Date closeDate, int duration,int number_of_questions, String challengeName) {
+    public Challenge(String challengeId, Date openDate, Date closeDate, int duration,int number_of_questions, String challengeName) {
         this.challengeId = challengeId;
         this.openDate = openDate;
         this.closeDate = closeDate;
@@ -33,23 +33,28 @@ public class Challenge implements Serializable {
         this.challengeName = challengeName;
     }
 
-    public static void main(String[] args) {
-        List<Question> questions = Question.fetchRandomQuestions(4444);
-        Challenge challenge = new Challenge(4444, 1, questions);
-        challenge.startTimedChallenge();
-        System.out.println("Time taken: " + challenge.timetakenAttempting);
-        System.out.println("Score: " + challenge.scoreOfChallenge);
+    // public static void main(String[] args) {
+    //     //fetch based on challengeid and property number of questions
+    //     List<Question> questions = Question.fetchRandomQuestions(4444,10);
+    //     Challenge challenge = new Challenge(4444, 1, questions);
+    //     challenge.startTimedChallenge();
+    //     System.out.println("Time taken: " + challenge.timetakenAttempting);
+    //     System.out.println("Score: " + challenge.scoreOfChallenge);
 
-        Attempt attempt = new Attempt(challenge.challengeId, 1, challenge.scoreOfChallenge, challenge.timetakenAttempting);
-        int attempt_id_generated = attempt.insertIntoDatabase();
-        System.out.println("Attempt ID: " + attempt_id_generated);
+    //     Attempt attempt = new Attempt(challenge.challengeId, 1, "1001",challenge.scoreOfChallenge, challenge.timetakenAttempting);
+    //     int attempt_id_generated = attempt.insertIntoDatabase();
+    //     System.out.println("Attempt ID: " + attempt_id_generated);
+    //     System.out.println(attempt.toString());
 
-        for (Question question : challenge.questions) {
-            AttemptDetails attemptDetails = new AttemptDetails(attempt_id_generated, question.getQuestionId(), 1,
-                    question.getParticipantAnswer(), question.getTimetaken(), question.getMarksScored());
-            attemptDetails.insertIntoDatabase();
-        }
-    }
+    //     for (Question question : challenge.questions) {
+    //         question.displayQuestionDetails();
+    //         AttemptDetails attemptDetails = new AttemptDetails(attempt_id_generated, question.getQuestionId(), 1,"4444",
+    //                 question.getParticipantAnswer(),question.getCorrectAnswer(), question.getTimetaken(), question.getMarksScored());
+    //                 attemptDetails.insertIntoDatabase();
+    //         System.out.println(attemptDetails.toString());
+    //     }
+        
+    // }
 
     // Static method to display all valid available challenges
     public static List<Challenge> displayAvailableChallenges() {
@@ -59,7 +64,7 @@ public class Challenge implements Serializable {
              ResultSet rs = statement.executeQuery("SELECT * FROM challenge WHERE CURDATE() BETWEEN opening_date AND closing_date")) {
             System.out.println("Executing query...");
             while (rs.next()) {
-                int id = rs.getInt("challengeid");
+                String id = rs.getString("challengeid");
                 Date openDate = rs.getDate("opening_date");
                 Date closeDate = rs.getDate("closing_date");
                 String challengeName = rs.getString("challenge_name");
@@ -120,7 +125,7 @@ public class Challenge implements Serializable {
         Scanner scanner = new Scanner(System.in);
         int totalMarks = 0;
         Duration totalDuration = Duration.ZERO;
-        LocalDateTime startTime = LocalDateTime.now();
+        
 
         System.out.println("\u001B[32mEnter the correct answer for the given \noption in case you don't know, enter a minus (-) sign\u001B[0m");
         System.out.println("=".repeat(100));
@@ -136,11 +141,11 @@ public class Challenge implements Serializable {
             LocalTime questionEndTime = LocalTime.now();
             Duration questionDuration = Duration.between(questionStartTime, questionEndTime);
             question.setTimetaken(questionDuration);
-            int mark = question.checkAnswer(userAnswer);
+          
             System.out.println("_".repeat(100));
             counter++;
             totalDuration = totalDuration.plus(questionDuration);
-            totalMarks += mark;
+            
 
             // Update remaining time and questions
             long minutesLeft = duration - totalDuration.toMinutes();
@@ -149,11 +154,15 @@ public class Challenge implements Serializable {
 
             // Check if the allocated duration is exceeded
             if(totalDuration.toMinutes() >= duration){
+                // assign empty string  incase of a participant  answering beyond the give time
                 totalDuration = Duration.ofMinutes(duration);
+                question.checkAnswer("");
             
                 break;
             }
-            
+            //helps handling the questions handled beyond the given time
+            int mark = question.checkAnswer(userAnswer);
+            totalMarks += mark;
         }
 
         this.timetakenAttempting = getTimetaken(totalDuration);
@@ -236,6 +245,47 @@ public class Challenge implements Serializable {
         long minutes = duration.toMinutes() % 60;
         long seconds = duration.getSeconds() % 60;
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
+    public static int getNumberOfQuestionForChallenge(String challengeid){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int no_of_questions = -1;
+        try {
+            
+            Class.forName("com.mysql.jdbc.Driver");
+            
+            
+            String url = "jdbc:mysql://localhost:3306/mathematics_challenge";
+            conn = DriverManager.getConnection(url, "root", "");
+            
+            // Prepare the SQL statement
+            String sql = "SELECT number_of_questions FROM challenge WHERE challengeid = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, challengeid);
+            
+            // Execute the query
+            rs = pstmt.executeQuery();
+            while(rs.next()){
+                no_of_questions = rs.getInt("number_of_questions");
+            }
+
+        } catch (ClassNotFoundException e) {
+            System.out.println("Database driver not found.");
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+        } finally {
+            // Close resources
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                System.out.println("Error closing resources: " + e.getMessage());
+            }
+        }
+       return no_of_questions;
     }
 
     private int calculateTotalScore() {

@@ -286,9 +286,15 @@ public class Server {
                         }else if(menuChoice2.equalsIgnoreCase("attemptChallenge")){
                             //receving challengeid
                             String participantUsername = partitcipantUserName;
-                            int participantIdFromDB = Pupil.getParticipantIdByUsername(participantUsername);
+                            Pupil pupil1 = Pupil.getParticipantIdAndSchoolRegNoByUsername(participantUsername);
+                            int participantIdFromDB = pupil1.getParticipantId();
+                            String schoolRegNoFromDb = pupil1.getSchoolRegno();
                             String challengeid = reader.readLine();
-                            if (!Challenge.isChallengeValid(Integer.parseInt(challengeid))){
+                            //number of questions for that challenge
+                            System.out.println(!Challenge.isChallengeValid(Integer.parseInt(challengeid)));
+                            System.out.println(!Attempt.checkForNumberForNoPerChallenge(participantIdFromDB,challengeid));
+                            
+                            if ((!Challenge.isChallengeValid(Integer.parseInt(challengeid))) && (!Attempt.checkForNumberForNoPerChallenge(participantIdFromDB,challengeid))){
                                 writer.write("error");//code error - challenge not found
                                 writer.newLine();
                                 writer.flush();
@@ -297,13 +303,14 @@ public class Server {
                                 writer.write("success");//challenge exists
                                 writer.newLine();
                                 writer.flush();
+                                int number_of_questions = Challenge.getNumberOfQuestionForChallenge(challengeid);
                                 //fetching the 10 random questions associated with the database
-                                 List<Question> questions = Question.fetchRandomQuestions(Integer.parseInt(challengeid));
+                                 List<Question> questions = Question.fetchRandomQuestions(Integer.parseInt(challengeid),number_of_questions);
                                  //fetching duration related to challenge
                                  int durationForChallenge = Challenge.getDurationByChallengeId(Integer.parseInt(challengeid)); 
 
                                 //instatiating challenge thats going to be attempted
-                                Challenge challenge = new Challenge(Integer.parseInt(challengeid), durationForChallenge, questions);
+                                Challenge challenge = new Challenge(challengeid, durationForChallenge, questions);
                                 //Serialisation of challenge object to send over to client
                                 ObjectOutputStream outputStream = new ObjectOutputStream(ClientSocket.getOutputStream());
                                 outputStream.writeObject(challenge);
@@ -316,14 +323,16 @@ public class Server {
                                 }catch(ClassNotFoundException e){
                                     e.printStackTrace();
                                 }
-                                Attempt attempt = new Attempt(challenge1.challengeId, participantIdFromDB, challenge1.scoreOfChallenge, challenge1.timetakenAttempting);
+                                Attempt attempt = new Attempt(Integer.parseInt(challenge1.challengeId), participantIdFromDB, schoolRegNoFromDb,challenge1.scoreOfChallenge, challenge1.timetakenAttempting);
                                     int attempt_id_generated = attempt.insertIntoDatabase();
                                     System.out.println("Attempt ID: " + attempt_id_generated);
 
-                                    for (Question question : challenge.questions) {
-                                        AttemptDetails attemptDetails = new AttemptDetails(attempt_id_generated, question.getQuestionId(),participantIdFromDB ,
-                                        question.getParticipantAnswer(), question.getTimetaken(), question.getMarksScored());
+                                    for (Question question : challenge1.questions) {
+                                        question.displayQuestionDetails();
+                                        AttemptDetails attemptDetails = new AttemptDetails(attempt_id_generated, question.getQuestionId(),participantIdFromDB ,challenge1.challengeId,
+                                        question.getParticipantAnswer(), question.getCorrectAnswer(),question.getTimetaken(), question.getMarksScored());
                                         attemptDetails.insertIntoDatabase();
+                                         
                                     }
 
 
@@ -336,7 +345,7 @@ public class Server {
                         break;
                        
                         }else{  
-                        writer.write("Invalid choice");
+                            writer.write("Invalid choice");
                             writer.newLine();
                             writer.flush();
                             

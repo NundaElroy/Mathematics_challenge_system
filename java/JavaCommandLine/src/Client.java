@@ -247,13 +247,14 @@ public class Client  {
                       
                   }
                   System.out.println("_".repeat(50));
-                  System.out.println("\u001B[32mEnter 'challengeID/attemptChallenge'to attempt a challenge.\u001B[0m");
+                  System.out.println("\u001B[32mEnter 'attemptChallenge/challengeID'to attempt a challenge.\u001B[0m");
                   //response can be viewapplicants /confirm applicants / quit
                   String participantResponseFromConsole = scanner.nextLine();
                   //Array to hold response data and case of attemptChallenge/challengeid
                   String [] responseData = participantResponseFromConsole.split("/"); 
                   String participantResponse = responseData[0];
                   System.out.println("_".repeat(50));
+                  System.out.println(participantResponse);
                   writer.write(participantResponse);
                   writer.newLine();
                   writer.flush();
@@ -264,11 +265,12 @@ public class Client  {
                       
                       List<Challenge> availableChallenges = (List<Challenge>)in2.readObject();
                       //printing the available challenges from the list
-                 
+                      System.out.println("_".repeat(150));
                       Challenge.printOutChallenges(availableChallenges);
+                      System.out.println("_".repeat(150));
                   }else if(participantResponse.equalsIgnoreCase("attemptChallenge")){
                       //Tchallengeid
-                      String challengeid = responseData[2];
+                      String challengeid = responseData[1];
                       //send to server to confirm whether it exists
                       writer.write(challengeid);
                       writer.newLine();
@@ -280,7 +282,7 @@ public class Client  {
                       //handling the response
                       if(serverRepRegardingChallenge.equalsIgnoreCase("error")){
                         System.out.println("_".repeat(50));
-                        System.out.println("\u001B[31m invalid challenge/doesnot exist\u001B[0m");
+                        System.out.println("\u001B[31m invalid challenge/doesnot exist/cant attempt challenge more than 3 times\u001B[0m");
                         System.out.println("_".repeat(50));
                         
                       }else if(serverRepRegardingChallenge.equalsIgnoreCase("success")){
