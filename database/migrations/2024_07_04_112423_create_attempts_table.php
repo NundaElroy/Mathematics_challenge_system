@@ -21,7 +21,7 @@ class CreateAttemptsTable extends Migration
             $table->foreign('school_registration_no')-> references('registration_no')->on('schools')->onDelete('cascade');
             $table->string('challengeId');
             $table->foreign('challengeId')-> references('challengeid')->on('challenge')->onDelete('cascade');
-            $table->time('timetaken');
+            $table->time('timetaken')->nullable();
             $table->date('attempt_date');
             $table->integer('score')->nullable();
             $table->timestamps();

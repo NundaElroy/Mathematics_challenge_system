@@ -25,10 +25,10 @@ class CreateAttemptDetailsTable extends Migration
             $table->foreign('participantid')-> references('participantid')->on('participants')->onDelete('cascade');
             $table->string('challengeId');
             $table->foreign('challengeId')-> references('challengeid')->on('challenge')->onDelete('cascade');
-            $table ->string("selected_answer");
+            $table ->string("selected_answer")->nullable();
             $table ->string("correct_answer");
-            $table ->integer("score");
-            $table ->time("timetaken_per_question");
+            $table ->integer("score")->nullable();
+            $table ->time("timetaken_per_question")->nullable();
             $table->timestamps();
         });
     }
