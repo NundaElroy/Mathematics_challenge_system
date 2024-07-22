@@ -1,99 +1,88 @@
 @extends('layouts.app', ['activePage' => 'register', 'title' => 'register'])
 
 @section('content')
-    <div class="full-page register-page section-image" data-image="{{ asset('light-bootstrap/img/bg-image.jpg') }}">
+    <div class="full-page register-page section-image" data-color="azure" data-image="{{ asset('light-bootstrap/img/bg-image.jpg') }}">
         <div class="content">
             <div class="container">
-                <div class="card card-register card-plain text-center">
-                    <div class="card-body ">
-                        <div class="row">
-                            <div class="col-md-5 ml-auto">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <div class="icon">
-                                            <i class="nc-icon nc-circle-09"></i>
-                                        </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <form method="POST" action="{{ route('register') }}">
+                            @csrf
+                            <div class="card card-login" style="background-color:rgba(255,255,255,0.5) ;" >
+                                <div class="content">
+                                    <div class="form-group">
+                                        <input type="text" name="name" id="name" class="form-control" placeholder="{{ __('Name') }}" value="{{ old('name') }}" required autofocus>
                                     </div>
-                                    <div class="media-body">
-                                        <h4>{{ __('Free Account') }}</h4>
-                                        <p>{{ __('Create an account at zero cost anytime and anywhere with your account details encrypted.') }}</p>
+                                    <div class="form-group">
+                                        <input type="email" name="email" value="{{ old('email') }}" placeholder="Enter email" class="form-control" required>
                                     </div>
-                                </div>
-                                <div class="media">
-                                    <div class="media-left">
-                                        <div class="icon">
-                                            <i class="nc-icon nc-preferences-circle-rotate"></i>
-                                        </div>
+                                    <div class="form-group">
+                                        <input type="password" name="password" placeholder="Custom password" class="form-control" required>
                                     </div>
-                                    <div class="media-body">
-                                        <h4>{{ __('Awesome Performances') }}</h4>
-                                        <p>{{ __('Analytics on the outstanding performances from the best schools and best students are also shown.') }}</p>
+                                    <div class="form-group">
+                                        <input type="password" name="password_confirmation" placeholder="Password Confirmation" class="form-control" required>
                                     </div>
-                                </div>
-                                <div class="media">
-                                    <div class="media-left">
-                                        <div class="icon">
-                                            <i class="nc-icon nc-planet"></i>
-                                        </div>
+                                    <div class="form-group d-flex justify-content-center">
+                                        <div class="form-check">
+                                        <input class="form-check-input" name="agree" id="agree" type="checkbox" required name="terms" style="display:inline-block">
+                                        <!--added code above here -->
+                                            <label class="form-check-label ml-2" for="agree">
+                                                <b>{{ __('Agree With Terms And Conditions') }}</b>
+                                            </label>    
+                                             </div>
                                     </div>
-                                    <div class="media-body">
-                                        <h4>{{ __('Global Support') }}</h4>
-                                        <p>{{ __('Ensuring pupils nationwide have an opportunity to access a platform to exercise their mathematics skills and promote use of basic maths in their daily lives.') }}</p>
+                                    <div class="footer text-center">
+                                        <button type="submit" class="btn btn-fill btn-neutral btn-wd">{{ __('Create Free Account') }}</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 mr-auto">
-                                <form method="POST" action="{{ route('register') }}">
-                                    @csrf
-                                    <div class="card card-plain">
-                                        <div class="content">
-                                            <div class="form-group">
-                                                <input type="text" name="name" id="name" class="form-control" placeholder="{{ __('Name') }}" value="{{ old('name') }}" required autofocus>
-                                            </div>
-
-                                            <div class="form-group">   {{-- is-invalid make border red --}}
-                                                <input type="email" name="email" value="{{ old('email') }}" placeholder="Enter email" class="form-control" required>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <input type="password" name="password"
-                                                placeholder="Custom password" class="form-control" required >
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="password" name="password_confirmation" placeholder="Password Confirmation" class="form-control" required autofocus>
-                                            </div>
-                                            <div class="form-group d-flex justify-content-center">
-                                                <div class="form-check rounded col-md-10 text-left">
-                                                    <label class="form-check-label text-white d-flex align-items-center">
-                                                        <input class="form-check-input" name="agree" type="checkbox" required >
-                                                        <span class="form-check-sign"></span>
-                                                        <b>{{ __('Agree with terms and conditions') }}</b>
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <div class="footer text-center">
-                                                <button type="submit" class="btn btn-fill btn-neutral btn-wd">{{ __('Create Free Account') }}</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                        </form>
+                        @if($errors->any())
                             <div class="col">
                                 @foreach ($errors->all() as $error)
-                                    <div class="alert alert-warning alert-dismissible fade show" >
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close"> &times;</a>
+                                    <div class="alert alert-warning alert-dismissible fade show">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                         {{ $error }}
                                     </div>
                                 @endforeach
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
+@push('css')
+    <style>
+        .form-check-input {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+        .form-check-label {
+            color: black; /* Ensure text is visible */
+        }
+        .form-check {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .form-check-sign {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+        .form-check-label b {
+            color: black; /* Ensure bold text is visible */
+        }
+       
+    </style>
+@endpush
 
 @push('js')
     <script>

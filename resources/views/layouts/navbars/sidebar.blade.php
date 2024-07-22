@@ -41,18 +41,10 @@ Tip 2: you can also add an image using data-image tag
                 </a>
             </li>
 
-            <li class="nav-item @if($activePage == 'questions&Answer') active @endif">
-                <a class="nav-link" href="{{route('questions.questions-form', 'questions&Answer')}}">
-            
-                    <i class="nc-icon nc-atom"></i>
-                    <p>{{ __("Questions & Answers") }}</p>
-                </a>
-            </li>
-
-            <li class="nav-item @if($activePage == 'challenges') active @endif">
+           <li class="nav-item @if($activePage == 'challenges') active @endif">
             <a class="nav-link" href="{{route('challenges.index', 'challenges')}}">
-                <i class="nc-icon nc-notes"></i>
-                <p>{{ __("Challenges") }}</p>
+                <i class="nc-icon nc-cloud-upload-94"></i>
+                <p>{{ __("Upload Challenges") }}</p>
             </a>
         </li>
 
@@ -63,13 +55,13 @@ Tip 2: you can also add an image using data-image tag
                 </a>
             </li>
       <!--added a nav link for guest view-->
-      <li class="nav-item{{ $activePage == 'guest_welcome' ? ' active' : '' }}">
+    <!--  <li class="nav-item{{ $activePage == 'guest_welcome' ? ' active' : '' }}">
     <a class="nav-link" href="{{ route('guest.welcome') }}">
         <i class="nc-icon nc-layout-11"></i>
         <p>{{ __('Guest Welcome') }}</p>
     </a>
 </li>
-<!--stops here-->
+  //stops here-->
 
 
         </ul>

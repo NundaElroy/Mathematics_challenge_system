@@ -42,7 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
 // Admin routes
 Route::middleware(['auth', 'admin'])->group(function () { Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 Route::get('/admin/questions/upload', [QuestionController::class, 'showUploadForm'])->name('pages.questions');
-Route::post('/admin/questions/upload', [QuestionController::class, 'uploadQuestions'])->name('questions.upload');
+// Route::post('/admin/questions/upload', [QuestionController::class, 'uploadQuestions'])->name('questions.upload');
 
 });
 

@@ -1,7 +1,7 @@
 @extends('layouts/app', ['activePage' => 'login', 'title' => 'Login'])
 
 @section('content')
-    <div class=" bg info full-page " data-color="blue" data-image="{{ asset('light-bootstrap/img/Side4.jpg') }}">
+    <div class=" bg info full-page " data-color="azure" data-image="{{ asset('light-bootstrap/img/Side4.jpg') }}">
         <div class="content pt-5">
             <div class="container mt-5">    
                 <div class="col-md-4 col-sm-6 ml-auto mr-auto">

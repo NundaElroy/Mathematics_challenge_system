@@ -315,7 +315,12 @@ public class Server {
  }
  }
 
- //moves the applicants details onto a text file
+ private static boolean isChallengeValid(String challengeid) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'isChallengeValid'");
+}
+
+//moves the applicants details onto a text file
  private static void registerApplicant(String registrationDetails){
     File file = null;
     FileWriter writer = null;

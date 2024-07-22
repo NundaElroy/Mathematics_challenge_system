@@ -7,12 +7,12 @@
     <table class="table mt-3">
         <thead>
             <tr>
-                <th>School Registration Number</th>
-                <th>Name</th>
-                <th>District</th>
-                <th>Name of Representative</th>
-                <th>Email of Representative</th>
-                <th>Actions</th>
+                <th><b>School Registration Number</b></th>
+                <th><b>School Name</b></th>
+                <th><b>District</b></th>
+                <th><b>Name of Representative</b></th>
+                <th><b>Email of Representative</b></th>
+                <th><B>Actions</B></th>
             </tr>
         </thead>
         <tbody>

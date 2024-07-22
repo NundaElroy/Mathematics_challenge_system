@@ -1,3 +1,4 @@
+
 <div class="fixed-plugin">
     <div class="dropdown show-dropdown">
         <a href="#" data-toggle="dropdown">
@@ -9,7 +10,7 @@
                 <a href="javascript:void(0)" class="switch-trigger">
                     <p>{{ __('Background Image') }}</p>
                     <label class="switch">
-                        <input type="checkbox" data-toggle="switch" checked="" data-on-color="primary" data-off-color="primary">
+                        <input type="checkbox" data-toggle="switch" >
                         <span class="toggle"></span>
                     </label>
                     <div class="clearfix"></div>
@@ -30,7 +31,7 @@
                 </a>
             </li>
             <li class="header-title">{{ __('Sidebar Images') }}</li>
-            <li class="active">
+            <li class="active"> 
                 <a class="img-holder switch-trigger" href="javascript:void(0)">
                     <img src="{{ asset('/light-bootstrap/img/Student.webp') }}" alt="" />
                 </a>

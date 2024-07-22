@@ -1,14 +1,14 @@
-<head>
-    
-  
+@extends('layouts.app', ['activePage' => 'guest.welcome', 'title' => 'guestpage', 'activeButton' => 'laravel'])
+<head>  
 </head>
 <body>
 
     @section('content')
-    <div class="full-page section-image" data-image="{{asset('light-bootstrap/img/Students.jpg')}}">
+    <div class="full-page section-image" data-image="{{asset('light-bootstrap/img/Students2.jpg')}}">
+    
     <div class="content">
-    <div class="text-center">
-    <img src="{{asset('light-bootstrap/img/logo1.png')}}" alt="logo" class="logo">
+    <div class="text-left d-flex align-items-center"></div>
+    <img src="{{asset('light-bootstrap/img/logo1.png')}}" alt="logo" class="logo" style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%);">
     </div>
         <div class="container">
             <div class="row justify-content-center">
