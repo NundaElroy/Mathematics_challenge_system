@@ -24,43 +24,87 @@ public class Representative implements Serializable{
     //verification of details of representative during logging
     public boolean login() {
         String databaseURL = "jdbc:mysql://localhost:3306/mathematics_challenge";
-        Connection connection = null; 
-        Statement statement = null;
-        ResultSet result = null; 
-        PreparedStatement preparedStatement = null; 
+        Connection connection = null;
+        ResultSet result = null;
+        PreparedStatement preparedStatement = null;
         boolean IsValid = false;
         try {
             connection = DriverManager.getConnection(databaseURL, "root", "");
-            statement = connection.createStatement();
-            preparedStatement = connection.prepareStatement("SELECT EXISTS (SELECT 1 FROM representatives WHERE representative_name = ? AND representative_email = ?) AS user_exists");
-            preparedStatement.setString(1, RepresentativeName); // 1st question mark will be replaced by "representative_name"
-            preparedStatement.setString(2, email); // 2nd question mark will be replaced by "email"
+            // Adjusted the table name to `schools` and column names to `representative_name` and `representative_email`
+            preparedStatement = connection.prepareStatement("SELECT EXISTS (SELECT 1 FROM schools WHERE representative_name = ? AND representative_email = ?) AS user_exists");
+            preparedStatement.setString(1, RepresentativeName); // 1st question mark will be replaced by representative_name
+            preparedStatement.setString(2, email); // 2nd question mark will be replaced by email
             result = preparedStatement.executeQuery();
-            
-            //check if the user exists 
+    
+            // Check if the user exists
             if (result.next()) {
                 IsValid = result.getBoolean("user_exists");
             }
-            
+    
         } catch (SQLException ex) {
             System.out.println("An error occurred. Maybe user/password is invalid");
             ex.printStackTrace();
-
-        
-        }finally {
+        } finally {
             try {
                 if (connection != null) {
                     connection.close();
+                }
+                if (result != null) {
                     result.close();
-                    statement.close();
+                }
+                if (preparedStatement != null) {
                     preparedStatement.close();
-                    
                 }
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         }
-        return IsValid; //returns false if user does exist and true otherwise
+        return IsValid; // Returns true if user exists and false otherwise
+    }
+
+    //method returns rep details basing on school id
+    public static Representative getRepresentativeBySchoolRegNo(int schoolRegNo) {
+        Representative representative = null;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            // Load the JDBC driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            // Establish a connection to the database
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mathematics_challenge", "root", "");
+    
+            // Prepare the SQL query
+            String query = "SELECT representative_name, representative_email FROM schools WHERE registration_no = ?";
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, schoolRegNo);
+    
+            // Execute the query
+            rs = pstmt.executeQuery();
+    
+            // Process the result set
+            if (rs.next()) {
+                String representativeName = rs.getString("representative_name");
+                String email = rs.getString("representative_email");
+                representative = new Representative(representativeName, email);
+            }
+        } catch (ClassNotFoundException e) {
+            System.out.println("MySQL JDBC Driver not found.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println("Database connection failure.");
+            e.printStackTrace();
+        } finally {
+            // Clean up resources
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return representative;
     }
  
    

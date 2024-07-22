@@ -1,4 +1,4 @@
-@extends('layouts/app', ['activePage' => 'welcome', 'title' => 'Light Bootstrap Dashboard Laravel by Creative Tim & UPDIVISION'])
+@extends('layouts/app', ['activePage' => 'welcome', 'title' => 'welcome'])
 <head>
     
   

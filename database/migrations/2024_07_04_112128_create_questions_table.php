@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Schema;
     {
        // database/migrations/xxxx_xx_xx_create_questions_table.php
     Schema::create('questions', function (Blueprint $table) {
-    $table->string('questionid')->primary();
+    $table->increments('questionid');
     $table->string('question_text');
     $table->integer('marks');
     $table->string('challengeId');

@@ -15,9 +15,9 @@ return new class extends Migration
     {
         // database/migrations/xxxx_xx_xx_create_answers_table.php
     Schema::create('answers', function (Blueprint $table) {
-    $table->string('answerid')->primary();
+    $table->increments('answerid');
     $table->string('correct_answer');
-    $table->string('question');
+    $table->unsignedInteger('question');
     $table->foreign('question')-> references('questionid')->on('questions')->onDelete('cascade');
 
 

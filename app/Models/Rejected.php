@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Participant extends Model
+class Rejected extends Model
 {
     use HasFactory;
-    protected $table = 'participants';
+    protected $table = 'rejected';
 
     protected $fillable = [
-        'participantid',
+        'rejectedid',
         'username',
         'firstname',
         'lastname',
@@ -19,6 +19,5 @@ class Participant extends Model
         'DOB',
         'image',
         'school_registration_no',
-
     ];
 }

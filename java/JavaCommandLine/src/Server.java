@@ -63,6 +63,16 @@ public class Server {
                 //applicant details stored onto a file on the server for confirmation later on 
                 registerApplicant(registrationDetails);
                 
+                //splitting the registration details
+                String[] parts = splitString(registrationDetails);
+                //getting the rep details for the respective school
+                Representative rep = Representative.getRepresentativeBySchoolRegNo(Integer.parseInt(parts[0]));
+                //body of remainder email
+                String Body = EmailSender.formatEmailBody(registrationDetails,rep.getRepresentativeName());
+                //sending email to the representative
+                EmailSender email = new EmailSender(rep.getEmail(), "Participant Confirmation Reminder", Body);
+                email.sendEmailRemainderToRepresentative();
+                
                 //server response for successful application 
                 writer.write("Registration successful");
                 writer.newLine();
@@ -165,7 +175,11 @@ public class Server {
                             Pupil pupil = new Pupil(applicantDetails[0], applicantDetails[1], applicantDetails[2], applicantDetails[3], applicantDetails[4], applicantDetails[5], applicantDetails[6]);
                             pupil.setStatus(true);
                             pupil.registerPupil();
-                            
+                            String To=applicantDetails[4];
+                            String Subject="Mathematics National Challenge";
+                            String Body = EmailSender.formatEmailBodyApplicant(applicant,pupil.getStatus());
+                            EmailSender email = new EmailSender(To,Subject,Body);
+                            email.sendEmailRemainderToRepresentative();
                             //remove the applicant from the list
                             applicants.remove(0);
                             //write the remaining applicants back to the file
@@ -179,6 +193,12 @@ public class Server {
                             Pupil pupil = new Pupil(applicantDetails[0], applicantDetails[1], applicantDetails[2], applicantDetails[3], applicantDetails[4], applicantDetails[5], applicantDetails[6]);
                             pupil.setStatus(false);
                             pupil.registerPupil();
+                            //send email to the applicant
+                            String To=applicantDetails[4];
+                            String Subject="Mathematics National Challenge";
+                            String Body = EmailSender.formatEmailBodyApplicant(applicant,pupil.getStatus());
+                            EmailSender email = new EmailSender(To,Subject,Body);
+                            email.sendEmailRemainderToRepresentative();
                             //remove the applicant from the list
                             applicants.remove(0);
                             //write the remaining applicants back to the file
@@ -225,7 +245,8 @@ public class Server {
 
                     //receive login credentials
                     String responseOfParticipant = reader.readLine();
-                    String [] participantCredentials = splitString(responseOfParticipant); // the repName and email for verification
+                    String [] participantCredentials = splitString(responseOfParticipant); // the participantName and email for verification
+                    String partitcipantUserName = participantCredentials[0];//needed after attempting challenge
                     boolean loginStatus = Pupil.login(participantCredentials[0], participantCredentials[1]);
                     boolean authentication1 = false ;
 
@@ -264,16 +285,56 @@ public class Server {
                                 
                         }else if(menuChoice2.equalsIgnoreCase("attemptChallenge")){
                             //receving challengeid
+                            String participantUsername = partitcipantUserName;
+                            Pupil pupil1 = Pupil.getParticipantIdAndSchoolRegNoByUsername(participantUsername);
+                            int participantIdFromDB = pupil1.getParticipantId();
+                            String schoolRegNoFromDb = pupil1.getSchoolRegno();
                             String challengeid = reader.readLine();
-                            if (!isChallengeValid(challengeid)){
+                            //number of questions for that challenge
+                            System.out.println(!Challenge.isChallengeValid(Integer.parseInt(challengeid)));
+                            System.out.println(!Attempt.checkForNumberForNoPerChallenge(participantIdFromDB,challengeid));
+                            
+                            if ((!Challenge.isChallengeValid(Integer.parseInt(challengeid))) && (!Attempt.checkForNumberForNoPerChallenge(participantIdFromDB,challengeid))){
                                 writer.write("error");//code error - challenge not found
                                 writer.newLine();
                                 writer.flush();
-                                break;//to resend menu
+                                //  continue;//to resend menu
                             }else{
                                 writer.write("success");//challenge exists
                                 writer.newLine();
                                 writer.flush();
+                                int number_of_questions = Challenge.getNumberOfQuestionForChallenge(challengeid);
+                                //fetching the 10 random questions associated with the database
+                                 List<Question> questions = Question.fetchRandomQuestions(Integer.parseInt(challengeid),number_of_questions);
+                                 //fetching duration related to challenge
+                                 int durationForChallenge = Challenge.getDurationByChallengeId(Integer.parseInt(challengeid)); 
+
+                                //instatiating challenge thats going to be attempted
+                                Challenge challenge = new Challenge(challengeid, durationForChallenge, questions);
+                                //Serialisation of challenge object to send over to client
+                                ObjectOutputStream outputStream = new ObjectOutputStream(ClientSocket.getOutputStream());
+                                outputStream.writeObject(challenge);
+                                System.out.println("Data sent to the client.");
+                                ObjectInputStream inputStream = new ObjectInputStream(ClientSocket.getInputStream());
+                                Challenge challenge1 = null;
+                                try{
+
+                                      challenge1 = (Challenge)inputStream.readObject();
+                                }catch(ClassNotFoundException e){
+                                    e.printStackTrace();
+                                }
+                                Attempt attempt = new Attempt(Integer.parseInt(challenge1.challengeId), participantIdFromDB, schoolRegNoFromDb,challenge1.scoreOfChallenge, challenge1.timetakenAttempting);
+                                    int attempt_id_generated = attempt.insertIntoDatabase();
+                                    System.out.println("Attempt ID: " + attempt_id_generated);
+
+                                    for (Question question : challenge1.questions) {
+                                        question.displayQuestionDetails();
+                                        AttemptDetails attemptDetails = new AttemptDetails(attempt_id_generated, question.getQuestionId(),participantIdFromDB ,challenge1.challengeId,
+                                        question.getParticipantAnswer(), question.getCorrectAnswer(),question.getTimetaken(), question.getMarksScored());
+                                        attemptDetails.insertIntoDatabase();
+                                         
+                                    }
+
 
                             }
                         
@@ -327,7 +388,9 @@ public class Server {
     BufferedWriter out = null;
 
     try{
-        file = new File(AppConfig.getApplicantFilePath());
+        String path = AppConfig.getApplicantFilePath();
+        System.out.println(path);
+        file = new File(path);
         writer = new FileWriter(file,true);
         out = new BufferedWriter(writer);
         out.write(registrationDetails);

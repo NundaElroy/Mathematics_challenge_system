@@ -11,6 +11,8 @@ use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\DashboardController;
+
 
 // Home route
 Route::get('/', function () {
@@ -28,7 +30,8 @@ Route::get('/analytics', 'AnalyticsController@showAnalytics')->name('analytics')
 
 // Authentication routes
 Auth::routes();
-Route::get('/home', [HomeController::class, 'index'])->name('dashboard');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
 // Authenticated user routes
 Route::group(['middleware' => 'auth'], function () {
@@ -42,7 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
 // Admin routes
 Route::middleware(['auth', 'admin'])->group(function () { Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 Route::get('/admin/questions/upload', [QuestionController::class, 'showUploadForm'])->name('pages.questions');
-// Route::post('/admin/questions/upload', [QuestionController::class, 'uploadQuestions'])->name('questions.upload');
+Route::post('/admin/questions/upload', [QuestionController::class, 'uploadQuestions'])->name('questiones.upload');
 
 });
 
@@ -58,5 +61,10 @@ Route::post('/challenges/upload-answers', [ChallengeController::class, 'uploadAn
 
 Route::get('/questions/upload', [QuestionController::class, 'showUploadForm'])->name('questions.questions-form');
 Route::post('/questions/upload', [QuestionController::class, 'uploadQuestions'])->name('questions.questions');
-Route::get('/challenges', [ChallengeController::class, 'index'])->name('challenges.index');
 
+//new dashboard controller
+// routes/web.php
+
+
+
+Route::get('/dashboards', [DashboardController::class, 'index'])->name('dashboards.index');

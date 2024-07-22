@@ -14,22 +14,21 @@ class CreateAttemptDetailsTable extends Migration
     public function up()
     {
         Schema::create('attempt_details', function (Blueprint $table) {
-            $table->string('attempt_detail_id')->primary();
+            $table->increments('attempt_detail_id');
             
-            $table->string('attemptid');
+            $table->unsignedInteger('attemptid');
             $table->foreign('attemptid')-> references('attemptid')->on('attempts')->onDelete('cascade');
             
-            $table->string('questionid');
+            $table->unsignedInteger('questionid');
             $table->foreign('questionid')-> references('questionid')->on('questions')->onDelete('cascade');
-           
-            $table->string('participantid');
+            $table->unsignedInteger('participantid');
             $table->foreign('participantid')-> references('participantid')->on('participants')->onDelete('cascade');
             $table->string('challengeId');
             $table->foreign('challengeId')-> references('challengeid')->on('challenge')->onDelete('cascade');
-
-            $table ->string("selected_answer");
+            $table ->string("selected_answer")->nullable();
             $table ->string("correct_answer");
-            $table ->time("timetaken_per_question");
+            $table ->integer("score")->nullable();
+            $table ->time("timetaken_per_question")->nullable();
             $table->timestamps();
         });
     }

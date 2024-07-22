@@ -12,7 +12,6 @@ class Question extends Model
     protected $table = 'questions';
 
     protected $fillable = [
-        'questionid',
         'question_text',
         'marks',
         'challengeId',

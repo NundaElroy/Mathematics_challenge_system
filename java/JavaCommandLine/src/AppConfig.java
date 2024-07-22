@@ -8,7 +8,10 @@ public class AppConfig {
     // Static block to load the properties file when this class is first used
     static {
         properties = new Properties();
-        try (InputStream inputStream = AppConfig.class.getResourceAsStream("java/JavaCommandLine/config.properties")) {
+        try (InputStream inputStream = AppConfig.class.getClassLoader().getResourceAsStream("config.properties")) {
+            if (inputStream == null) {
+                throw new IOException("config.properties file not found in classpath");
+            }
             properties.load(inputStream);
         } catch (IOException e) {
             e.printStackTrace(); // Handle the exception properly in real applications
@@ -20,8 +23,12 @@ public class AppConfig {
         return properties.getProperty("image_folder_path");
     }
 
-    // Method to get another folder path from the properties
+    // Method to get the applicant file path from the properties
     public static String getApplicantFilePath() {
         return properties.getProperty("applicant_file_path");
+    }
+    public static void main(String[] args) {
+        System.out.println(AppConfig.getImageFolderPath());
+        System.out.println(AppConfig.getApplicantFilePath());
     }
 }

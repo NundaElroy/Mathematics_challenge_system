@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import java.sql.*;
 
 public class Pupil  {
+  private int participantid;
   private String RegistrationNumber;
   private String UserName;
   private String FirstName;
@@ -22,10 +23,10 @@ public class Pupil  {
         this.DateOfBirth = DateOfBirth;
         this.FilePathOfImage = manageFilePath(FilePathOfImage);
     }
-    public static void main(String[] args) {
-       
-        
-        
+    //overload of constructor
+    public Pupil (int participantId,String school_registration_no){
+        this.participantid = participantId;
+        this.RegistrationNumber = school_registration_no;
     }
 
    //registers the accepted pupils on the database  and rejected pupils into the database  
@@ -117,7 +118,7 @@ public void setStatus(boolean status){
 }
 
 private static String manageFilePath(String jpeg){
-    return AppConfig.getImageFolderPath() + jpeg;
+    return "C:\\Users\\elvoy\\OneDrive\\Desktop\\photos\\" + jpeg;
 }
 
 
@@ -152,8 +153,47 @@ private static byte [] loadImage(String FilePathOfImage){
     return null; // Add this line to return a default value if no other return statement is reached
 }
 
+
+//method returns the participant id for a given user
+public static Pupil getParticipantIdAndSchoolRegNoByUsername(String username) {
+    int participantId = -1; // Default or error value
+    String school_registration_no = "";
+    String url = "jdbc:mysql://localhost:3306/mathematics_challenge"; 
+    String dbUsername = "root"; 
+    String password = ""; // Update with the actual password
+
+    String query = "SELECT participantid,school_registration_no FROM participants WHERE username = ?";
+
+    try (Connection conn = DriverManager.getConnection(url, dbUsername, password);
+         PreparedStatement pstmt = conn.prepareStatement(query)) {
+        
+        pstmt.setString(1, username); // Set the username parameter
+        
+        try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                participantId = rs.getInt("participantid");
+                school_registration_no = rs.getString("school_registration_no");
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return new Pupil(participantId, school_registration_no);
+}
+
+public boolean getStatus(){
+    return Status;
+}
 //override of the toString method
 public String toString(){
     return "Registration Number: " + RegistrationNumber + "\n" + "UserName: " + UserName  + "FirstName: " + FirstName + "\n" + "LastName: " + LastName + "\n" + "EmailAddress: " + EmailAddress + "\n" + "DateOfBirth: " + DateOfBirth + "\n" + "Status: " + Status + "\n" + "Photo: " + FilePathOfImage + "\n";
 }
+
+public String getSchoolRegno(){
+    return this.RegistrationNumber;
+}
+public int getParticipantId(){
+    return this.participantid;
+}
+
 }
