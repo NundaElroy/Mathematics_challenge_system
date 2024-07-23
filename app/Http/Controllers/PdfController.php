@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Mail\ReportMail; 
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class PdfController extends Controller
 {
@@ -50,9 +51,9 @@ class PdfController extends Controller
 
             if (!$data->isEmpty()) {
                 Mail::to($data[0]->email)->send(new ReportMail($data));
-                echo 'Report sent for attempt ID: ' . $attemptid . '<br>';
+                Log::info('Report sent for attempt ID: ' . $attemptid);;
             } else {
-                echo 'No data found for attempt ID: ' . $attemptid . '<br>';
+                Log::info('No data found for attempt ID: ' . $attemptid);
             }
         }
     }
