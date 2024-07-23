@@ -41,11 +41,11 @@ Tip 2: you can also add an image using data-image tag
                 </a>
             </li>
 
-            <li class="nav-item @if($activePage == 'questions&Answer') active @endif">
-                <a class="nav-link" href="{{route('questions.questions-form', 'questions&Answer')}}">
+            <li class="nav-item @if($activePage == 'report') active @endif">
+                <a class="nav-link" href="{{route('reports.scheduleshow')}}">
             
                     <i class="nc-icon nc-atom"></i>
-                    <p>{{ __("Questions & Answers") }}</p>
+                    <p>{{ __("Report") }}</p>
                 </a>
             </li>
 
@@ -54,6 +54,14 @@ Tip 2: you can also add an image using data-image tag
                 <i class="nc-icon nc-notes"></i>
                 <p>{{ __("Challenges") }}</p>
             </a>
+        </li>
+        <!-- <li class="nav-item @if($activePage == 'reports') active @endif">
+    <a class="nav-link" href="{{ route('report.scheduleshow') }}">
+        <i class="nc-icon nc-notes"></i>
+        <p>{{ __("Reports") }}</p>
+    </a>
+</li> -->
+
         </li>
 
             <li class="nav-item @if($activePage == 'notifications') active @endif">
