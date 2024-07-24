@@ -14,7 +14,7 @@ Tip 2: you can also add an image using data-image tag
         <ul class="nav">
             <li class="nav-item @if($activePage == 'dashboard') active @endif">
                 <a class="nav-link" href="{{route('dashboard')}}">
-                    <i class="nc-icon nc-chart-pie-35"></i>
+                <i class="fa fa-tachometer" aria-hidden="true"></i>
                     <p>{{ __("Dashboard") }}</p>
                 </a>
             </li>
@@ -72,6 +72,13 @@ Tip 2: you can also add an image using data-image tag
                     <p>{{ __("Notifications") }}</p>
                 </a>
             </li>
+            <li class="nav-item @if($activePage == 'analytics') active @endif">
+                <a class="nav-link" href="{{route('page.index', 'analytics')}}">
+                <i class="fa fa-superscript" aria-hidden="true"></i>
+                    <p>{{ __("School analytics") }}</p>
+                </a>
+            </li>
+
       <!--added a nav link for guest view-->
     <!--  <li class="nav-item{{ $activePage == 'guest_welcome' ? ' active' : '' }}">
     <a class="nav-link" href="{{ route('guest.welcome') }}">

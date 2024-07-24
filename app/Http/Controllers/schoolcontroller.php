@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\School;
 use App\Models\Representative;
-
+use App\Http\Controllers\Controller;
 class SchoolController extends Controller
 {
     // Display a list of schools

@@ -5,8 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow-lg">
-                <div class="card-header bg-info text-white">
-                    <h2 class="mb-0">Upload Questions and Answers</h2>
+                <div class="custom card-header bg-primary text-white">
+                    <h2 class="mb-0">Upload Questions and Answers </h2>
                 </div>
                 <div class="card-body">
                     @if (session('success'))
@@ -55,3 +55,15 @@
     </div>
 </div>
 @endsection
+<!--@push('css')
+<style>
+.custom-bg-info {
+    background-color: #5bc0de !important; /* Custom light blue */
+}
+
+.custom-text-white {
+    color: #ffffff !important; /* Custom white */
+}
+
+</style>
+@endpush-->

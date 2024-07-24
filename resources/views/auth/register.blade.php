@@ -3,6 +3,9 @@
 @section('content')
     <div class="full-page register-page section-image" data-color="azure" data-image="{{ asset('light-bootstrap/img/bg-image.jpg') }}">
         <div class="content">
+        <div class="logo" style="display:flex; align-items:center;position:absolute;top:-50px;left: 10px;">
+    <img src="{{asset('light-bootstrap/img/logo1.png')}}" alt="logo" class="logo" style="height: 60px; width:60px;">
+</div>
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-6">
@@ -10,6 +13,10 @@
                             @csrf
                             <div class="card card-login" style="background-color:rgba(255,255,255,0.5) ;" >
                                 <div class="content">
+                                <div class="card-header" style="background-color:rgba(255,255,255,0.0)">
+                                <h2 class="header text-center" >{{ __('Register') }}</h2>
+                            </div>
+                            <div class="card-body">
                                     <div class="form-group">
                                         <input type="text" name="name" id="name" class="form-control" placeholder="{{ __('Name') }}" value="{{ old('name') }}" required autofocus>
                                     </div>
@@ -21,6 +28,7 @@
                                     </div>
                                     <div class="form-group">
                                         <input type="password" name="password_confirmation" placeholder="Password Confirmation" class="form-control" required>
+                                    </div>
                                     </div>
                                     <div class="form-group d-flex justify-content-center">
                                         <div class="form-check">

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AnalyticsController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\HomeController;
@@ -29,10 +29,12 @@ Route::get('/guest-welcome', function () {
     return view('guest_welcome');
 })->name('guest.welcome');
 
-Route::get('/analytics', 'AnalyticsController@showAnalytics')->name('analytics');
-
-
-
+//Route::get('/analytics', 'AnalyticsController@showAnalytics')->name('analytics');
+//Route::get('/analytics',[AnalyticsController::class, 'showAnalytics']);
+//if doesnt work change index to showAnalytics
+Route::get('/analytics', [AnalyticsController::class, 'mostCorrectlyAnsweredQuestions']);;
+Route::get('/analytics', [AnalyticsController::class, 'mostCorrectlyAnsweredQuestions'])->name('analytics');
+//analytics first view
 // Authentication routes
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');

@@ -8,7 +8,9 @@
         <div class="col-md-4 mb-4">
             <div class="card bg-info text-dark" style="border-radius: 0;">
                 <div class="card-header" style="font-size: 1.2rem; font-weight: bold;">
+                <i class="fa fa-users" aria-hidden="true"></i>
                     <i class="bi bi-people" style="font-size: 2rem; margin-right: 10px;"></i>Participants
+                    
                 </div>
                 <div class="card-body">
                     <h3 style="font-size: 2.5rem;">{{ $participantsCount }}</h3>
@@ -18,8 +20,9 @@
         <div class="col-md-4 mb-4">
             <div class="card bg-info text-dark" style="border-radius: 0;">
                 <div class="card-header" style="font-size: 1.2rem; font-weight: bold;">
+                <i class="fa fa-trophy" aria-hidden="true"></i>
                     <i class="bi bi-trophy" style="font-size: 2rem; margin-right: 10px;"></i>Challenges
-                </div>
+                  </div>
                 <div class="card-body">
                     <h3 style="font-size: 2.5rem;">{{ $challengesCount }}</h3>
                 </div>
@@ -28,6 +31,7 @@
         <div class="col-md-4 mb-4">
             <div class="card bg-info text-dark" style="border-radius: 0;">
                 <div class="card-header" style="font-size: 1.2rem; font-weight: bold;">
+                <i class="fa fa-list-ul" aria-hidden="true"></i>
                     <i class="bi bi-question-circle" style="font-size: 2rem; margin-right: 10px;"></i>Questions
                 </div>
                 <div class="card-body">
@@ -40,6 +44,7 @@
         <div class="col-md-4 mb-4">
             <div class="card bg-info text-dark" style="border-radius: 0;">
                 <div class="card-header" style="font-size: 1.2rem; font-weight: bold;">
+                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
                     <i class="bi bi-building" style="font-size: 2rem; margin-right: 10px;"></i>Schools
                 </div>
                 <div class="card-body">
@@ -50,6 +55,7 @@
         <div class="col-md-4 mb-4">
             <div class="card bg-info text-dark" style="border-radius: 0;">
                 <div class="card-header" style="font-size: 1.2rem; font-weight: bold;">
+                <i class="fa fa-check-circle" aria-hidden="true"></i>
                     <i class="bi bi-clipboard-check" style="font-size: 2rem; margin-right: 10px;"></i>Attempts
                 </div>
                 <div class="card-body">
@@ -60,6 +66,7 @@
         <div class="col-md-4 mb-4">
             <div class="card bg-info text-dark" style="border-radius: 0;">
                 <div class="card-header" style="font-size: 1.2rem; font-weight: bold;">
+                <i class="fa fa-bell-slash-o" aria-hidden="true"></i>
                     <i class="bi bi-x-circle" style="font-size: 2rem; margin-right: 10px;"></i>Rejected
                 </div>
                 <div class="card-body">

@@ -118,7 +118,7 @@ public void setStatus(boolean status){
 }
 
 private static String manageFilePath(String jpeg){
-    return "C:\\Users\\elvoy\\OneDrive\\Desktop\\photos\\" + jpeg;
+    return "C:\\Users\\Alvin\\OneDrive\\Desktop\\photos\\" + jpeg;
 }
 
 

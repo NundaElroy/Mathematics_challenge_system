@@ -96,7 +96,7 @@
                             <div class="card-body">
                                 <div class="author">
                                     <a href="#">
-                                        <img class="avatar border-gray" src="{{ asset('image/profile-img.jpg')}}" alt="...">
+                                        <img class="avatar border-gray" src="{{ asset('image/Admin-photo.jpg')}}" alt="...">
                                         <h5 class="title">{{ __('SEBABE@619') }}</h5>
                                     </a>
                                     <p class="description">

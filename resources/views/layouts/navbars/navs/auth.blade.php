@@ -10,7 +10,7 @@
             <ul class="nav navbar-nav mr-auto">
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <i class="nc-icon nc-planet"></i>
+                    <i class="fa fa-bell-o" aria-hidden="true"></i>
                         <span class="notification">5</span>
                         <span class="d-lg-none">{{ __('Notification') }}</span>
                     </a>
@@ -26,7 +26,7 @@
             <ul class="navbar-nav d-flex align-items-center">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: inline-block; position: relative;">
-                        <img src="{{ asset('image/profile-img.jpg') }}" alt="admin profile pic" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover; margin-right: 5px;">
+                        <img src="{{ asset('image/Admin-photo.jpg') }}" alt="admin profile pic" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover; margin-right: 5px;">
                         <span class="no-icon" style="vertical-align: middle;">{{ __('Xwale Abdu') }}</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

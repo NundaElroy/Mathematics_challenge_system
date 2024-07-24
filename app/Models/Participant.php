@@ -21,4 +21,14 @@ class Participant extends Model
         'school_registration_no',
 
     ];
+    public function school()
+    {
+        return $this->belongsTo(School::class, 'school_registration_no', 'school_registration_number');
+    }
+    public function attempts()
+    {
+        return $this->hasMany(Attempt::class);
+    }
+
+
 }

@@ -3,6 +3,9 @@
 @section('content')
     <div class=" bg info full-page " data-color="azure" data-image="{{ asset('light-bootstrap/img/Side4.jpg') }}">
         <div class="content pt-5">
+        <div class="logo" style="display:flex; align-items:center;position:absolute;top:-50px;left: 10px;">
+    <img src="{{asset('light-bootstrap/img/logo1.png')}}" alt="logo" class="logo" style="height: 60px; width:60px;">
+</div>
             <div class="container mt-5">    
                 <div class="col-md-4 col-sm-6 ml-auto mr-auto">
                     <form class="form" method="POST" action="{{ route('login') }}">

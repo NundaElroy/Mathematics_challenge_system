@@ -7,8 +7,8 @@
     <div class="full-page section-image" data-image="{{asset('light-bootstrap/img/Students2.jpg')}}">
     
     <div class="content">
-    <div class="text-left d-flex align-items-center"></div>
-    <img src="{{asset('light-bootstrap/img/logo1.png')}}" alt="logo" class="logo" style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%);">
+    <div class="logo" style="display:flex; align-items:center;position:absolute;top:-50px;left: 10px;">
+    <img src="{{asset('light-bootstrap/img/logo1.png')}}" alt="logo" class="logo" style="height: 60px; width:60px;">
     </div>
         <div class="container">
             <div class="row justify-content-center">
@@ -18,8 +18,9 @@
                 </div>
             </div>
             <div class="text-center">
-                <a href="{{ route('guest.welcome') }}" class="btn btn-primary">{{ __('Guest Welcome') }}</a>
+                <a href="{{ route('analytics') }}" class="btn btn-primary">{{ __('System Analytics') }}</a>
                 
+            </div>
             </div>
             <div class="container" data-color="white" style="padding:1em;position:absolute;bottom:0;">
             <footer style="color: white;">

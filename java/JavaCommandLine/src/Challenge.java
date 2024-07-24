@@ -235,9 +235,9 @@ public class Challenge implements Serializable {
             return -1;
         }
     }
-    public void getScore() {
-        System.out.println(this.scoreOfChallenge);
-    }
+    // public void getScore() {
+    //     System.out.println(this.scoreOfChallenge);
+    // }
 
     // total time taken attempting the challenge in a desirable format
     public static String getTimetaken(Duration duration) {
@@ -290,5 +290,11 @@ public class Challenge implements Serializable {
 
     private int calculateTotalScore() {
         return this.scoreOfChallenge; // Modify this method if you have more complex scoring logic
+    }
+    public int getScore(){
+        return this.scoreOfChallenge;
+    }
+    public String getTimetaken(){
+        return this.timetakenAttempting;
     }
 }

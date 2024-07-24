@@ -10,13 +10,17 @@ class Question extends Model
     use HasFactory;
 
     protected $table = 'questions';
+    protected $primaryKey = 'questionid';
 
     protected $fillable = [
         'question_text',
         'marks',
         'challengeId',
     ];
-
+    public function attemptDetails()
+    {
+        return $this->hasMany(AttemptDetail::class, 'questionid');
+    }
 
 
   

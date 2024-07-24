@@ -9,7 +9,7 @@
                 <div id="successMessage" class="alert alert-success" style="display: none;">
                     Challenge created successfuly
                 </div>
-                <div class="card-header bg-primary text-white" style="border-bottom: 2px solid #ffffff;">
+                <div class="card-header bg-info text-white" style="border-bottom: 2px solid #ffffff;">
                     <h1 class="card-title" style="font-size: 1.5rem; font-weight: bold;">Add New Challenge</h1>
                 </div>
                 <div class="card-body">
@@ -58,7 +58,7 @@
             <div id="successMessageAnswer" class="alert alert-success" style="display: none;">
                     Files uploaded succesfuly.
                 </div>
-                <div class="card-header bg-primary text-white" style="border-bottom: 2px solid #ffffff;">
+                <div class="card-header bg-info text-white" style="border-bottom: 2px solid #ffffff;">
                     <h1 class="card-title" style="font-size: 1.5rem; font-weight: bold;">Upload Questions and Answers</h1>
                 </div>
                 <div class="card-body">

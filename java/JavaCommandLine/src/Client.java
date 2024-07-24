@@ -296,6 +296,13 @@ public class Client  {
                         Challenge challenge = (Challenge)inputStream.readObject();
                         //Starting the challenge
                         challenge.startTimedChallenge();
+                        //print the score and totaltimetake
+                        System.out.println("_".repeat(50));
+                        System.out.println("\u001B[34mScore\u001B[34m:"+ challenge.getScore());
+                        System.out.println("\u001B[34mtotaltime:\u001B[34m"+challenge.getTimetaken());
+                        System.out.println("_".repeat(50));
+
+
                         //sending back challenge object after attempt
                         ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
                         outputStream.writeObject(challenge);
