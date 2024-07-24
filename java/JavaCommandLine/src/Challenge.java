@@ -36,21 +36,21 @@ public class Challenge implements Serializable {
     // public static void main(String[] args) {
     //     //fetch based on challengeid and property number of questions
     //     List<Question> questions = Question.fetchRandomQuestions(4444,10);
-    //     Challenge challenge = new Challenge(4444, 1, questions);
+    //     Challenge challenge = new Challenge("4444", 2, questions);
     //     challenge.startTimedChallenge();
     //     System.out.println("Time taken: " + challenge.timetakenAttempting);
     //     System.out.println("Score: " + challenge.scoreOfChallenge);
 
-    //     Attempt attempt = new Attempt(challenge.challengeId, 1, "1001",challenge.scoreOfChallenge, challenge.timetakenAttempting);
-    //     int attempt_id_generated = attempt.insertIntoDatabase();
-    //     System.out.println("Attempt ID: " + attempt_id_generated);
+    //     Attempt attempt = new Attempt(4444, 1, "1001",challenge.scoreOfChallenge, challenge.timetakenAttempting);
+    //     // int attempt_id_generated = attempt.insertIntoDatabase();
+    //     // System.out.println("Attempt ID: " + attempt_id_generated);
     //     System.out.println(attempt.toString());
 
     //     for (Question question : challenge.questions) {
     //         question.displayQuestionDetails();
-    //         AttemptDetails attemptDetails = new AttemptDetails(attempt_id_generated, question.getQuestionId(), 1,"4444",
+    //         AttemptDetails attemptDetails = new AttemptDetails(1, question.getQuestionId(), 1,"4444",
     //                 question.getParticipantAnswer(),question.getCorrectAnswer(), question.getTimetaken(), question.getMarksScored());
-    //                 attemptDetails.insertIntoDatabase();
+    //                 // attemptDetails.insertIntoDatabase();
     //         System.out.println(attemptDetails.toString());
     //     }
         
@@ -148,8 +148,17 @@ public class Challenge implements Serializable {
             
 
             // Update remaining time and questions
-            long minutesLeft = duration - totalDuration.toMinutes();
-            System.out.println("Time remaining: " + minutesLeft + " minutes");
+            // Assuming 'duration' is in minutes and 'totalDuration' is a Duration object
+            long totalSecondsLeft = duration * 60 - totalDuration.getSeconds();
+            long minutesPart = totalSecondsLeft / 60;
+            long secondsPart = totalSecondsLeft % 60;
+
+            // Format the remaining time as "M:SS"
+            String timeLeftFormatted = String.format("%d:%02d", minutesPart, secondsPart);
+
+            // Example usage
+            System.out.println("Time left: " + timeLeftFormatted);
+            // System.out.println("Time remaining: " + minutesLeft + " minutes");
             System.out.println("Questions remaining: " + (questions.size() - counter + 1));
 
             // Check if the allocated duration is exceeded
