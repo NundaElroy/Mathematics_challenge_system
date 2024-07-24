@@ -28,7 +28,7 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody >
                                 @foreach ($challenges as $challenge)
                                     <tr>
                                         <td>{{ $challenge->challengeid }}</td>

@@ -6,7 +6,7 @@
     <a href="{{ route('schools.create') }}" class="btn btn-info">Add New School</a>
     <table class="table table-bordered table-striped table-hover mt-3 bg-white rounded shadow-sm">
      <!--<thead style="background-color:darkturquoise; color: #007bff;">-->
-    <thead style="background-color:#17a2b8;color:black;"> 
+     <thead class="bg-dark text-white" style="font-size: 1.1rem;"> 
         <tr>
             <th><b>RegNo.</b></th>
             <th><b>School Name</b></th>

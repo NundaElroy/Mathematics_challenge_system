@@ -5,9 +5,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card shadow-sm" style="border-radius: 12px; overflow: hidden;">
-                <div class="card-header bg-primary text-white" style="border-bottom: 2px solid #ffffff;">
+                <div class="card-header bg-info text-white" style="border-bottom: 2px solid #ffffff;">
                     <h4 class="card-title" style="font-size: 1.5rem; font-weight: bold;">Report Schedules</h4>
-                    <a href="{{ route('report.scheduleviewform') }}" class="btn btn-success" style="float: right; border-radius: 20px; padding: 10px 20px;">Add Schedule</a>
+                    <a href="{{ route('report.scheduleviewform') }}" class="btn btn-primary" style="float: right; border-radius: 20px; padding: 10px 20px;">Add Schedule</a>
                 </div>
                 <div class="card-body">
                     @if (session('success'))

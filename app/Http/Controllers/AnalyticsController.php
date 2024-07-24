@@ -46,19 +46,112 @@ class AnalyticsController extends Controller
     return
     response()->json(['success'=>true]);
    }
-   public function mostCorrectlyAnsweredQuestions()
-   {
-    $mostCorrectlyAnsweredQuestions=DB::table('attempt_details')->select('questionid',DB::raw('count(*) as total_correct'))
-    ->where('is_correct', true)
-    ->groupBy('questionid')
-    ->orderBy('total_correct','desc')
-    ->get();
-       /*$questions = Question::withCount(['attemptDetails as correct_answers' => function ($query) {
-           $query->where('is_correct', true);
-       }])->orderBy('correct_answers', 'desc')->get();*/
 
-       return view('pages.analytics',['questions'=>$mostCorrectlyAnsweredQuestions]);
+   
+   public function showAnalytics()
+   {
+       // Fetch the most correctly answered questions
+       $mostCorrectlyAnsweredQuestions = $this->mostCorrectlyAnsweredQuestions();
+       
+       // Fetch the school rankings
+       $schoolRankings = $this->getSchoolRankings();
+       
+       // Fetch the worst performing schools per challenge
+       $worstPerformingSchools = $this->getWorstPerformingSchools();
+      
+       //best per challenge
+       $bestPerformingSchools = $this->getBestPerformingSchools();
+
+      
+       // Pass the data to the view
+       return view('analytics.analytics', [
+           'groupedByChallenge' => $mostCorrectlyAnsweredQuestions,
+           'schoolRankings' => $schoolRankings,
+           'worstPerformingSchools' => $worstPerformingSchools,
+           'bestPerformingSchools' => $worstPerformingSchools
+       ]);
    }
+   
+private function mostCorrectlyAnsweredQuestions()
+{
+    // Fetch the correctly answered questions grouped by challenge_id and questionid
+    $mostCorrectlyAnsweredQuestions = DB::table('attempt_details')
+        ->select('attempt_details.challengeId', 'attempt_details.questionid', DB::raw('count(*) as total_correct'), 'questions.question_text')
+        ->join('questions', 'attempt_details.questionid', '=', 'questions.questionid')
+        ->where('attempt_details.is_correct', true)
+        ->groupBy('attempt_details.challengeId', 'attempt_details.questionid', 'questions.question_text')
+        ->orderBy('total_correct', 'desc')
+        ->limit(5)
+        ->get()
+        ->toArray(); // Convert collection to array
+
+    return $mostCorrectlyAnsweredQuestions;
+}
+
+
+   private function getSchoolRankings()
+   {
+       // Fetch the average score for each school, joined with the schools table
+       $schoolRankings = DB::table('attempts')
+           ->join('schools', 'attempts.school_registration_no', '=', 'schools.registration_no')
+           ->select(
+               'schools.registration_no',
+               'schools.name',
+               'schools.district',
+               DB::raw('AVG(attempts.score) as average_score')
+           )
+           ->groupBy(
+               'schools.registration_no',
+               'schools.name',
+               'schools.district'
+           )
+           ->orderBy('average_score', 'desc')
+           ->get()
+           ->toArray(); // Convert collection to array
+   
+       return $schoolRankings;
+   }
+   
+   //worst performing per challenge
+   private function getWorstPerformingSchools()
+{
+    return DB::table('attempts as a')
+        ->join('schools as s', 'a.school_registration_no', '=', 's.registration_no')
+        ->select('a.challengeId', 's.registration_no', 's.name', 's.district', DB::raw('AVG(a.score) as average_score'))
+        ->groupBy('a.challengeId', 's.registration_no', 's.name', 's.district')
+        ->orderBy('average_score', 'asc')
+        ->get()
+        ->map(function ($item) {
+            return (object) [
+                'challengeId' => $item->challengeId,
+                'registration_no' => $item->registration_no,
+                'name' => $item->name,
+                'district' => $item->district,
+                'average_score' => $item->average_score,
+            ];
+        });
+}
+
+//best performing per challenge
+
+private function getBestPerformingSchools()
+{
+    return DB::table('attempts as a')
+        ->join('schools as s', 'a.school_registration_no', '=', 's.registration_no')
+        ->select('a.challengeId', 's.registration_no', 's.name', 's.district', DB::raw('AVG(a.score) as average_score'))
+        ->groupBy('a.challengeId', 's.registration_no', 's.name', 's.district')
+        ->orderBy('average_score', 'desc')
+        ->get()
+        ->map(function ($item) {
+            return (object) [
+                'challengeId' => $item->challengeId,
+                'registration_no' => $item->registration_no,
+                'name' => $item->name,
+                'district' => $item->district,
+                'average_score' => $item->average_score,
+            ];
+        });
+}
 
 
 
