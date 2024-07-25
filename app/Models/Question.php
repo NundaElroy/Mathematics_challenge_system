@@ -17,10 +17,10 @@ class Question extends Model
         'marks',
         'challengeId',
     ];
-    public function attemptDetails()
-    {
-        return $this->hasMany(AttemptDetail::class, 'questionid');
-    }
+    // public function attemptDetails()
+    // {
+    //     return $this->hasMany(AttemptDetail::class, 'questionid');
+    // }
 
 
   

@@ -30,10 +30,10 @@ class QuestionImport implements ToCollection, WithHeadingRow
                 ]);
 
                 // Store the mapping
-                $questionMap[$row['question_text']] = $question->id;
+                $questionMap[$row['question_text']] = $question->questionid;
 
                 // Log successful creation
-                Log::info('Created question:', ['id' => $question->id, 'text' => $row['question_text']]);
+                Log::info('Created question:', ['questionid' => $question->questionid, 'text' => $row['question_text']]);
             } catch (\Exception $e) {
                 // Log any errors
                 Log::error('Error creating question:', ['error' => $e->getMessage(), 'row' => $row->toArray()]);
