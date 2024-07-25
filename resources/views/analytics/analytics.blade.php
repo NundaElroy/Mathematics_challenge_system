@@ -240,32 +240,29 @@
                 <!-- Tab 6 Content -->
             <div class="tab-pane fade show " id="tab6" role="tabpanel" aria-labelledby="tab6-tab">
             <h2 class="mt-4">Most Correctly Answered per Challenge</h2>
-                @if (!empty($groupedByChallenge))
-                    @foreach($groupedByChallenge as $challenge)
-                        <h2 class="mt-4">Challenge ID: {{ $challenge->challengeId }}</h2>
-                        <table class="table table-bordered mt-2">
-                            <thead class="bg-dark text-white" style="font-size: 1.1rem;">
+            @foreach ($mostCorrectlyAnsweredQuestions as $challengeId => $questions)
+                    <h3>Challenge ID: {{ $challengeId }}</h3>
+                    <table class="table table-bordered mt-2">
+                        <thead   class="bg-dark text-white" style="font-size: 1.1rem;">
+                            <tr>
+                                <th>Question ID</th>
+                                <th>Question Text</th>
+                                <th>Total Correct</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($questions as $question)
                                 <tr>
-                                    <th>Question ID</th>
-                                    <th>Question Text</th>
-                                    <th>Total Correct</th>
+                                    <td>{{ $question->questionid }}</td>
+                                    <td>{{ $question->question_text }}</td>
+                                    <td>{{ $question->total_correct }}</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($groupedByChallenge as $question)
-                                    <tr>
-                                        <td>{{ $question->questionid }}</td>
-                                        <td>{{ $question->question_text }}</td>
-                                        <td>{{ $question->total_correct }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @endforeach
-                @else
-                    <p>No data available for this challenge.</p>
-                @endif
-            
+                            @endforeach
+                        </tbody>
+                    </table>
+                @endforeach
+
+
             </div>
 
         </div>
