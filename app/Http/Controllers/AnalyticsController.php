@@ -25,9 +25,7 @@ class AnalyticsController extends Controller
             ->groupBy('year')
             ->get(); */
         
-        /*$bestPerformingSchools = School::with('participants')->get()->sortByDesc(function ($school) {
-            return $school->participants->avg('score');
-        })->take(10);*/
+       
 
         /*$worstPerformingSchools = School::with('participants')->get()->sortBy(function ($school) {
             return $school->participants->avg('score');
@@ -50,27 +48,28 @@ class AnalyticsController extends Controller
    
    public function showAnalytics()
    {
-       // Fetch the most correctly answered questions
+       // Existing data fetching methods
        $mostCorrectlyAnsweredQuestions = $this->mostCorrectlyAnsweredQuestions();
-       
-       // Fetch the school rankings
        $schoolRankings = $this->getSchoolRankings();
-       
-       // Fetch the worst performing schools per challenge
        $worstPerformingSchools = $this->getWorstPerformingSchools();
-      
-       //best per challenge
        $bestPerformingSchools = $this->getBestPerformingSchools();
-
-      
-       // Pass the data to the view
+       $schoolPerformance = $this->getSchoolPerformance();
+   
+       // Fetch top 2 winners per challenge
+       $topWinners = $this->getTopWinners();
+   
+       // Pass data to the view
        return view('analytics.analytics', [
            'groupedByChallenge' => $mostCorrectlyAnsweredQuestions,
            'schoolRankings' => $schoolRankings,
            'worstPerformingSchools' => $worstPerformingSchools,
-           'bestPerformingSchools' => $worstPerformingSchools
+           'bestPerformingSchools' => $bestPerformingSchools,
+           'performanceOverYears' => $schoolPerformance,
+           'topWinners' => $topWinners // Pass top winners data
        ]);
    }
+   
+   
    
 private function mostCorrectlyAnsweredQuestions()
 {
@@ -86,6 +85,7 @@ private function mostCorrectlyAnsweredQuestions()
         ->toArray(); // Convert collection to array
 
     return $mostCorrectlyAnsweredQuestions;
+    
 }
 
 
@@ -152,6 +152,81 @@ private function getBestPerformingSchools()
             ];
         });
 }
+
+//school performance over years 
+public function getSchoolPerformance()
+{
+    // Fetch the average scores per school per year. verify this method
+    $schoolPerformance = DB::table('attempts as a')
+        ->join('schools as s', 'a.school_registration_no', '=', 's.registration_no')
+        ->select(
+            's.name',
+            DB::raw('YEAR(a.attempt_date) as year'),
+            DB::raw('AVG(a.score) as average_score')
+        )
+        ->groupBy('s.name', DB::raw('YEAR(a.attempt_date)'))
+        ->orderBy('year', 'asc')
+        ->get();
+
+    // Process data to calculate rankings
+    $performanceData = [];
+    foreach ($schoolPerformance as $performance) {
+        $performanceData[$performance->year][$performance->name] = $performance->average_score;
+    }
+
+    // Calculate ranks for each school per year
+    $ranks = [];
+    foreach ($performanceData as $year => $scores) {
+        arsort($scores); // Sort scores in descending order
+        $rank = 1;
+        foreach ($scores as $school => $score) {
+            $ranks[$year][$school] = $rank++;
+        }
+    }
+
+    // Format data for Chart.js
+    $formattedData = [];
+    foreach ($performanceData as $year => $schools) {
+        foreach ($schools as $school => $score) {
+            $formattedData[$school][] = [
+                'year' => $year,
+                'rank' => $ranks[$year][$school] ?? null
+            ];
+        }
+    }
+
+    // Return formatted data
+    return $formattedData;
+}
+
+//winners per challenge
+private function getTopWinners()
+{
+    // Fetch the top 2 winners per challenge
+    return DB::table('attempts as a')
+        ->join('participants as p', 'a.participantid', '=', 'p.participantid')
+        ->join('schools as s', 'p.school_registration_no', '=', 's.registration_no')
+        ->select('a.challengeId', 'p.firstname', 'p.lastname', 'p.image', 's.name as school_name', 'a.score')
+        ->whereIn('a.challengeId', function($query) {
+            $query->select('challengeid')
+                ->from('challenge')
+                ->where('closing_date', '<', now());
+        })
+        ->groupBy('a.challengeId', 'p.participantid', 'p.firstname', 'p.lastname', 'p.image', 's.name', 'a.score')
+        ->orderBy('a.challengeId')
+        ->orderByDesc('a.score')
+        ->get()
+        ->mapToGroups(function($item) {
+            return [$item->challengeId => (object)[
+                'fullname' => $item->firstname . ' ' . $item->lastname,
+                'school_name' => $item->school_name,
+                'score' => $item->score,
+                'image' => $item->image
+            ]];
+        });
+}
+
+
 
 
 

@@ -16,9 +16,6 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ReportScheduleController;
 
 
-
-
-
 // Home route
 Route::get('/', function () {
     return view('welcome');

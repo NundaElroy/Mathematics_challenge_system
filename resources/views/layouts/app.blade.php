@@ -15,7 +15,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .guest-sidebar {
             height: 100vh;
@@ -50,6 +50,7 @@
             @yield('content')
             @include('layouts.footer.nav')
         </div>
+      </body>  
 
     </div>
     <!-- Core JS Files -->
@@ -99,5 +100,5 @@
         });
       });
     </script>
-</body>
+
 </html>
