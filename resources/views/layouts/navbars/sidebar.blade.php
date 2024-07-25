@@ -66,12 +66,12 @@ Tip 2: you can also add an image using data-image tag
 
         </li>
 
-            <li class="nav-item @if($activePage == 'notifications') active @endif">
+            <!-- <li class="nav-item @if($activePage == 'notifications') active @endif">
                 <a class="nav-link" href="{{route('page.index', 'notifications')}}">
                     <i class="nc-icon nc-bell-55"></i>
                     <p>{{ __("Notifications") }}</p>
                 </a>
-            </li>
+            </li> -->
             <!-- <li class="nav-item @if($activePage == 'analytics') active @endif">
                 <a class="nav-link" href="{{route('page.index', 'analytics')}}">
                 <i class="fa fa-superscript" aria-hidden="true"></i>
