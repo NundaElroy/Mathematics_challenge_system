@@ -32,11 +32,11 @@
                                     </div>
                                     <div class="form-group d-flex justify-content-center">
                                         <div class="form-check">
-                                        <input class="form-check-input" name="agree" id="agree" type="checkbox" required name="terms" style="display:inline-block">
+                                        <input class="form-check-input" type="checkbox" name="agree" id="agree"  required name="terms" >
                                         <!--added code above here -->
-                                            <label class="form-check-label ml-2" for="agree">
-                                                <b>{{ __('Agree With Terms And Conditions') }}</b>
-                                            </label>    
+                                            <label class="form-check-label d-flex align-items-center" for="agree">
+                                            <span class="form-check-sign"> </span> <b>{{ __('Agree With Terms And Conditions') }}</b>
+                                        </label>    
                                              </div>
                                     </div>
                                     <div class="footer text-center">
