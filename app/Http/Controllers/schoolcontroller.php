@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\School;
-use App\Models\Representative;
-use App\Http\Controllers\Controller;
+
 class SchoolController extends Controller
 {
     // Display a list of schools
@@ -13,7 +12,7 @@ class SchoolController extends Controller
     {
         $title = 'Schools';
         $activePage = 'schools';
-        $schools = School::with('representatives')->get();
+        $schools = School::with('representative')->get(); // Use the correct relationship
         return view('pages.schools', compact('title', 'schools', 'activePage'));
     }
 
@@ -49,7 +48,7 @@ class SchoolController extends Controller
     {
         $title = 'View School';
         $activePage = 'schools';
-        $school = School::findOrFail($registration_no);
+        $school = School::where('registration_no', $registration_no)->firstOrFail(); // Use registration_no to find the school
         return view('schools.show', compact('title', 'school', 'activePage'));
     }
 
@@ -58,7 +57,7 @@ class SchoolController extends Controller
     {
         $title = 'Edit School';
         $activePage = 'schools';
-        $school = School::findOrFail($registration_no);
+        $school = School::where('registration_no', $registration_no)->firstOrFail(); // Use registration_no to find the school
         return view('schools.edit', compact('title', 'school', 'activePage'));
     }
 
@@ -74,21 +73,10 @@ class SchoolController extends Controller
         ]);
 
         // Find the school by registration_no and update it
-        $school = School::findOrFail($registration_no);
+        $school = School::where('registration_no', $registration_no)->firstOrFail();
         $school->update($request->all());
 
         // Redirect to the index page with a success message
         return redirect()->route('schools.index')->with('success', 'School updated successfully.');
-    }
-
-    // Remove a specific school from the storage
-    public function destroy($registration_no)
-    {
-        // Find the school by registration_no and delete it
-        $school = School::findOrFail($registration_no);
-        $school->delete();
-
-        // Redirect to the index page with a success message
-        return redirect()->route('schools.index')->with('success', 'School deleted successfully.');
     }
 }
