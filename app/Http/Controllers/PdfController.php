@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 
 class PdfController extends Controller
 {
-    //use Illuminate\Support\Facades\DB;
+    //fetches data for a give challengeid and attemptid;
 
     public function fetchData($challengeId, $attemptid)
     {
@@ -36,6 +36,7 @@ class PdfController extends Controller
         return $data;
     }
     
+    //all attempt details for a given partcipant for achallenge
     public function sendReports($challengeId, $participantid)
     {
         // Fetch distinct attempt IDs for the participant
