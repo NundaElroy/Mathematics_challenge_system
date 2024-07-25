@@ -41,8 +41,25 @@ public class Server {
 
             // Process client response
              else if (clientResponse.equalsIgnoreCase("Register")) {
-                //send registration instructions
-                
+                //receiving username to check for 
+                //second time application incase the participant is rejected
+                String applicantUsername = reader.readLine();
+                //check if participant exists in the table rejected 
+                if(Pupil.checkIfParticipantHasBeenRejectedBefore(applicantUsername)){
+                    //alert the participant via the client 
+                    writer.write("error");
+                    writer.newLine();
+                    writer.flush();
+                    continue; //return menu
+               }else{
+                    writer.write("success");
+                    writer.newLine();
+                    writer.flush();
+
+                }
+                 
+
+
 
                 // Read registration details
                 String registrationDetails = reader.readLine();
@@ -352,6 +369,7 @@ public class Server {
                         }
 
             } }}else {
+                
                 System.out.println("invalid input");
             }
             }

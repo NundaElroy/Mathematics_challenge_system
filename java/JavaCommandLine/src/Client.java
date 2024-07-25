@@ -60,7 +60,26 @@ public class Client  {
             }else if (response.equalsIgnoreCase("Register")) {
                //client side validation
                System.out.println("_".repeat(50));
+
+
+               //i want to check whether that student had been rejected before
+               String username   = responseArray[2];  
+               //sending  to the server
+               writer.write(username);
+               writer.newLine();
+               writer.flush();
                
+               System.out.println("\u001B[32mloading.....please wait\u001B[0m");
+               //handling edgecase for trying to attempt again
+               String serverResponseRegardingCheck = reader.readLine();
+
+               if(serverResponseRegardingCheck.equalsIgnoreCase("error")){
+                System.out.println("\033[0;31mapplication denied/second applicantion from applicant\033[0m");
+                continue; //prepare to receive menu
+               }
+               
+
+
                 while (true) {
 
                 String [] newArray = Arrays.copyOfRange(responseArray, 1, responseArray.length);
@@ -323,7 +342,7 @@ public class Client  {
                       break;
                   }else{
 
-                      System.out.println(reader.readLine());
+                     System.out.println("\u001B[31m invalid input\u001B[0m");
   
                   }
  
@@ -335,7 +354,7 @@ public class Client  {
     }}catch(IOException e){
         e.printStackTrace();
     }catch(ClassNotFoundException e){
-        e.printStackTrace();
+        e.getMessage();
     }
     finally{
         try{
@@ -344,7 +363,7 @@ public class Client  {
             writer.close();
             scanner.close();
         }catch(IOException e){
-            e.printStackTrace();
+            e.getMessage();
         }}
     }
 
