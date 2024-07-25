@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'notifications', 'title' => 'notifications', 'navName' => 'Notifications', 'activeButton' => 'laravel'])
+<!--@extends('layouts.app', ['activePage' => 'notifications', 'title' => 'notifications', 'navName' => 'Notifications', 'activeButton' => 'laravel'])
 
 @section('content')
     <div class="content">
@@ -150,3 +150,4 @@
         </div>
     </div>
 @endsection
+-->
