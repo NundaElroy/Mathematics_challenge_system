@@ -1,7 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-info">
     <div class="container">
         <div class="navbar-wrapper">
-            <a class="navbar-brand text-white" href="#pablo">{{ __('Mathematics competition') }}</a>
+        <div class="logo" style="display:flex; align-items:center;position:absolute;top:10px;left: 10px;">
+    <img src="{{asset('light-bootstrap/img/logo1.png')}}" alt="logo" class="logo" style="height: 40px; width:60px;">
+        </div>
+            <a class="navbar-brand text-white" href="#pablo">{{ __('Mathematics National Platform') }}</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

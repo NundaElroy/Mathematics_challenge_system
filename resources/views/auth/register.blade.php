@@ -3,9 +3,7 @@
 @section('content')
     <div class="full-page register-page section-image" data-color="azure" data-image="{{ asset('light-bootstrap/img/bg-image.jpg') }}">
         <div class="content">
-        <div class="logo" style="display:flex; align-items:center;position:absolute;top:-50px;left: 10px;">
-    <img src="{{asset('light-bootstrap/img/logo1.png')}}" alt="logo" class="logo" style="height: 60px; width:60px;">
-</div>
+        
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-6">

@@ -8,7 +8,7 @@
                 <script>
                     document.write(new Date().getFullYear())
                 </script>
-            <a href="http://www.creative-tim.com" style="color: white;" >{{__('Mathematics National Challenge Platform')}}</a>
+            <a href="http://www.creative-tim.com" style="color:black;" >{{__('Mathematics National Challenge Platform')}}</a>
             </p>
         </nav>
     </div>
