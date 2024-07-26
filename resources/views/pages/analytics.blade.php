@@ -1,6 +1,4 @@
 @extends('layouts.app', ['activePage' => 'analytics', 'title' => 'Analytics'])
-
-
 @section('content')
 <div class="container mt-4">
     <h1 class="mb-4">Analytics Overview</h1>
@@ -19,7 +17,7 @@
             @foreach($groupedByChallenge as $challengeId => $questions)
                 <h2 class="mt-4">Challenge ID: {{ $challengeId }}</h2>
                 <table class="table table-bordered mt-2">
-                    <thead>
+                    <thead >
                         <tr>
                             <th>Question ID</th>
                             <th>Question Text</th>
@@ -45,17 +43,18 @@
             <p>No data available for this section yet.</p>
         </div>
 
-        <!-- Add more tab panes as needed -->
+         <!-- Add more tab panes as needed -->
     </div>
 </div>
-@endsection
+<!-- @endsection -->
 
-@push('styles')
+ @push('styles')
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-@endpush
+@endpush 
 
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 @endpush
+@endsection

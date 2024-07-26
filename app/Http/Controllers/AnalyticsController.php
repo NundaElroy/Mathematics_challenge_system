@@ -57,6 +57,7 @@ class AnalyticsController extends Controller
    
        // Fetch top 2 winners per challenge
        $topWinners = $this->getTopWinners();
+       $incompleteChallenges =$this->getIncompleteChallenges();
    
        // Pass data to the view
        return view('analytics.analytics', [
@@ -65,8 +66,9 @@ class AnalyticsController extends Controller
            'worstPerformingSchools' => $worstPerformingSchools,
            'bestPerformingSchools' => $bestPerformingSchools,
            'performanceOverYears' => $schoolPerformance,
-           'topWinners' => $topWinners // Pass top winners data
-       ]);
+           'topWinners' => $topWinners,// Pass top winners data
+           'incompleteChallenges' => $incompleteChallenges //what is up hereeee
+        ]);
    }
    
    
@@ -224,8 +226,17 @@ private function getTopWinners()
                 'image' => $item->image
             ]];
         });
-}
+    }
+    private function getIncompleteChallenges()
+    {
+        $incompleteChallenges = Participant::join('attempt_details', 'participants.participantid', '=', 'attempt_details.participantid')
+            ->whereNull('attempt_details.timetaken_per_question')
+            ->select('participants.*')
+            ->distinct()
+            ->get();
 
+        return   $incompleteChallenges;
+    }
 
 
 
