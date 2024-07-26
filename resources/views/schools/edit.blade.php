@@ -26,6 +26,10 @@
             <label for="representative_email">Representative Email</label>
             <input type="email" class="form-control" id="representative_email" name="representative_email" value="{{ $school->representative_email }}" required>
         </div>
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary btn-lg">Update</button>
+        </div>
     </div>
+    </form>
 </div>
 @endsection
