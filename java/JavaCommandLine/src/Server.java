@@ -41,10 +41,37 @@ public class Server {
 
             // Process client response
              else if (clientResponse.equalsIgnoreCase("Register")) {
+                // receiving school registration number
+                String schoolRegistrationNumber = reader.readLine();
+                System.out.println(schoolRegistrationNumber);
+                if(!Pupil.checkIfSchoolRegNoExists(schoolRegistrationNumber)){
+                    //alert the participant via the client 
+                    writer.write("error");
+                    writer.newLine();
+                    writer.flush();
+                    continue; //return menu
+               }else{
+                    writer.write("success");
+                    writer.newLine();
+                    writer.flush();
+
+                }
+
+
+
+
+
+
+
+
+
+
+
                 //receiving username to check for 
                 //second time application incase the participant is rejected
                 String applicantUsername = reader.readLine();
                 //check if participant exists in the table rejected 
+                System.out.println(applicantUsername);
                 if(Pupil.checkIfParticipantHasBeenRejectedBefore(applicantUsername)){
                     //alert the participant via the client 
                     writer.write("error");
@@ -301,25 +328,30 @@ public class Server {
 
                                 
                         }else if(menuChoice2.equalsIgnoreCase("attemptChallenge")){
-                            //receving challengeid
+                            //data that i need to pass into the database regarding challenge id
+                            //username used as  a login credential is used to get their partipantid,regno
                             String participantUsername = partitcipantUserName;
                             Pupil pupil1 = Pupil.getParticipantIdAndSchoolRegNoByUsername(participantUsername);
                             int participantIdFromDB = pupil1.getParticipantId();
                             String schoolRegNoFromDb = pupil1.getSchoolRegno();
+                            //receving challengeid
                             String challengeid = reader.readLine();
                             //number of questions for that challenge
                             System.out.println(!Challenge.isChallengeValid(Integer.parseInt(challengeid)));
                             System.out.println(!Attempt.checkForNumberForNoPerChallenge(participantIdFromDB,challengeid));
                             
-                            if ((!Challenge.isChallengeValid(Integer.parseInt(challengeid))) && (!Attempt.checkForNumberForNoPerChallenge(participantIdFromDB,challengeid))){
+                            //checking if that challenge is valid and whether the participant does exceed three 3 attempts for a challenge
+                             if ((!Challenge.isChallengeValid(Integer.parseInt(challengeid))) || (!Attempt.checkForNumberForNoPerChallenge(participantIdFromDB,challengeid))){
                                 writer.write("error");//code error - challenge not found
                                 writer.newLine();
                                 writer.flush();
-                                //  continue;//to resend menu
-                            }else{
+                                continue;
+                             }else{
                                 writer.write("success");//challenge exists
                                 writer.newLine();
                                 writer.flush();
+
+                                //number of questions per challenge
                                 int number_of_questions = Challenge.getNumberOfQuestionForChallenge(challengeid);
                                 //fetching the 10 random questions associated with the database
                                  List<Question> questions = Question.fetchRandomQuestions(Integer.parseInt(challengeid),number_of_questions);
