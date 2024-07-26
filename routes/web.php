@@ -28,10 +28,7 @@ Route::get('/guest-welcome', function () {
 Route::get('/analytics',[AnalyticsController::class, 'showAnalytics']);
 Route::get('/analytics', [AnalyticsController::class,'showAnalytics'])->name('analytics');
 
-//if doesnt work change index to showAnalytics
-// Route::get('/analytics', [AnalyticsController::class, 'mostCorrectlyAnsweredQuestions']);;
-// Route::get('/analytics', [AnalyticsController::class, 'mostCorrectlyAnsweredQuestions'])->name('analytics');
-//analytics first view
+
 // Authentication routes
 Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');

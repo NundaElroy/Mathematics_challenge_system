@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="text-center">
-                <a href="{{ route('analytics') }}" class="btn btn-primary">{{ __('System Analytics') }}</a>
+                <a href="{{ route('analytics') }}" class="btn btn-primary">{{ __('Analytics') }}</a>
                 
             </div>
             </div>

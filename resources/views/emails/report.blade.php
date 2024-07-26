@@ -48,6 +48,7 @@
     </style>
 </head>
 <body>
+    <h1>MATHEMATICS NATIONAL CHALLENGE</h1>
     <h1>Challenge Report</h1>
     <h1>{{ $data[0]->challengeId}}</h1>
 

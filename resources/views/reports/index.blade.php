@@ -23,7 +23,7 @@
                                     <th>Challenge ID</th>
                                     <th>Time to Send</th>
                                     <th>Status</th>
-                                    <th>Actions</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -39,15 +39,15 @@
                                                 <span class="text-danger">Not Sent</span>
                                             @endif
                                         </td>
-                                        <td>
-                                            <!-- <a href="{{ route('report.scheduleview', $reportSchedule->reportid) }}" class="btn btn-info btn-sm" style="background-color: #17a2b8; border-color: #17a2b8; color: #ffffff;">View</a> -->
+                                        <!-- <td>
+                                           
                                             <a href="{{ route('report.scheduleedit', '$reportSchedule->reportid') }}" class="btn btn-warning btn-sm" style="background-color: #fd7e14; border-color: #fd7e14; color: #ffffff;">Edit</a>
                                             <form action="{{ route('report.scheduledestroy', $reportSchedule->reportid) }}" method="POST" style="display:inline-block;" onsubmit="return confirmDelete();">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" style="background-color: #dc3545; border-color: #dc3545; color: #ffffff;">Delete</button>
                                             </form>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -59,11 +59,11 @@
     </div>
 </div>
 
-@section('scripts')
+<!-- @section('scripts')
 <script>
     function confirmDelete() {
         return confirm('Are you sure you want to delete this schedule? This action cannot be undone.');
     }
 </script>
-@endsection
+@endsection -->
 @endsection

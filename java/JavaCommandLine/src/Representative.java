@@ -11,7 +11,7 @@ public class Representative implements Serializable{
    
 
     public static void main(String[] args) {
-         Representative rep = new Representative("John Dye", "johndoe@example.com");
+         Representative rep = new Representative("John Doe", "johndoe@example.com");
         // if(rep.login()){
         //     System.out.println("user exists or loggin successful");
         // }else{

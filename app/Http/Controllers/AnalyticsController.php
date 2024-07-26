@@ -15,22 +15,6 @@ class AnalyticsController extends Controller
     /*public function showAnalytics()
     {  */
         // Example analytics data
-       /* $mostCorrectlyAnsweredQuestions = Question::withCount('correctAnswers')->orderBy('correct_answers_count', 'desc')->take(10)->get();
-        $schoolRankings = School::with('participants')->get()->sortByDesc(function ($school) {
-            return $school->participants->avg('score');
-        });*/
-        
-        /* $performanceOverYears = DB::table('participants')
-            ->select(DB::raw('YEAR(created_at) as year'), DB::raw('avg(score) as average_score'))
-            ->groupBy('year')
-            ->get(); */
-        
-       
-
-        /*$worstPerformingSchools = School::with('participants')->get()->sortBy(function ($school) {
-            return $school->participants->avg('score');
-        })->take(10);*/
-
        /* $incompleteChallenges = Participant::whereHas('challenges', function ($query) {
             $query->where('status', '!=', 'completed');
         })->get();*/
@@ -58,6 +42,12 @@ class AnalyticsController extends Controller
        // Fetch top 2 winners per challenge
        $topWinners = $this->getTopWinners();
        $incompleteChallenges =$this->getIncompleteChallenges();
+
+       // Get question repetition percentage for all participants
+    $participantIds = Participant::pluck('participantid');
+    $questionRepetitionData = [];
+    foreach ($participantIds as $participantId) {
+        $questionRepetitionData[$participantId] = $this->getQuestionRepetitionPercentage($participantId);
    
        // Pass data to the view
        return view('analytics.analytics', [
@@ -67,11 +57,12 @@ class AnalyticsController extends Controller
            'bestPerformingSchools' => $bestPerformingSchools,
            'performanceOverYears' => $schoolPerformance,
            'topWinners' => $topWinners,// Pass top winners data
-           'incompleteChallenges' => $incompleteChallenges //what is up hereeee
+           'incompleteChallenges' => $incompleteChallenges,
+            'questionRepetitionData' => $questionRepetitionData
         ]);
    }
    
-   
+}
    
    private function mostCorrectlyAnsweredQuestions()
 {
@@ -251,7 +242,53 @@ private function getTopWinners()
 
         return   $incompleteChallenges;
     }
-
+    public function getQuestionRepetitionPercentage($participantId)
+    {
+        // Get all attempts for the participant
+        $attempts = DB::table('attempt_details')
+            ->where('participantid', $participantId)
+            ->select('attemptid', 'questionid')
+            ->get();
+    
+        // Count total questions attempted
+        $totalQuestions = $attempts->count();
+    
+        // Count how many times each question appears
+        $questionCounts = $attempts->groupBy('questionid')
+            ->map(function ($group) {
+                return $group->count();
+            });
+    
+        // Calculate repetition percentage
+        $repeatedQuestions = $questionCounts->filter(function ($count) {
+            return $count > 1;
+        })->sum();
+    
+        $repetitionPercentage = ($repeatedQuestions / $totalQuestions) * 100;
+    
+        // Get question details for repeated questions
+        $repeatedQuestionDetails = DB::table('attempt_details as ad')
+            ->join('questions as q', 'ad.questionid', '=', 'q.questionid')
+            ->join('participants as p', 'ad.participantid', '=', 'p.participantid')
+            ->whereIn('ad.questionid', $questionCounts->filter(function ($count) {
+                return $count > 1;
+            })->keys())
+            ->where('ad.participantid', $participantId)
+            ->select('q.questionid', 'q.question_text', 'q.challengeId', 'q.marks', 
+                     'p.firstname', 'p.lastname', 
+                     DB::raw('COUNT(ad.questionid) as repetition_count'))
+            ->groupBy('q.questionid', 'q.question_text', 'q.challengeId', 'q.marks', 
+                      'p.firstname', 'p.lastname')
+            ->get();
+    
+        return [
+            'participantId' => $participantId,
+            'totalQuestions' => $totalQuestions,
+            'repeatedQuestions' => $repeatedQuestions,
+            'repetitionPercentage' => round($repetitionPercentage, 2),
+            'repeatedQuestionDetails' => $repeatedQuestionDetails
+        ];
+    }
 
 
 

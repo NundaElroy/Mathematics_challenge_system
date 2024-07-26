@@ -25,6 +25,11 @@
             <li class="nav-item nav-item-spaced" style = " margin-right: 8px;  margin-bottom: 5px;">
                 <a class="nav-link bg-info text-white" id="tab7-tab" data-toggle="tab" href="#tab7" role="tab" aria-controls="tab7" aria-selected="false"> Participants with Incomplete Challenges</a>
             </li>
+            <li class="nav-item nav-item-spaced" style = " margin-right: 8px;  margin-bottom: 5px;">
+                <a class="nav-link bg-info text-white" id="tab8-tab" data-toggle="tab" href="#tab8" role="tab" aria-controls="tab8" aria-selected="false"> Percentage Repetition of Questions</a>
+            </li>
+
+
         </ul>
         <div class="tab-content mt-3" id="analyticsTabsContent">
             <!-- Tab 1 Content -->
@@ -293,6 +298,29 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="tab-pane fade" id="tab8" role="tabpanel" aria-labelledby="tab8-tab">
+        @foreach($questionRepetitionData as $participantId => $data)
+        <h3>Participant: {{ $data['repeatedQuestionDetails'][0]->firstname }} {{ $data['repeatedQuestionDetails'][0]->lastname }}</h3>
+        
+       <p>Question Repetition Percentage: {{ $data['repetitionPercentage'] }}%</p>
+       <p>Total Questions Attempted: {{ $data['totalQuestions'] }}</p>
+       <p>Repeated Questions: {{ $data['repeatedQuestions'] }}</p>
+       
+    <h2 class="mt-4">Repeated Question Details</h2>
+    <ul>
+    @foreach($data['repeatedQuestionDetails'] as $question)
+        <li>
+            Question ID: {{ $question->questionid }}<br>
+            Question Text: {{ $question->question_text }}<br>
+            Challenge ID: {{ $question->challengeId }}<br>
+            Marks: {{ $question->marks }}<br>
+            Repetition Count: {{ $question->repetition_count }}
+        </li>
+    @endforeach
+    </ul>
+@endforeach
+
         </div>
     </div>
             

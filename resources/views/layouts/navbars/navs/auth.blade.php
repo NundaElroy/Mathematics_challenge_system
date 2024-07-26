@@ -7,7 +7,7 @@
             <span class="navbar-toggler-bar burger-lines"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <ul class="nav navbar-nav mr-auto">
+            <!-- <ul class="nav navbar-nav mr-auto">
                 <li class="dropdown nav-item">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                     <i class="fa fa-bell-o" aria-hidden="true"></i>
@@ -22,7 +22,7 @@
                         <a class="dropdown-item" href="#">{{ __('Another notification') }}</a>
                     </ul>
                 </li>
-            </ul>
+            </ul> -->
             <ul class="navbar-nav d-flex align-items-center">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: inline-block; position: relative;">

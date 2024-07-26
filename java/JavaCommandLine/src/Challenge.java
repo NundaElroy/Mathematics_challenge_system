@@ -15,6 +15,8 @@ public class Challenge implements Serializable {
     public int scoreOfChallenge;
     public List<Question> questions; // holds the questions(10) for the challenge
 
+
+    
     // will be used when attempting the challenge
     public Challenge(String challengeId, int duration, List<Question> questions) {
         this.challengeId = challengeId;
@@ -62,13 +64,13 @@ public class Challenge implements Serializable {
     // static method to print out the challenges from a list
     public static void printOutChallenges(List<Challenge> availableChallenges) {
         // Print the header
-        System.out.printf("%-20s %-25s %-20s %-20s %-20s %-15 %n", "Challenge ID", "Challenge Name", "Open Date", "Close Date", "Number of Questions", "Duration");
+        System.out.printf("%-20s %-25s %-20s %-20s %-20s %-15s %n", "Challenge ID", "Challenge Name", "Open Date", "Close Date", "Number of Questions", "Duration");
     
         System.out.println("".repeat(120)); // Separator line
     
         // Print each challenge in tabular format
         for (Challenge challenge : availableChallenges) {
-            System.out.printf("%-20s %-25s %-20s %-20s %-20s %-15 %n",
+            System.out.printf("%-20s %-25s %-20s %-20s %-20s %-15s %n",
                     challenge.challengeId,
                     challenge.challengeName,
                     challenge.openDate,

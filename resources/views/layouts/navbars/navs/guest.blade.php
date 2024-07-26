@@ -23,7 +23,8 @@
                 </li>
                 <li class="nav-item @if($activePage == 'guest.welcome') active @endif">
                     <a href="{{ route('guest.welcome') }}" class="nav-link text-white">
-                        <i class="fa fa-bar-chart" aria-hidden="true"></i> {{ __('Guest View') }}
+                        <i class="fa fa-bar-chart" aria-hidden="true"></i> {{ __('Analytics Overview
+                        ') }}
                     </a>
                 </li>
             </ul>
