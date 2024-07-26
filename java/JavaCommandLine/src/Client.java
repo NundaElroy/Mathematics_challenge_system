@@ -34,7 +34,7 @@ public class Client  {
                 
                 System.out.println(line);
             }
-            System.out.println("\033[0;32mnote for register use register/username/password/firstname/lastname/email/dob/photoPath\033[0m");
+            System.out.println("\033[0;32mnote for register use register/schoolregno/username/password/firstname/lastname/email/dob/photoPath\033[0m");
 
            //prompting the user for a response
             System.out.println("_".repeat(50));
@@ -60,7 +60,41 @@ public class Client  {
             }else if (response.equalsIgnoreCase("Register")) {
                //client side validation
                System.out.println("_".repeat(50));
+               //going to check if the school reg no exists in our database table
+               String schoolRegistrationNumber = responseArray[1];
+               writer.write(schoolRegistrationNumber);
+               writer.newLine();
+               writer.flush();
+               System.out.println("\u001B[32mloading.....please wait\u001B[0m");
+
+               String serverResponseRegardingCheckRegNo = reader.readLine();
+               System.out.println(serverResponseRegardingCheckRegNo);
+
+               if(serverResponseRegardingCheckRegNo.equalsIgnoreCase("error")){
+                System.out.println("\033[0;31minvalid school registration number\033[0m");
+                continue; //prepare to receive menu
+               }
                
+
+
+               //i want to check whether that student had been rejected before
+               String username   = responseArray[2];  
+               //sending  to the server
+               writer.write(username);
+               writer.newLine();
+               writer.flush();
+               
+               System.out.println("\u001B[32mloading.....please wait\u001B[0m");
+               //handling edgecase for trying to attempt again
+               String serverResponseRegardingCheck = reader.readLine();
+
+               if(serverResponseRegardingCheck.equalsIgnoreCase("error")){
+                System.out.println("\033[0;31mapplication denied/second applicantion from applicant\033[0m");
+                continue; //prepare to receive menu
+               }
+               
+
+
                 while (true) {
 
                 String [] newArray = Arrays.copyOfRange(responseArray, 1, responseArray.length);
@@ -229,10 +263,10 @@ public class Client  {
 
                }
             }else if(TypeOfUser.equalsIgnoreCase("participant")){
-                //TRACKING Autheentication
-                //incase the login is successful
+                
+                //incase the login is successful we keep track of user session
                 while(true){
-                 //handling going quitting to correapond to the server
+                 //handling going quitting to correspond to the server
                  
                   //receiving menu
                   String line1;
@@ -284,6 +318,7 @@ public class Client  {
                         System.out.println("_".repeat(50));
                         System.out.println("\u001B[31m invalid challenge/doesnot exist/cant attempt challenge more than 3 times\u001B[0m");
                         System.out.println("_".repeat(50));
+                        continue;
                         
                       }else if(serverRepRegardingChallenge.equalsIgnoreCase("success")){
                         //server retrieving data and setting up the challenge so user is waiting 
@@ -323,7 +358,7 @@ public class Client  {
                       break;
                   }else{
 
-                      System.out.println(reader.readLine());
+                     System.out.println("\u001B[31m invalid input\u001B[0m");
   
                   }
  
@@ -335,7 +370,7 @@ public class Client  {
     }}catch(IOException e){
         e.printStackTrace();
     }catch(ClassNotFoundException e){
-        e.printStackTrace();
+        e.getMessage();
     }
     finally{
         try{
@@ -344,7 +379,7 @@ public class Client  {
             writer.close();
             scanner.close();
         }catch(IOException e){
-            e.printStackTrace();
+            e.getMessage();
         }}
     }
 

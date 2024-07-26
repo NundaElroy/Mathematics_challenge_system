@@ -61,7 +61,7 @@ class AnalyticsController extends Controller
    
        // Pass data to the view
        return view('analytics.analytics', [
-           'groupedByChallenge' => $mostCorrectlyAnsweredQuestions,
+           'mostCorrectlyAnsweredQuestions' => $mostCorrectlyAnsweredQuestions,
            'schoolRankings' => $schoolRankings,
            'worstPerformingSchools' => $worstPerformingSchools,
            'bestPerformingSchools' => $bestPerformingSchools,
@@ -73,23 +73,37 @@ class AnalyticsController extends Controller
    
    
    
-private function mostCorrectlyAnsweredQuestions()
+   private function mostCorrectlyAnsweredQuestions()
 {
-    // Fetch the correctly answered questions grouped by challenge_id and questionid
-    $mostCorrectlyAnsweredQuestions = DB::table('attempt_details')
-        ->select('attempt_details.challengeId', 'attempt_details.questionid', DB::raw('count(*) as total_correct'), 'questions.question_text')
-        ->join('questions', 'attempt_details.questionid', '=', 'questions.questionid')
-        ->where('attempt_details.is_correct', true)
-        ->groupBy('attempt_details.challengeId', 'attempt_details.questionid', 'questions.question_text')
-        ->orderBy('total_correct', 'desc')
-        ->limit(5)
+    // Get all distinct challenge IDs from attempt_details
+    $challengeIds = DB::table('attempt_details')
+        ->select('challengeId')
+        ->distinct()
         ->get()
-        ->toArray(); // Convert collection to array
+        ->pluck('challengeId');
 
-    return $mostCorrectlyAnsweredQuestions;
-    
+    $results = [];
+
+    // For each challengeId, get the top 5 correctly answered questions
+    foreach ($challengeIds as $challengeId) {
+        $topQuestions = DB::table('attempt_details')
+            ->select('attempt_details.challengeId', 'attempt_details.questionid', 'questions.question_text', DB::raw('count(attempt_details.is_correct) as total_correct'))
+            ->join('questions', 'attempt_details.questionid', '=', 'questions.questionid')
+            ->where('attempt_details.is_correct', true)
+            ->where('attempt_details.challengeId', $challengeId)
+            ->groupBy('attempt_details.challengeId', 'attempt_details.questionid', 'questions.question_text')
+            ->orderBy('total_correct', 'desc')
+            ->limit(5)
+            ->get()
+            ->toArray();
+
+        $results[$challengeId] = $topQuestions;
+    }
+
+    return $results;
 }
 
+   
 
    private function getSchoolRankings()
    {

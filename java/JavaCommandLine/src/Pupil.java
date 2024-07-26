@@ -180,6 +180,54 @@ public static Pupil getParticipantIdAndSchoolRegNoByUsername(String username) {
     }
     return new Pupil(participantId, school_registration_no);
 }
+//checking valid school registration number
+public static boolean checkIfSchoolRegNoExists(String schoolRegNo) {
+    String url = "jdbc:mysql://localhost:3306/mathematics_challenge"; // Adjust the URL as needed
+    String user = "root";
+    String password = ""; // Replace with your actual password
+
+    String query = "SELECT registration_no FROM schools WHERE registration_no = ?";
+
+    try (Connection connection = DriverManager.getConnection(url, user, password);
+         PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+        preparedStatement.setString(1, schoolRegNo);
+        System.out.println("sssss");
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            return resultSet.next(); // If a row is found, return true
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        // Handle exceptions appropriately in your actual code
+    }
+
+    return false; // Return false if no row is found or an exception occurs
+}
+//checking second time registration
+public static boolean checkIfParticipantHasBeenRejectedBefore(String participantUsername) {
+    String url = "jdbc:mysql://localhost:3306/mathematics_challenge"; // Adjust the URL as needed
+    String user = "root";
+    String password = ""; // Replace with your actual password
+
+    String query = "SELECT 1 FROM rejected WHERE username = ?";
+
+    try (Connection connection = DriverManager.getConnection(url, user, password);
+         PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+        preparedStatement.setString(1, participantUsername);
+
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            return resultSet.next(); // If a row is found, return true
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        // Handle exceptions appropriately in your actual code
+    }
+
+    return false; // Return false if no row is found or an exception occurs
+}
 
 public boolean getStatus(){
     return Status;

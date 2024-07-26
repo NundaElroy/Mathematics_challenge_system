@@ -33,28 +33,6 @@ public class Challenge implements Serializable {
         this.challengeName = challengeName;
     }
 
-    // public static void main(String[] args) {
-    //     //fetch based on challengeid and property number of questions
-    //     List<Question> questions = Question.fetchRandomQuestions(4444,10);
-    //     Challenge challenge = new Challenge("4444", 2, questions);
-    //     challenge.startTimedChallenge();
-    //     System.out.println("Time taken: " + challenge.timetakenAttempting);
-    //     System.out.println("Score: " + challenge.scoreOfChallenge);
-
-    //     Attempt attempt = new Attempt(4444, 1, "1001",challenge.scoreOfChallenge, challenge.timetakenAttempting);
-    //     // int attempt_id_generated = attempt.insertIntoDatabase();
-    //     // System.out.println("Attempt ID: " + attempt_id_generated);
-    //     System.out.println(attempt.toString());
-
-    //     for (Question question : challenge.questions) {
-    //         question.displayQuestionDetails();
-    //         AttemptDetails attemptDetails = new AttemptDetails(1, question.getQuestionId(), 1,"4444",
-    //                 question.getParticipantAnswer(),question.getCorrectAnswer(), question.getTimetaken(), question.getMarksScored());
-    //                 // attemptDetails.insertIntoDatabase();
-    //         System.out.println(attemptDetails.toString());
-    //     }
-        
-    // }
 
     // Static method to display all valid available challenges
     public static List<Challenge> displayAvailableChallenges() {
@@ -84,13 +62,13 @@ public class Challenge implements Serializable {
     // static method to print out the challenges from a list
     public static void printOutChallenges(List<Challenge> availableChallenges) {
         // Print the header
-        System.out.printf("%-20s %-25s %-20s %-20s %-20s %-15s%n", "Challenge ID", "Challenge Name", "Open Date", "Close Date", "Number of Questions", "Duration");
+        System.out.printf("%-20s %-25s %-20s %-20s %-20s %-15 %n", "Challenge ID", "Challenge Name", "Open Date", "Close Date", "Number of Questions", "Duration");
     
         System.out.println("".repeat(120)); // Separator line
     
         // Print each challenge in tabular format
         for (Challenge challenge : availableChallenges) {
-            System.out.printf("%-20s %-25s %-20s %-20s %-20s %-15s minutes%n",
+            System.out.printf("%-20s %-25s %-20s %-20s %-20s %-15 %n",
                     challenge.challengeId,
                     challenge.challengeName,
                     challenge.openDate,

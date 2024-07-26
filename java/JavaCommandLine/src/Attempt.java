@@ -17,9 +17,9 @@ public class Attempt {
         this.attemptDate = getCurrentDate();
         this.timetaken = time;
     }
-    public static void main(String[] args) {
-        System.out.println(getCurrentDate());
-    }
+
+    
+  
 
 
     //method to get current date 
