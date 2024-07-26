@@ -22,6 +22,9 @@
             <li class="nav-item nav-item-spaced" style = " margin-right: 8px;  margin-bottom: 5px;">
                 <a class="nav-link bg-info text-white" id="tab6-tab" data-toggle="tab" href="#tab6" role="tab" aria-controls="tab6" aria-selected="false"> Most Correctly Answered</a>
             </li>
+            <li class="nav-item nav-item-spaced" style = " margin-right: 8px;  margin-bottom: 5px;">
+                <a class="nav-link bg-info text-white" id="tab7-tab" data-toggle="tab" href="#tab7" role="tab" aria-controls="tab7" aria-selected="false"> Participants with Incomplete Challenges</a>
+            </li>
         </ul>
         <div class="tab-content mt-3" id="analyticsTabsContent">
             <!-- Tab 1 Content -->
@@ -267,6 +270,35 @@
                 @endif
             
             </div>
+            
+   
+        <div class="tab-pane fade" id="tab7" role="tabpanel" aria-labelledby="tab7-tab">
+            <h2 class="mt-4">Participants with Incomplete Challenges</h2>
+            <table class="table table-bordered mt-2">
+                <thead class="bg-dark text-white" style="font-size: 1.1rem;">
+                    <tr>
+                        <th>Username</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>School Registration No</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($incompleteChallenges as $participant)
+                        <tr>
+                            <td>{{ $participant->username }}</td>
+                            <td>{{ $participant->firstname }}</td>
+                            <td>{{ $participant->lastname }}</td>
+                            <td>{{ $participant->email }}</td>
+                            <td>{{ $participant->school_registration_no }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+            
 
         </div>
         
