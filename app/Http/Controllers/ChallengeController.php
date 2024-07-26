@@ -30,7 +30,7 @@ class ChallengeController extends Controller
             'closing_date' => 'required|date',
             'challenge_name' => 'required|string|max:255',
             'duration' => 'required',
-            'number_of_questions' => 'required|integer|min:10',
+            'number_of_questions' => 'required|integer|min:5',
         ]);
 
         Challenge::create($request->all());
@@ -61,7 +61,7 @@ class ChallengeController extends Controller
             'closing_date' => 'required|date',
             'challenge_name' => 'required|string|max:255',
             'duration' => 'required',
-            'number_of_questions' => 'required|integer|min:10',
+            'number_of_questions' => 'required|integer|min:5',
         ]);
 
         $challenge = Challenge::findOrFail($challengeid);
