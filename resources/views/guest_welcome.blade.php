@@ -7,9 +7,7 @@
     <div class="full-page section-image" data-image="{{asset('light-bootstrap/img/Students2.jpg')}}">
     
     <div class="content">
-    <div class="logo" style="display:flex; align-items:center;position:absolute;top:-50px;left: 10px;">
-    <img src="{{asset('light-bootstrap/img/logo1.png')}}" alt="logo" class="logo" style="height: 60px; width:60px;">
-    </div>
+    
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-7 col-md-8">
